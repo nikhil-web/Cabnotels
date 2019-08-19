@@ -1,5 +1,5 @@
 <!-- Search hotel -->
-<section id="booking" class="book search-sec ">
+<section id="booking" class="book search-sec" style="display:none;">
     <div class="container">
     <div style="z-index: 9;" data-aos="zoom-in" data-aos-duration="1000" data-aos-anchor-placement="top-bottom">
         <h2 class="heading text-capitalize text-center" style="color:#3c3c3c; margin-top: 15px; ">Book Hotels.</h2>

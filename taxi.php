@@ -142,7 +142,7 @@ if ($mode == "search") {
       <!-- nav -->
       <nav class="py-md-3 py-3 d-lg-flex">
         <div id="logo">
-          <a href="index.php">  <div style="width: 100px;"><img style="width:inherit;" src="images/logo.png" alt=""> </div>  </a>
+          <a href="index.php">  <div style="width: 65px;"><img style="width:inherit;" src="images/logo.png" alt=""> </div>  </a>
         </div>
         <label for="drop" class="toggle"><span class="fa fa-bars"></span></label>
         <input type="checkbox" id="drop">
@@ -287,7 +287,7 @@ if ($mode == "search") {
                </div>
 
                <!--data-->
-               <div class="data col-lg-6">
+               <div class="data col-lg-6 px-0">
                    <div class="col-lg-12 px-0 pt-3">
                        <div class="col-lg-12">
                             <h3>'.$row["taxi_name"].'</h3>
@@ -325,13 +325,13 @@ if ($mode == "search") {
                             </div>
                        </div>
 
-                       <div class="col-lg-12 mt-2">
+                       <div class="col-lg-12 mt-3">
                            <div>
                                <div class="col-lg-12">
                                    <div class="row">
                                        <div class="mr-1 mt-1"><a href="single.php?type=taxi&amp;id='.$row["taxi_id"].'"><button class="button button5" style="background-color: #ffdd00;color: #3c3c3c;">Book Now</button></a></div>
                                        <div class="mr-1 mt-1">
-                                          <a href="single.php?type=hotel&amp;id=59"><button class="button button5" style="background: #3c3c3c;">View Details</button></a>
+                                          <a href="single.php?type=taxi&amp;id='.$row["taxi_id"].'"><button class="button button5" style="background: #3c3c3c;">View Details</button></a>
                                        </div>
                                    </div>
                                </div>

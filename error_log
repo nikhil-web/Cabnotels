@@ -1,0 +1,11 @@
+[18-Aug-2019 23:27:50 Asia/Kolkata] PHP Notice:  Undefined variable: end_date_taxi in /home1/cabnotels/public_html/includes/search_taxi.php on line 67
+[18-Aug-2019 23:28:04 Asia/Kolkata] PHP Notice:  Undefined variable: end_date_taxi in /home1/cabnotels/public_html/includes/search_taxi.php on line 67
+[18-Aug-2019 23:28:04 Asia/Kolkata] PHP Notice:  Undefined index: .taxi_id. in /home1/cabnotels/public_html/single.php on line 757
+[18-Aug-2019 23:28:04 Asia/Kolkata] PHP Notice:  Undefined index: .taxi_id. in /home1/cabnotels/public_html/single.php on line 946
+[18-Aug-2019 23:28:12 Asia/Kolkata] PHP Notice:  Undefined variable: end_date_taxi in /home1/cabnotels/public_html/includes/search_taxi.php on line 67
+[18-Aug-2019 23:36:20 Asia/Kolkata] PHP Notice:  Undefined variable: start_date in /home1/cabnotels/public_html/single.php on line 406
+[18-Aug-2019 23:36:20 Asia/Kolkata] PHP Notice:  Undefined variable: end_date in /home1/cabnotels/public_html/single.php on line 416
+[18-Aug-2019 23:39:56 Asia/Kolkata] PHP Notice:  Undefined variable: end_date_taxi in /home1/cabnotels/public_html/includes/search_taxi.php on line 67
+[18-Aug-2019 23:40:07 Asia/Kolkata] PHP Notice:  Undefined variable: end_date_taxi in /home1/cabnotels/public_html/includes/search_taxi.php on line 67
+[18-Aug-2019 23:40:07 Asia/Kolkata] PHP Notice:  Undefined index: .taxi_id. in /home1/cabnotels/public_html/single.php on line 757
+[18-Aug-2019 23:40:07 Asia/Kolkata] PHP Notice:  Undefined index: .taxi_id. in /home1/cabnotels/public_html/single.php on line 946

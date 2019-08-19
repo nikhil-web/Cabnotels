@@ -146,7 +146,7 @@ if ($mode == "search") {
       <nav class="py-md-3 py-3 d-lg-flex">
 
           <div id="logo">
-              <a href="index.php">  <div style="width: 100px;"><img style="width:inherit;" src="images/logo.png" alt=""> </div>  </a>
+              <a href="index.php">  <div style="width: 65px;"><img style="width:inherit;" src="images/logo.png" alt=""> </div>  </a>
           </div>
 
 
@@ -301,7 +301,7 @@ if ($mode_flag==0) {
                    </div>
                </div>
 
-               <div class="data col-lg-6">
+               <div class="data col-lg-6 px-0">
                    <div class="col-lg- px-0 pt-3">
                        <div class="col-lg-12">
                            <h3>'.$row["hotel_name"].'</h3>

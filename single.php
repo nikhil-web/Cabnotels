@@ -152,7 +152,7 @@ $id = mysqli_real_escape_string($db,$_GET["id"]);
 
 </head>
 
-<body>
+<body onload="updatePrice()">
 
   <!-- header -->
   <header id="navbar_color">
@@ -161,7 +161,7 @@ $id = mysqli_real_escape_string($db,$_GET["id"]);
       <nav class="py-md-3 py-3 d-lg-flex">
 
           <div id="logo">
-              <a href="index.php">  <div style="width: 100px;"><img style="width:inherit;" src="images/logo.png" alt=""> </div>  </a>
+              <a href="index.php">  <div style="width: 65px;"><img style="width:inherit;" src="images/logo.png" alt=""> </div>  </a>
           </div>
 
 
@@ -206,34 +206,35 @@ if ($type == 'hotel') {
 
   if(isset($_GET["start_date"])){
       $start_date = mysqli_real_escape_string($db,$_GET["start_date"]);
+  }else{
+    $start_date = "";
   }
   if(isset($_GET["end_date"])){
     $end_date = mysqli_real_escape_string($db,$_GET["end_date"]);
+  }else{
+    $end_date = "";
   }
   if(isset($_GET["adult_num"])){
     $adults_num = mysqli_real_escape_string($db,$_GET["adult_num"]);
-    $number_people = (int)$adults_num;
-    if ($number_people%2==0) {
+
+   $number_people = (int)$adults_num;
+    if ($number_people%3==0) {
       // code..
-      $number_room = $number_people/2;
+      $number_room = $number_people/3;
     }else {
       // code...
-      $number_room = $number_people/2+0.5;
+      $number_room = $number_people/3+0.33;
     }
+    $number_room = round($number_room);
+  }else {
+    $number_room = 1;
+    $number_people = 1;
   }
   if(isset($_GET["child_num"])){
     $child_num = mysqli_real_escape_string($db,$_GET["child_num"]);
-  }
-
-  $number_people = (int)$adults_num;
-  if ($number_people%2==0) {
-    // code..
-    $number_room = $number_people/2;
   }else {
-    // code...
-      $number_room = $number_people/2+0.5;
+    $child_num = 0;
   }
-
 
 }else if ($type == 'tour') {
   // code...
@@ -248,10 +249,14 @@ $start_month ="";
 
   if(isset($_GET["start-month-tour"])){
     $start_month = mysqli_real_escape_string($db,$_GET["start-month-tour"]);
+  }else{
+    $start_month = "Select..";
   }
 $number_people_tour = "";
   if(isset($_GET["num-people-tour"])){
     $number_people_tour = mysqli_real_escape_string($db,$_GET["num-people-tour"]);
+  }else{
+    $number_people_tour = 1;
   }
   include 'includes/search_tour.php';
   $sql = "SELECT * FROM tours WHERE tour_id = '$id'";
@@ -294,20 +299,9 @@ $result = mysqli_query($db, $sql);
                             ?>
 
                           </div>
-
-                          <span class="center" style="
-                           font-size: 1.5em;
-                           color: #ffdd00;
-                           right: 20px;
-                           position: absolute;
-          "><i class="fas fa-sliders-h"></i></span>
-
-          </div>
-
-
-
-
+                </div>
           <?php
+          //hotelsection
           if ($type == 'hotel') {
             // code...
                     echo '
@@ -379,12 +373,39 @@ $result = mysqli_query($db, $sql);
                             <hr>
                             <div class="row">
                               <div class="container">
-                                            <div class="col-xl-12 col-lg-8 col-md-12 col-sm-12 col-12 px-0 mx-0">
-                                                <div class="page-header">
-                                                <h3 class="mb-3">'.$row["hotel_name"].'</h3>
-                                                <p style="text-align:justify;">'.$row["hotel_about"].'</p>
+                                              <div class="col-xl-12 col-lg-8 col-md-12 col-sm-12 col-12 px-0 mx-0">
+                                                 <div class="page-header">
+                                                    <h3 class="mb-3">'.$row["hotel_name"].'</h3>
+                                                    <p style="text-align:justify;">'.$row["hotel_about"].'</p>
+                                                 </div>
+                                              </div>
+                                              <!--amenities-->
+                                                <div class="col-12 mt-2 my-3 p-1">
+                                                    <p>Ameneties</p>
+
+                                                    <div class="row col-lg-12">
+                                                    ';
+
+                                                    $sql_inner_amen = 'SELECT * FROM amen_hotel WHERE hotel_id = '.$row["hotel_id"].' ';
+                                                    $result_amen = mysqli_query($db, $sql_inner_amen);
+                                                          if (mysqli_num_rows($result_amen) > 0) {
+                                                              // output data of each row
+                                                              while($row_amen= mysqli_fetch_assoc($result_amen)) {
+
+                                                                if ((int)$row_amen["status"]==1) {
+                                                                  // code...
+                                                                  echo '
+                                                                        <div class="mr-1 mt-1">
+                                                                            <button type="button" class="btn btn-light"> '.$row_amen["amn_name"].'</button>
+                                                                        </div>';
+                                                                }
+                                                              }
+                                                            }
+
+                                                 echo '
+                                                    </div>
                                                 </div>
-                                    </div>
+                                              <!--amenities-->
                                 </div>
                               </div>
                                 <hr>
@@ -419,11 +440,13 @@ $result = mysqli_query($db, $sql);
                                   <div class="col-6 p-1 my-1">
                                     <div class="form-group">
                                     <label for="room_count">Rooms</label>
-                                    <select class="form-control" id="room_count" name="room_count">
+                                    <select onchange="update_price_hotel(this,'.$row["hotel_id"].',1);" class="form-control" id="room_count" name="room_count">
                                     <option value="'.$number_room.'">'.$number_room.'</option>
-                                    <option>1</option>
-                                    <option>2</option>
-                                    <option>3</option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
                                     </select>
                                       <small class="form-text">Number Of Rooms.</small>
                                     </div>
@@ -435,31 +458,53 @@ $result = mysqli_query($db, $sql);
                               <div class="col-6 p-1 my-1">
                                 <div class="form-group">
                                   <label for="adult_count">Number Of People</label>
-                                  <select onchange="update_price_hotel(this,'.$row["hotel_id"].');" class="form-control" id="adult_count" name="adult_count">
-                                    <option>'.$number_people.'</option>
-                                    <option value="one">1</option>
-                                    <option value="two">2</option>
-                                    <option value="three">3</option>
-                                    <option value="four">4</option>
-                                    <option value="five">5</option>
-                                    <option value="six">6</option>
-                                    <option value="seven">7</option>
-                                    <option value="eight">8</option>
+                                  <select onchange="update_price_hotel(this,'.$row["hotel_id"].',0);" class="form-control" id="adult_count" name="adult_count">
+                                    <option value="'.$number_people.'" >'.$number_people.'</option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                    <option value="6">6</option>
+                                    <option value="7">7</option>
+                                    <option value="8">8</option>
                                   </select>
                                   <small class="form-text">Please Provide Number Of People.</small>
                                   </div>
                               </div>
                               <!--People-->
 
+                              <!--Buttons-->
+                              <div class="col-lg-12 my-0">
+                                    <div class="row">
+                                        <div class="col-12 p-1">
+                                            <button id="button_to_click_for_hotel_price" onclick="update_price_hotel(adult_count,'.$row["hotel_id"].',0)" class="button button5" style="background-color: #ffdd00;color: #3c3c3c;width: 100%;">Calculate Price</button>
+                                        </div>
+                                    </div>
+                              </div>
+                              <!--Buttons-->
+
+
+
+
+
                               <div class="col-lg-12 mt-2">
                                                     <div class="row ">
+                                                    <hr class="col-lg-12 px-3" style="color:#dddddd; ">
+
                                                               <div class="col-6">
                                                                     <div class="mr-1 mt-1">
-                                                                        <h1 style="margin: 0;"> <span id="price_hotel"> ------ </span> </h1>
-                                                                      <p>Per Head</p>
+                                                                        <h2 style="margin: 0;"> <span id="price_hotel"> Loading.. </span> ₹ </h2>
+                                                                      <p>Total Price </p>
+                                                                     </div>
                                                                 </div>
-                                                          </div>
-                                                <hr class="col-lg-12 px-3" style="color:red; ">
+                                                                <div class="col-6">
+                                                                      <div class="mr-1 mt-1">
+                                                                          <h3 style="margin: 0;"> <span id="price_hotel_perhead"> Loading.. </span> ₹  </h3>
+                                                                        <p>Price for: 1 Guest, 1 Night</p>
+                                                                       </div>
+                                                                  </div>
+                                                <hr class="col-lg-12 px-3" style="color:#dddddd; ">
 
                                           </div>
                                 </div>
@@ -477,33 +522,7 @@ $result = mysqli_query($db, $sql);
                               </div>
                               <!--Buttons-->
 
-                                        <!--amenities-->
-                                          <div class="col-12 mt-2 my-3 p-1">
-                                              <p>Ameneties</p>
 
-                                              <div class="row col-lg-12">
-                                              ';
-
-                                              $sql_inner_amen = 'SELECT * FROM amen_hotel WHERE hotel_id = '.$row["hotel_id"].' ';
-                                              $result_amen = mysqli_query($db, $sql_inner_amen);
-                                                    if (mysqli_num_rows($result_amen) > 0) {
-                                                        // output data of each row
-                                                        while($row_amen= mysqli_fetch_assoc($result_amen)) {
-
-                                                          if ((int)$row_amen["status"]==1) {
-                                                            // code...
-                                                            echo '
-                                                                  <div class="mr-1 mt-1">
-                                                                      <button type="button" class="btn btn-light"> '.$row_amen["amn_name"].'</button>
-                                                                  </div>';
-                                                          }
-                                                        }
-                                                      }
-
-                                           echo '
-                                              </div>
-                                          </div>
-                                        <!--amenities-->
                                   </div><!--row-->
                               </div><!--main-->
 
@@ -897,7 +916,7 @@ $result = mysqli_query($db, $sql);
                                        </div>
                                    </div>
                                    <!--pickup_location -->
-                                   
+
                                     <!--pickup_location -->
                                    <div class="col-12 p-1 my-1">
                                      <div class="form-group">
@@ -979,7 +998,7 @@ $result = mysqli_query($db, $sql);
                     </div>
                     ';
 
-//tour
+//toursection
           }else if($type == 'tour'){
             // code...
 
@@ -1049,7 +1068,7 @@ $result = mysqli_query($db, $sql);
                                     </a>
                                 </div>
                             </div>
-  <hr>
+                            <hr>
                             <div class="row">
                               <div class="container">
                                             <div class="col-xl-12 col-lg-8 col-md-12 col-sm-12 col-12 px-0 mx-0">
@@ -1061,8 +1080,7 @@ $result = mysqli_query($db, $sql);
                                     </div>
                                 </div>
                             </div>
-
-<hr>
+                        <hr>
                           <div class = "row">
                             <div class = "container">
                             <div class="col-xl-12 col-lg-8 col-md-12 col-sm-12 col-12 mt-3 px-0 mx-0">
@@ -1152,52 +1170,165 @@ $result = mysqli_query($db, $sql);
                         <div class="data col-lg-4"><!--main-->
                                     <div class="row p-3"><!--row-->
 
-                                    <!--Start date -->
-                                      <div class="col-6 p-1 my-1">
-                                        <div class="form-group">
-                                          <label for="tour_start_date">Start Month</label>
-                                          <select class="form-control" id="tour_start_date" name="tour_start_date">
-                                           <option>'.$start_month.'</option>
-                                           <option>Janaury</option>
-                                           <option>February</option>
-                                           <option>March</option>
-                                           <option>April</option>
-                                           <option>May</option>
-                                           <option>June</option>
-                                           <option>July</option>
-                                           <option>August</option>
-                                           <option>September</option>
-                                           <option>October</option>
-                                           <option>November</option>
-                                           <option>December</option>
-                                          </select>
-
-                                          <small class="form-text">Your Preferd Month.</small>
-                                          </div>
-                                      </div>
-                                      <!--Start date-->
-
-
                                       <!--People -->
                                       <div class="col-6 p-1 my-1">
                                         <div class="form-group">
-                                        <label for="tour_people_count">People</label>
-                                        <select onchange="update_price_tour(this,'.$row["tour_id"].');" class="form-control" id="tour_people_count" name="tour_people_count">
-                                          <option value="'.$number_people_tour.'">'.$number_people_tour.'</option>
-                                          <option value="one">1</option>
-                                          <option value="two">2</option>
-                                          <option value="three">3</option>
-                                          <option value="four">4</option>
-                                          <option value="five">5</option>
-                                          <option value="six">6</option>
-                                          <option value="seven">7</option>
-                                          <option value="eight">8</option>
+                                        <label for="">(Adults: 12+ years)</label>
+                                        <select onchange="update_options_tour('.$row["tour_id"].');" class="form-control" id="tour_adult_count" name="tour_adult_count">
+                                          <option value="1">1</option>
+                                          <option value="2">2</option>
+                                          <option value="3">3</option>
+                                          <option value="4">4</option>
+                                          <option value="5">5</option>
+                                          <option value="6">6</option>
+                                          <option value="7">7</option>
+                                          <option value="8">8</option>
                                         </select>
-                                          <small class="form-text">Number Of People.</small>
+                                          <small class="form-text">Number Of Adults(12+ years);.</small>
                                         </div>
                                       </div>
                                         <!--People-->
 
+                                      <!--People -->
+                                      <div class="col-6 p-1 my-1">
+                                        <div class="form-group">
+                                        <label for="">(Children: 3-11years)</label>
+                                        <select onchange="update_options_tour('.$row["tour_id"].');" class="form-control" id="tour_child_count" name="tour_child_count">
+                                          <option value="0">0</option>
+                                          <option value="1">1</option>
+                                          <option value="2">2</option>
+                                          <option value="3">3</option>
+                                          <option value="4">4</option>
+                                          <option value="5">5</option>
+                                          <option value="6">6</option>
+                                          <option value="7">7</option>
+                                          <option value="8">8</option>
+                                        </select>
+                                          <small class="form-text">Number Of Childern(3-11 ).</small>
+                                        </div>
+                                      </div>
+                                        <!--People-->
+
+
+
+                                        <!--Cab Type -->
+                                      <div class="col-6 p-1 my-1">
+                                        <div class="form-group">
+                                        <label for="tour_cab_type">3. Select Cab Type</label>
+                                        <select class="form-control" id="tour_cab_type" name="tour_cab_type" requierd disabled>
+                                          <option value="">Select..</option>
+                                        </select>
+                                          <small class="form-text">Your Preferd Cab.</small>
+                                        </div>
+                                      </div>
+                                        <!--Cab Type-->
+
+
+
+                                        <!--Hotel Type -->
+                                      <div class="col-6 p-1 my-1">
+                                        <div class="form-group">
+                                        <label for="tour_hotel_type">4. Select Room Type</label>
+                                        <select class="form-control" id="tour_hotel_type" name="tour_hotel_type" requierd>
+                                          <option value="2">2 Star Accomodation</option>
+                                          <option value="3">3 Star Accomodation</option>
+                                          <option value="4">4 Star Accomodation</option>
+                                          <option value="5">5 Star Accomodation</option>
+                                        </select>
+                                          <small class="form-text">Your Preferd Hotel.</small>
+                                        </div>
+                                      </div>
+                                        <!--Hotel Type-->
+
+                                        <!--Start date -->
+                                        <div class="col-4 p-1 my-1">
+                                        <div class="form-group">
+                                        <label for="tour_start_date">Date</label>
+                                        <select class="form-control" id="tour_start_date" name="tour_start_date">
+                                          <option value="1">1</option>
+                                          <option value="2">2</option>
+                                          <option value="3">3</option>
+                                          <option value="4">4</option>
+                                          <option value="5">5</option>
+                                          <option value="6">6</option>
+                                          <option value="7">7</option>
+                                          <option value="8">8</option>
+                                          <option value="9">9</option>
+                                          <option value="10">10</option>
+                                          <option value="11">11</option>
+                                          <option value="12">12</option>
+                                          <option value="13">13</option>
+                                          <option value="14">14</option>
+                                          <option value="15">15</option>
+                                          <option value="16">16</option>
+                                          <option value="17">17</option>
+                                          <option value="18">18</option>
+                                          <option value="19">19</option>
+                                          <option value="20">20</option>
+                                          <option value="21">21</option>
+                                          <option value="22">22</option>
+                                          <option value="23">23</option>
+                                          <option value="24">24</option>
+                                          <option value="25">25</option>
+                                          <option value="26">26</option>
+                                          <option value="27">27</option>
+                                          <option value="28">28</option>
+                                          <option value="29">29</option>
+                                          <option value="30">30</option>
+                                          <option value="31">31</option>
+
+                                        </select>
+                                          <small class="form-text">Your Preferd Date</small>
+                                        </div>
+                                      </div>
+
+
+                                        <div class="col-4 p-1 my-1">
+                                          <div class="form-group">
+                                            <label for="tour_start_month">Month</label>
+                                            <select class="form-control" id="tour_start_month" name="tour_start_month" requierd>
+                                             <option  value="Janaury" >Janaury</option>
+                                             <option  value="February" >February</option>
+                                             <option  value="March" >March</option>
+                                             <option  value="April" >April</option>
+                                             <option  value="May" >May</option>
+                                             <option  value="June" >June</option>
+                                             <option  value="July" >July</option>
+                                             <option  value="August">August</option>
+                                             <option  value="September">September</option>
+                                             <option  value="October">October</option>
+                                             <option  value="November">November</option>
+                                             <option  value="December">December</option>
+                                            </select>
+
+                                            <small class="form-text">Your Preferd Month.</small>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-4 p-1 my-1">
+                                        <div class="form-group">
+                                          <label for="tour_start_year">Year</label>
+                                          <select class="form-control" id="tour_start_year" name="tour_start_year" requierd>
+                                          <option  value="2019" >2019</option>
+                                          <option  value="2020" >2020</option>
+                                          <option  value="2021" >2021</option>
+                                         </select>
+                                          <small class="form-text">Your Preferd Year.</small>
+                                          </div>
+                                      </div>
+                                        <!--Start date-->
+
+                                        <!--Buttons-->
+                                        <div class="col-lg-12 my-0">
+                                              <div class="row">
+                                                  <div class="col-12 p-1">
+                                                      <button onclick="update_price_tour('.$row["tour_id"].')" class="button button5" style="background-color: #ffdd00;color: #3c3c3c;width: 100%;">Calculate Price</button>
+                                                  </div>
+                                              </div>
+                                        </div>
+                                        <!--Buttons-->
+
+                                        <hr class="col-lg-12 px-3" style="color:red; ">
 
 
                             <!--Details-->
@@ -1221,11 +1352,10 @@ $result = mysqli_query($db, $sql);
                                       <div class="col-6">
                                           <div class="mr-1 mt-1">
                                               <h1 style="margin: 0;"> <span id="price_tour" > ------ </span> </h1>
-                                              <p>Per Head</p>
+                                              <p>Total Price</p>
                                           </div>
                                       </div>
                                         <hr class="col-lg-12 px-3" style="color:red; ">
-
                                     </div>
                                   </div>
                             <!--Details-->
@@ -1234,7 +1364,7 @@ $result = mysqli_query($db, $sql);
                                         <div class="col-lg-12 my-0">
                                               <div class="row">
                                                   <div class="col-6 p-1">
-                                                      <button onclick="addtocart_tour('.$row["tour_id"].')" class="button button5" style="background-color: #ffdd00;color: #3c3c3c;width: 100%;">Book Now</button>
+                                                      <button id="book_button" onclick="addtocart_tour('.$row["tour_id"].')" class="button button5" style="background-color: #ffdd00;color: #3c3c3c;width: 100%;">Book Now</button>
                                                   </div>
                                                   <div class="col-6 p-1">
                                                       <button class="button button5" style="background: #3c3c3c;width: 100%;">Contact Now</button>
@@ -1392,9 +1522,9 @@ $result = mysqli_query($db, $sql);
     </script>
 
     <script>
-                    $(function() {
-                        $('#hotel_search_form').on('submit', function(e) {
-                            var $flag_location = 0;
+              $(function() {
+                    $('#hotel_search_form').on('submit', function(e) {
+                        var $flag_location = 0;
                             var $flag_search = 0;
                             e.preventDefault();
     						var str = $("#hotel_search_form" ).serialize();
@@ -1458,17 +1588,17 @@ $result = mysqli_query($db, $sql);
 
 
             <script>
-                            $(function() {
-                                $('#location_search_form').on('submit', function(e) {
-                                    var $flag_location = 0;
+                        $(function() {
+                        $('#location_search_form').on('submit', function(e) {
+                        var $flag_location = 0;
             						var $flag_search = 0;
             						var $flag_startdate = 0;
             						var $flag_enddate = 0;
-                                    e.preventDefault();
+                        e.preventDefault();
             						var str = $("#location_search_form" ).serialize();
                         var location_keyword = document.getElementById('location-tour').value;
-            						var start_keyword = document.getElementById('tour_start_date').value;
-            						var num_keyword = document.getElementById('tour_people_count').value;
+            						var start_keyword = document.getElementById('tour_start_date_search').value;
+            						var num_keyword = document.getElementById('tour_people_count_search').value;
 
 
 
@@ -1480,7 +1610,7 @@ $result = mysqli_query($db, $sql);
                                     }
 
 
-            						if (start_keyword == '') {
+            						                  if (start_keyword == '') {
                                         console.log("start date empty");
                                         $flag_startdate = 0;
                                     } else {
@@ -1488,7 +1618,7 @@ $result = mysqli_query($db, $sql);
                                     }
 
 
-            						if (num_keyword== '0') {
+            						                  if (num_keyword== '0') {
                                         console.log("tour_people_count");
                                         $flag_enddate = 0;
                                     } else {
@@ -1630,15 +1760,21 @@ $result = mysqli_query($db, $sql);
             function addtocart_tour(id) {
               var tour_start_date = document.getElementById("tour_start_date").value;
               var tour_head_count = document.getElementById("tour_people_count").value;
+              var cab_type = document.getElementById("tour_cab_type").value;
+              var room_type = document.getElementById("tour_hotel_type").value;
               var tour_price = document.getElementById("price_tour").innerHTML;
 
-              if (tour_head_count == '' && tour_start_date == '') {
+              if (tour_head_count == '' && tour_start_date == 'Select..') {
                   update_staus_error("Please Provide number of people and Start Date");
-              }else if (tour_head_count == '' && tour_start_date != '') {
+              }else if (tour_head_count == '' && tour_start_date != 'Select..') {
                   update_staus_error("Please Provide number of people");
-              }else if(tour_head_count != '' && tour_start_date == ''){
+              }else if(tour_head_count != '' && tour_start_date == 'Select..'){
                 update_staus_error("Please Provide Start Date");
               }else{
+
+                  console.log(tour_start_date+"_"+tour_head_count+"_"+cab_type+"_"+room_type+"_"+tour_price);
+
+
                 $.ajax({
                     type: "POST",
                     url: "cart-add-tour.php",
@@ -1646,6 +1782,8 @@ $result = mysqli_query($db, $sql);
                       tour_id: id,
                       tour_start_date : tour_start_date,
                       tour_head_count : tour_head_count,
+                      tour_cab_type : cab_type,
+                      tour_hotel_type : room_type,
                       tour_price : tour_price
                     },
                     dataType: 'JSON',
@@ -1659,6 +1797,7 @@ $result = mysqli_query($db, $sql);
                         }
                     }
                 });
+
               }
 
             }
@@ -1691,38 +1830,112 @@ $result = mysqli_query($db, $sql);
                             }
                         </script>
 
+
+
+
+
                         <script type="text/javascript">
 
-                        function update_price_tour(sel,tour_id)
-                        {
-                            console.log(sel.value);
-                            var num = sel.value;
-                            console.log(tour_id);
+                        //OPTIONS
 
-                            $.ajax({
+                        function update_options_tour()
+                        {
+                            var num_adult_tour = document.getElementById("tour_adult_count").value;
+                            var num_child_tour = document.getElementById("tour_child_count").value;
+
+                            num = parseInt(num_adult_tour) + parseInt(num_child_tour);
+
+                            update_options(num);
+
+                        }
+
+                        update_options(1);
+
+                          function update_options(num_people){
+                          document.getElementById("book_button").innerHTML = " Book Now "; //reset the book now button
+
+                          $("#tour_cab_type").removeAttr('disabled'); //enable the select taxi option
+                          //---------//
+                          $('#tour_cab_type').find('option').remove(); //clear all the previous option
+                          //--------//
+
+                         //--------Logic for taxi options---------//
+                          if(num_people >= 1 && num_people <= 4){
+                            $("#tour_cab_type").append("<option value='2'>Sedan-AC</option>");
+                            $("#tour_cab_type").append("<option value='1'>Hatchback-AC</option>");
+                          }else if( num_people > 4 && num_people <= 6 ){
+                              $("#tour_cab_type").append("<option value='3'>SUV(6+1)-AC</option>");
+                          }else if(num_people >6) {
+                            document.getElementById("book_button").innerHTML = " Group Booking ";
+                            document.getElementById("tour_cab_type").setAttribute("disabled","disabled");
+                          }
+                          else{
+                          //for future bugs
+                          }
+                          //--------Logic for taxi options---------//
+                        }
+
+
+
+                        function update_price_tour(tour_id) {
+
+
+
+                         var adult = document.getElementById("tour_adult_count").value;
+                         var child = document.getElementById("tour_child_count").value;
+                         var cab = document.getElementById("tour_cab_type").value;
+                         var hotel = document.getElementById("tour_hotel_type").value;
+
+                          //console.log(adult +"_"+ child +"_"+ cab +"_"+ hotel +"_"+ date +"_"+ month +"_"+ year);
+
+
+                          $.ajax({
                                 type: "POST",
                                 url: "get_price_tour.php",
                                 data: {
                                     tour_id: tour_id,
-                                    p_num : num,
+                                    adult : adult,
+                                    child : child,
+                                    cab : cab,
+                                    hotel : hotel
                                 },
                                 dataType: 'JSON',
                                 success: function(response) {
                                   console.log(response);
                                   document.getElementById("price_tour").innerHTML = response;
-                                  //update_staus_error(response)
                                 }
                             });
+
+
+
                         }
 
-                        function update_price_hotel(hell,hotel_id)
+
+                        function update_price_hotel(hell,hotel_id,mode)
                         {
+                          var stay_days= give_diffrence_hotel_date();
 
-                            console.log(hell.value);
+                          console.log(stay_days);
+
+                          if (stay_days > 0) {
+
+                          if (mode == 0) {
+
+
+                            //console.log(hell.value);
                             var num = hell.value;
-                            console.log(hotel_id);
+                            var num_room = document.getElementById("room_count").value;
+                            if (parseInt(num)%3 == 0) {
+                              num_room = parseInt(num)/3;
+                            }else{
+                              num_room = Math.ceil(parseInt(num)/3+0.33);
+                            }
+                            document.getElementById("room_count").value = num_room;
+                          }
 
-                          $.ajax({
+
+                            //console.log(hotel_id);
+                            $.ajax({
                                 type: "POST",
                                 url: "get_price_hotel.php",
                                 data: {
@@ -1731,12 +1944,45 @@ $result = mysqli_query($db, $sql);
                                 },
                                 dataType: 'JSON',
                                 success: function(response) {
-                                  console.log(response);
-                                  document.getElementById("price_hotel").innerHTML = response;
+                                  //console.log(response);
+                                  response_total =  ((response * num_room) * stay_days);
+                                  document.getElementById("price_hotel").innerHTML = response_total;
+                                  document.getElementById("price_hotel_perhead").innerHTML = response;
                                 }
                             });
+                          }else{
+                            update_staus_error("Please Select Minimin Of One Day");
+                          }
+                        }
 
 
+
+
+                        function give_diffrence_hotel_date(){
+                          var checkin  = document.getElementById("checkin").value;
+                          var checkout = document.getElementById("checkout").value;
+
+                          const _MS_PER_DAY = 1000 * 60 * 60 * 24;
+                          // a and b are javascript Date objects
+                          function dateDiffInDays(a, b) {
+                            // Discard the time and time-zone information.
+                            const utc1 = Date.UTC(a.getFullYear(), a.getMonth(), a.getDate());
+                            const utc2 = Date.UTC(b.getFullYear(), b.getMonth(), b.getDate());
+
+                            return Math.floor((utc2 - utc1) / _MS_PER_DAY);
+                            }
+
+                          const a = new Date(checkin),
+                          b = new Date(checkout),
+                          difference = dateDiffInDays(a, b);
+                          console.log(difference);
+                          return difference;
+                        }
+                        </script>
+
+                        <script>
+                        function updatePrice(){
+                          document.getElementById("button_to_click_for_hotel_price").click();
                         }
                         </script>
 

@@ -68,7 +68,7 @@
 
                   <div class="col-lg-2 col-md-2 col-sm-12 p-1">
                       <label for="exampleInputEmail1" style="width: 100%;text-align: left;">
-                        <p>Adults?</p>
+                        <p>Adults(5+)?</p>
                       </label>
                       <input id="adult_num" name="adult_num" type="number" class="form-control" max="10" min="1" placeholder="No. Of Adults?">
                   </div>
@@ -76,7 +76,7 @@
 
                   <div class="col-lg-2 col-md-2 col-sm-12 p-1">
                       <label for="exampleInputEmail1" style="width: 100%;text-align: left;">
-                        <p>Childeren?</p>
+                        <p>Childeren(0-5)?</p>
                       </label>
                       <input id="child_num" name="child_num" type="number" class="form-control" max="10" min="1" placeholder="No. Of Childern?" >
                   </div>

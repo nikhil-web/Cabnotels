@@ -21,7 +21,7 @@
       $tour_id = mysqli_real_escape_string($db,$_POST["tour_id"]);
 
       $output=0;
-      $sql = "INSERT INTO tour_price (id,one,two,three,four,five,six,seven,eight,tour_id) VALUES (NULL, '$p_one', '$p_two', '$p_three', '$p_four', '$p_five', '$p_six', '$p_seven', '$p_eight', '$tour_id')";
+      $sql = "INSERT INTO tour_price (id,p_1,p_2,p_3,p_4,p_5,p_6,p_7,p_8,tour_id) VALUES (NULL, '$p_one', '$p_two', '$p_three', '$p_four', '$p_five', '$p_six', '$p_seven', '$p_eight', '$tour_id')";
       $result=mysqli_query($db,$sql);
       if(!$result){
             $error_fetch = mysqli_real_escape_string($db,mysqli_error($db));

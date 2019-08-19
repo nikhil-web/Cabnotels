@@ -63,7 +63,7 @@ $result = mysqli_query($db, $sql);
           <!-- nav -->
           <nav class="py-md-3 py-3 d-lg-flex">
             <div id="logo">
-              <a href="index.php">  <div style="width: 100px;"><img style="width:inherit;" src="images/logo.png" alt=""> </div>  </a>
+              <a href="index.php">  <div style="width: 65px;"><img style="width:inherit;" src="images/logo.png" alt=""> </div>  </a>
             </div>
             <label for="drop" class="toggle"><span class="fa fa-bars"></span></label>
             <input type="checkbox" id="drop">

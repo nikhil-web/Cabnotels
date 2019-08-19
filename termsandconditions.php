@@ -57,7 +57,7 @@
           <!-- nav -->
           <nav class="py-md-3 py-3 d-lg-flex">
             <div id="logo">
-              <a href="index.php">  <div style="width: 100px;"><img style="width:inherit;" src="images/logo.png" alt=""> </div>  </a>
+              <a href="index.php">  <div style="width: 65px;"><img style="width:inherit;" src="images/logo.png" alt=""> </div>  </a>
             </div>
             <label for="drop" class="toggle"><span class="fa fa-bars"></span></label>
             <input type="checkbox" id="drop">
@@ -66,8 +66,20 @@
   						<li class="booking"><a href="hotels.php?mode=navbar">Hotels</a></li>
   						<li class="booking"><a href="taxi.php?mode=navbar" style="margin-right: 10px;">Cabs</a></li>
 
-                    <li class="booking"><a href="user.php" style="background: #ffdd00;color: #3c3c3c;">Nikhil <i class="fas fa-user"></i></a></li>
+              <?php
+              if ($login_flag == 1) {
+                // code...
+                echo '
+                	<li class="booking"><a href="user.php" style="background: #ffdd00;color: #3c3c3c;">'.$_SESSION["first_name"].' <i class="fas fa-user"></i></a></li>
+                ';
+              }else {
+                // code...
+                echo '
+                <li class="booking"><a href="login.php" style="background: #ffdd00;color: #3c3c3c;">Login</a></li>
+                ';
+              }
 
+             ?>
             </ul>
 
           </nav>

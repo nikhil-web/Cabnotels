@@ -8,6 +8,31 @@
     </a>
   </li>
 
+  <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="pagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <i class="fas fa-fw fa-folder"></i>
+            <span>Appearance</span>
+          </a>
+          <div class="dropdown-menu" aria-labelledby="pagesDropdown" x-placement="bottom-start" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(5px, 63px, 0px);">
+            <h6 class="dropdown-header">Appearance</h6>
+
+            <a class="dropdown-item" href="frontpage.php">
+              <i class="fas fa-envelope-open-text"></i>
+              <span>Frontpage</span>
+            </a>
+
+            <a class="dropdown-item" href="contact.php">
+              <i class="fas fa-envelope-open-text"></i>
+              <span>Contact</span>
+            </a>
+
+              <a class="dropdown-item" href="about.php">
+                <i class="fas fa-info-circle"></i>
+                <span>About</span>
+              </a>
+          </div>
+        </li>
+
   <li id="Sales" class="nav-item">
     <a class="nav-link" href="sales.php">
       <i class="fas fa-fw fa-chart-area"></i>
@@ -45,14 +70,12 @@
   </li>
 
   <li class="nav-item">
-    <a class="nav-link" href="about.php">
-      <i class="fas fa-info-circle"></i>
-      <span>About</span></a>
+
   </li>
   <li class="nav-item">
-    <a class="nav-link" href="contact.php">
-  <i class="fas fa-envelope-open-text"></i>
-      <span>Contact</span></a>
+
   </li>
+
+
 
 </ul>

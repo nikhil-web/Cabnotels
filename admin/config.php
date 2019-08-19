@@ -1,15 +1,15 @@
 <?php
     /*place database credintials here*/
     define('DB_SERVER', 'localhost');
-  /* 
+
     define('DB_USERNAME', 'root');
     define('DB_PASSWORD', '');
     define('DB_DATABASE', 'cabnotels');
- */
+      /*
     define('DB_USERNAME', 'cabnotel_nik_adm');
     define('DB_PASSWORD', '1016802075nikhil');
     define('DB_DATABASE', 'cabnotel_cabnotels');
-   
+    */
     $db = mysqli_connect(DB_SERVER,DB_USERNAME,DB_PASSWORD,DB_DATABASE);
     // Check connection
 if($db === false){

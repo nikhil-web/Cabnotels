@@ -118,7 +118,7 @@
         <!-- ============================================================== -->
         <div class="dashboard-header">
             <nav class="navbar navbar-expand-lg bg-white fixed-top">
-                <a class="navbar-brand" href="index.php"><img style="width: 100px;" src="images/logo.png" alt="">   </a>
+                <a class="navbar-brand" href="index.php"><img style="width: 60px;" src="images/logo.png" alt="">   </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <i class="fas fa-bars"></i>
                 </button>
@@ -402,7 +402,7 @@
                                                                                 echo'
                                                                                 <div class="card">
                                                                                   <div class="card-body">
-                                                                                    <h5 class="card-title"><i class="fas fa-car"></i> Taxi Booking</h5>
+                                                                                    <h5 class="card-title"><i class="fas fa-car"></i> Tour Booking</h5>
                                                                                     <div class="table-responsive">
                                                                                       <table class="table">
                                                                                         <thead>
@@ -434,6 +434,10 @@
                                                                                                 <p><strong>People :</strong>'.$row["head_count"].'</p>
 
                                                                                                 <p><strong>Date :</strong>'.$row["start_date"].'</p>
+
+                                                                                                  <p><strong>Cab Type :</strong>'.$row["cab_type"].'</p>
+
+                                                                                                    <p><strong>Room Type :</strong>'.$row["room_type"].'</p>
 
                                                                                             </td>
 
@@ -598,7 +602,7 @@
                                                                                 echo'
                                                                                 <div class="card">
                                                                                   <div class="card-body">
-                                                                                    <h5 class="card-title"><i class="fas fa-car"></i> Taxi Booking</h5>
+                                                                                    <h5 class="card-title"><i class="fas fa-car"></i> Tour Booking</h5>
                                                                                     <div class="table-responsive">
                                                                                       <table class="table">
                                                                                         <thead>
@@ -796,7 +800,7 @@
                                                                                 echo'
                                                                                 <div class="card">
                                                                                   <div class="card-body">
-                                                                                    <h5 class="card-title"><i class="fas fa-car"></i> Taxi Booking</h5>
+                                                                                    <h5 class="card-title"><i class="fas fa-car"></i> Tours Booking</h5>
                                                                                     <div class="table-responsive">
                                                                                       <table class="table">
                                                                                         <thead>

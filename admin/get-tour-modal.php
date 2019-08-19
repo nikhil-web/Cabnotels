@@ -490,35 +490,35 @@ if($_SESSION['auth'] == false){
                          $output .= '
                               <tr>
                                <th>One</th>
-                               <th>'.$row_price["one"].'</th>
+                               <th>'.$row_price["p_1"].'</th>
                              </tr>
                              <tr>
                              <th>Two</th>
-                             <th>'.$row_price["two"].'</th>
+                             <th>'.$row_price["p_2"].'</th>
                            </tr>
                            <tr>
                            <th>Three</th>
-                           <th>'.$row_price["three"].'</th>
+                           <th>'.$row_price["p_3"].'</th>
                          </tr>
                          <tr>
                          <th>Four</th>
-                         <th>'.$row_price["four"].'</th>
+                         <th>'.$row_price["p_4"].'</th>
                        </tr>
                        <tr>
                        <th>Five</th>
-                       <th>'.$row_price["five"].'</th>
+                       <th>'.$row_price["p_5"].'</th>
                      </tr>
                      <tr>
                      <th>Six</th>
-                     <th>'.$row_price["six"].'</th>
+                     <th>'.$row_price["p_6"].'</th>
                    </tr>
                    <tr>
                    <th>Seven</th>
-                   <th>'.$row_price["seven"].'</th>
+                   <th>'.$row_price["p_7"].'</th>
                  </tr>
                  <tr>
                  <th>Eight</th>
-                 <th>'.$row_price["eight"].'</th>
+                 <th>'.$row_price["p_8"].'</th>
                </tr>';
                        }
                      }
@@ -532,6 +532,7 @@ if($_SESSION['auth'] == false){
     </div>
   </div>
 </div>
+
 ';
                     }
                   }

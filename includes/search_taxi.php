@@ -1,4 +1,4 @@
-<section id="booking" class="book search-sec ">
+<section id="booking" class="book search-sec" style="display:none;">
 
     <div class="container">
 

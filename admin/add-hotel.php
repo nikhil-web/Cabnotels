@@ -12,7 +12,7 @@
       $hotel_star= mysqli_real_escape_string($db,$_POST["hotel_star"]);
       $hotel_about = mysqli_real_escape_string($db,$_POST["hotel_about"]);
 
-    
+
 
 
 

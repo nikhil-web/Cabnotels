@@ -13,11 +13,26 @@
 <html lang="en">
 <head>
 
-		<title>Cabnotels | Home</title>
+		<title>Cabnotels || Home</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<meta charset="utf-8">
-		<meta name="msapplication-TileColor" content="#ffdd00">
-		<meta name="msapplication-TileImage" content="ms-icon-144x144.png">
+
+		<link rel="apple-touch-icon" sizes="57x57" href="/apple-icon-57x57.png">
+        <link rel="apple-touch-icon" sizes="60x60" href="/apple-icon-60x60.png">
+        <link rel="apple-touch-icon" sizes="72x72" href="/apple-icon-72x72.png">
+        <link rel="apple-touch-icon" sizes="76x76" href="/apple-icon-76x76.png">
+        <link rel="apple-touch-icon" sizes="114x114" href="/apple-icon-114x114.png">
+        <link rel="apple-touch-icon" sizes="120x120" href="/apple-icon-120x120.png">
+        <link rel="apple-touch-icon" sizes="144x144" href="/apple-icon-144x144.png">
+        <link rel="apple-touch-icon" sizes="152x152" href="/apple-icon-152x152.png">
+        <link rel="apple-touch-icon" sizes="180x180" href="/apple-icon-180x180.png">
+        <link rel="icon" type="image/png" sizes="192x192"  href="/android-icon-192x192.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+        <link rel="manifest" href="/manifest.json">
+        <meta name="msapplication-TileColor" content="#ffdd00">
+        <meta name="msapplication-TileImage" content="/ms-icon-144x144.png">
 		<meta name="theme-color" content="#ffdd00">
 
 		<!-- css files -->
@@ -96,6 +111,10 @@
     border-radius: 0;
 }
 
+.maximizeChat{
+  background: #ffdd00 !important;
+color: #3c3c3c !important;
+}
 			@media (min-width: 992px) {
 				.search-sec {
 					position: relative;
@@ -116,6 +135,7 @@
 
 
 	</head>
+
 	<body id="home">
 
 		<!-- header -->
@@ -124,7 +144,7 @@
 				<!-- nav -->
 				<nav class="py-md-3 py-3 d-lg-flex">
 					<div id="logo">
-						<div style="width: 100px;"><img src="images/logo.png" alt=""> </div>
+						<div style="width: 65px;"><img src="images/logo.png" alt=""> </div>
 					</div>
 					<label for="drop" class="toggle"><span class="fa fa-bars"></span></label>
 					<input type="checkbox" id="drop">
@@ -163,43 +183,82 @@
 				<input type="radio" name="slides" id="slides_3">
 				<input type="radio" name="slides" id="slides_4">
 				<ul>
-					<li>
-						<div class="banner-top">
-							<div class="overlay">
-								<div class="container">
-									<div class="w3layouts-banner-info col-xl-8 col-lg-8 col-sm-12  animated fadeIn">
-										<div style="
-									width: 75%;
-									left: 50%;
-									position: relative;
-									transform: translate(-50%);
-								">
-											<img src="images/logo.png" alt="">
-										</div>
-										<h4 class="text-wh">
-										 <?php
-                     if($login_flag ==1){
-                        echo $_SESSION["first_name"].',';
-                     }
-                     ?>Discover The world you have never seen</h4>
-										<div class="buttons mt-4">
-                    <a href="#booking" class="btn">Book Now</a>
 
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-					</li>
+          <?php
+            $sql_banner = 'SELECT *  FROM frontpage_slider WHERE id = 1';
+            $result_banner = mysqli_query($db, $sql_banner);
+            if (mysqli_num_rows($result_banner) > 0) {
+              // output data of each row
+            while($row_banner= mysqli_fetch_assoc($result_banner)) {
+              echo '
+              <li>
+    						<div class="banner-top" style="background: url('.substr($row_banner["image_url"], 3).') no-repeat center;background-size:cover;">
+    							<div class="overlay">
+    								<div class="container">
+    									<div class="w3layouts-banner-info col-xl-8 col-lg-8 col-sm-12  animated fadeIn">
+    										<div style="
+                        width: 40%;
+                        min-width: 300px;
+    									left: 50%;
+    									position: relative;
+    									transform: translate(-50%);
+    								">
+    											<img src="images/logo.png" alt="">
+    										</div>
+    										<h4 class="text-wh">';
+                        if($login_flag ==1)
+                         {
+                            echo $_SESSION["first_name"].',';
+                         }
+                        echo 'Discover The world you have never seen</h4>
+    										<div class="buttons mt-4">
+                        <a href="#booking" class="btn">Book Now</a>
+    										</div>
+    									</div>
+    								</div>
+    							</div>
+    						</div>
+    					</li>
+              ';
+            }
+          }
+        ?>
 
+            <?php
 
-
-
+              $sql_banner = 'SELECT *  FROM frontpage_slider WHERE id > 1';
+              $result_banner = mysqli_query($db, $sql_banner);
+              if (mysqli_num_rows($result_banner) > 0) {
+                // output data of each row
+              while($row_banner= mysqli_fetch_assoc($result_banner)) {
+                echo '<li>
+      						<div class="banner-top" style="background: url('.substr($row_banner["image_url"], 3).') no-repeat center; background-size:cover;">
+      							<div class="overlay">
+      								<div class="container">
+      									<div class="w3layouts-banner-info col-xl-8 col-lg-8 col-sm-12">
+      										<h3 class="text-wh">'.$row_banner["heading"].'</h3>
+      										<h4 class="text-wh">'.$row_banner["subheading"].'</h4>
+      										<div class="buttons mt-4">
+      											<a href="about.php" class="btn mr-2">About Us</a>
+      											<a href="#booking" class="btn">Book a Tour</a>
+      										</div>
+      									</div>
+      								</div>
+      							</div>
+      						</div>
+      					</li>';
+              }
+            }
+                ?>
 
 				</ul>
 				<div class="arrows">
-
+                    <label for="slides_1"></label>
+          					<label for="slides_2"></label>
+          					<label for="slides_3"></label>
+          					<label for="slides_4"></label>
 				</div>
+
 			</div>
 		</section>
 		<!-- banner -->
@@ -495,17 +554,36 @@
 		<!-- taxi -->
 
 
-    <!-- Footer -->
+    <!-- Reviews -->
 	   <?php
      include 'includes/reviews.php';
       ?>
-<!-- footer -->
+    <!-- reviews -->
 
 <!-- Footer -->
 	   <?php
      include 'includes/footer.php';
       ?>
 <!-- footer -->
+<!-- Modal -->
+<div class="modal fade" id="modelformessage" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Message</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <h2 id="status_message"></h2>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
 
 
 		<!-- move top -->
@@ -657,6 +735,8 @@ if ($login_flag==1) {
                             $flag_enddate = 1;
                         }
 
+
+
 						if (adult_keyword == '') {
                             console.log("adult empty");
                             $flag_adult = 0;
@@ -673,16 +753,43 @@ if ($login_flag==1) {
 
 						//Logic pro
                         if ($flag_location == 1 && $flag_startdate == 1 && $flag_enddate == 1 && $flag_child == 1 && $flag_child == 1){
-                            var query = "hotels.php?mode=search&"+ str;
-                            window.location.href = query;
-                            console.log("Sucess");
+
+                            if (give_diffrence_hotel_date() > 0) {
+                              var query = "hotels.php?mode=search&"+ str;
+                              window.location.href = query;
+                            }else{
+                              update_staus_success("Please Select Minimum One Day");
+                            }
                         } else {
-                            console.log("NO Location");
-							alert("Less Data")
+
+                            update_staus_success("Please Provide Complete Information");
                         }
 
                     });
                 });
+
+
+                function give_diffrence_hotel_date(){
+                  var checkin  = document.getElementById("start_date").value;
+                  var checkout = document.getElementById("end_date").value;
+
+                  const _MS_PER_DAY = 1000 * 60 * 60 * 24;
+                  // a and b are javascript Date objects
+                  function dateDiffInDays(a, b) {
+                    // Discard the time and time-zone information.
+                    const utc1 = Date.UTC(a.getFullYear(), a.getMonth(), a.getDate());
+                    const utc2 = Date.UTC(b.getFullYear(), b.getMonth(), b.getDate());
+
+                    return Math.floor((utc2 - utc1) / _MS_PER_DAY);
+                    }
+
+                  const a = new Date(checkin),
+                  b = new Date(checkout),
+                  difference = dateDiffInDays(a, b);
+                  console.log(difference);
+                  return difference;
+                }
+                </script>
 				</script>
 
 
@@ -732,7 +839,7 @@ if ($login_flag==1) {
                             console.log("Sucess");
                         } else {
                             console.log("NO Location");
-							alert("Less Data")
+                            update_staus_success("Please Provide Complete Information");
                         }
 
                     });
@@ -804,16 +911,38 @@ if ($login_flag==1) {
                             console.log("Sucess" + query);
                         } else {
                             console.log("NO Location");
-							alert("Less Data")
+							              update_staus_success("Please Provide Complete Information");
                         }
 
                     });
                 });
+
+
+                function update_staus_success(message) {
+                  $('#modelformessage').modal({
+                      keyboard: true
+                  });
+                    document.getElementById('status_message').innerHTML = message;
+                    $("#status_message").removeClass("dangerclass")
+                }
 				</script>
 
 
 <script>
 AOS.init();
 </script>
+<!--Start of Tawk.to Script-->
+<script type="text/javascript">
+var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+(function(){
+var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+s1.async=true;
+s1.src='https://embed.tawk.to/5d57fda7eb1a6b0be607fd35/default';
+s1.charset='UTF-8';
+s1.setAttribute('crossorigin','*');
+s0.parentNode.insertBefore(s1,s0);
+})();
+</script>
+<!--End of Tawk.to Script-->
 </body>
 </html>

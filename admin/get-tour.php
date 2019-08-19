@@ -18,20 +18,17 @@ if($_SESSION['auth'] == false){
                     <th>'.$row["tour_loc"].'</th>
                     <th> <button type="button" class="col-12 btn btn-primary mb-2" data-toggle="modal" data-target="#modal_image_'.$row["tour_id"].'">Add/View</button>  </th>
                     <th>
-                        <button type="button" class="col-12 btn btn-primary mb-2" data-toggle="modal" data-target="#modal_includes_'.$row["tour_id"].'">Included</button>
-                        <button type="button" class="col-12 btn btn-danger mb-2" data-toggle="modal" data-target="#modal_excludes_'.$row["tour_id"].'">Exculded</button>
+                    <button type="button" class="col-12 btn btn-primary mb-2" data-toggle="modal" data-target="#modal_includes_'.$row["tour_id"].'">Included</button>
+                    <button type="button" class="col-12 btn btn-danger mb-2" data-toggle="modal" data-target="#modal_excludes_'.$row["tour_id"].'">Exculded</button>
                     </th>
                     <th>
                     <button type="button" class="col-12 btn btn-info mb-2" data-toggle="modal" data-target="#modal_price_table_'.$row["tour_id"].'">View</button>
                     <button type="button" class="col-12 btn btn-primary mb-2" data-toggle="modal" data-target="#modal_price_tour_'.$row["tour_id"].'">Add</button>
-
-
+                    <hr>
+                    <a href="add_pricing.php?tour_id='.$row["tour_id"].'" class="col-12 btn btn-primary mb-2" href="#" role="button" target="__blank">Add Pricing</a>
                     </th>
 
-
                     <th>
-
-
                     <button type="button" class="col-12 btn btn-info mb-2" data-toggle="modal" data-target="#modal_timeline_'.$row["tour_id"].'">View</button>';
 
                     if ((int)$row["timeline_status"] == 1 ) {

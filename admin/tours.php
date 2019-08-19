@@ -52,7 +52,6 @@
           Add New Tour Package
         </button>
 
-
         <hr>
         <!-- DataTables Example -->
         <div class="card mb-3">

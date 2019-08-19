@@ -1,5 +1,5 @@
 <!-- Search tours-->
-<section id="booking" class="book search-sec ">
+<section id="booking" class="book search-sec" style="display:none;">
     <div class="container">
             <div style="z-index: 9;" data-aos="zoom-in" data-aos-duration="1000" data-aos-anchor-placement="top-bottom">
                     <h2 class="heading text-capitalize text-center" style="color:#3c3c3c; margin-top: 15px; ">Book Tours.</h2>
@@ -33,7 +33,7 @@
                     <label for="exampleInputEmail1" style="width: 100%;text-align: left;">
                       <p>Start Month</p>
                     </label>
-                    <select class="form-control" id="tour_start_date" name="tour_start_date">
+                    <select class="form-control" id="tour_start_date_search" name="tour_start_date_search">
                      <option value="0">Select</option>
                      <option>Janaury</option>
                      <option>February</option>
@@ -55,7 +55,7 @@
                       <label for="exampleInputEmail1" style="width: 100%;text-align: left;">
                         <p>People</p>
                       </label>
-                      <select class="form-control" id="tour_people_count" name="tour_people_count">
+                      <select class="form-control" id="tour_people_count_search" name="tour_people_count_search">
                         <option value="0">Select..</option>
                         <option>1</option>
                         <option>2</option>
@@ -95,8 +95,8 @@
           {
             var x = document.getElementById("booking");
             var y = document.getElementById("arrow");
-            if (x.style.display === "none") {
-              $("#booking").css('opacity', 1).slideDown('slow').animate({ opacity: 1 },{ queue: false, duration: 'slow' });
+            if (x.style.display == "none") {
+              $("#booking").css('opacity', 1).slideDown('fast').animate({ opacity: 1 },{ queue: false, duration: 'slow' });
               y.style.transform = 'rotate(180deg)';
             } else {
               $("#booking").css('opacity', 1).slideUp('slow').animate({ opacity: 1 },{ queue: false, duration: 'slow' });

@@ -17,7 +17,7 @@ if($_SESSION['auth'] == false){
                     <th>'.$row["loc_name"].'</th>
                     <th> <button onclick="delete_loc('.$row["loc_id"].')" type="button" class="btn btn-danger">Delete</button></th>
                     </tr>';
-                    
+
                     }
                   }
 	      echo json_encode($output);
