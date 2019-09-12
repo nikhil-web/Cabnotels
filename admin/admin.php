@@ -64,7 +64,7 @@
                                         <i class="fas fa-fw fa-list"></i>
                                     </div>
                                     <h1 id="all_orders">?</h1>
-                                    <div class="mr-5">All Orders</div>
+                                    <div class="mr-5">Orders In Cart</div>
                                 </div>
                                 <a class="card-footer text-white clearfix small z-1" href="#">
                                       <span class="float-left">Manage</span>
@@ -72,14 +72,14 @@
                             </div>
                         </div>
                         <div class="col-xl-3 col-sm-6 mb-3">
-                          <a style="color:#fff;cursor:pointer;" onclick="navigate_clear_open()">
+
                             <div class="card text-white bg-success o-hidden h-100">
                                 <div class="card-body">
                                     <div class="card-body-icon">
                                         <i class="fas fa-fw fa-shopping-cart"></i>
                                     </div>
                                     <h1 id="open_new_orders">?</h1>
-                                    <div class="mr-5">Open Orders</div>
+                                    <div class="mr-5">Paid Orders</div>
                                 </div>
                                 <a class="card-footer text-white clearfix small z-1">
                                     <span class="float-left">Manage</span>
@@ -88,7 +88,7 @@
                                     </span>
                                 </a>
                             </div>
-                          </a>
+
                         </div>
                         <div class="col-xl-3 col-sm-6 mb-3">
                             <div class="card text-white bg-danger o-hidden h-100">
@@ -96,8 +96,8 @@
                                     <div class="card-body-icon">
                                         <i class="fas fa-fw fa-life-ring"></i>
                                     </div>
-                                    <h1>1</h1>
-                                    <div class="mr-5">New Complaints!</div>
+                                    <h1>0</h1>
+                                    <div class="mr-5">Cancled Orders</div>
                                 </div>
                                 <a class="card-footer text-white clearfix small z-1" href="#">
                                     <span class="float-left">Manage</span>
@@ -113,8 +113,8 @@
                                     <div class="card-body-icon">
                                         <i class="fas fa-fw fa-life-ring"></i>
                                     </div>
-                                    <h1>12</h1>
-                                    <div class="mr-5">Users!</div>
+                                    <h1 id="users_count">?</h1>
+                                    <div class="mr-5">Users</div>
                                 </div>
                                 <a class="card-footer text-white clearfix small z-1" href="#">
                                     <span class="float-left">Manage</span>
@@ -142,7 +142,6 @@
                                 <th>Name</th>
                                 <th>E-email</th>
                                 <th>Contact number</th>
-                                <th>Address</th>
                                 <th>Ammount</th>
                               </tr>
                             </thead>
@@ -154,7 +153,6 @@
                                 <th>Name</th>
                                 <th>E-email</th>
                                 <th>Contact number</th>
-                                <th>Address</th>
                                 <th>Ammount</th>
                               </tr>
                             </tfoot>
@@ -244,24 +242,22 @@ async  function update_sales() {
                });
            }
 
+get_user_number();
+           async   function get_user_number() {
+                     $.ajax({
+                         type: "POST",
+                         url: "get-user-count.php",
+                         data: {
+                             l_loc: 'dummy',
+                         },
+                         dataType: 'JSON',
+                         success: function(resp) {
+                             document.getElementById("users_count").innerHTML = resp;
+                         }
+                     });
+                 }
 
-  function navigate_clear_open(){
-            $.ajax({
-                type: "POST",
-                url: "clear-all-open.php",
-                data: {
-                    l_loc: 'dummy',
-                },
-                dataType: 'JSON',
-                success: function(resp_status) {
-                    if (resp_status == 1) {
-                      window.location.href = "sales.php";
-                    }else {
-                      alert("error contact dev");
-                    }
-                }
-            });
-          }
+
 
 
 function update_values(){
@@ -270,7 +266,7 @@ function update_values(){
   update_sales_all_orders();
 }
 
-setInterval(update_values, 15000);
+
   </script>
 
 

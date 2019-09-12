@@ -53,15 +53,6 @@ if ($mode == "search") {
     body{
       font-family: 'Roboto Condensed', sans-serif !important;
     }
-        .hamburger {
-            width: 50px;
-            text-align: center;
-            height: -webkit-fill-available;
-            vertical-align: middle;
-            cursor: pointer;
-            right: 10px;
-            position: absolute;
-        }
 
         .center {
             margin: auto;
@@ -136,43 +127,7 @@ if ($mode == "search") {
 
 <body>
 
-  <!-- header -->
-  <header id="navbar_color">
-    <div class="container">
-      <!-- nav -->
-      <nav class="py-md-3 py-3 d-lg-flex">
-        <div id="logo">
-          <a href="index.php">  <div style="width: 65px;"><img style="width:inherit;" src="images/logo.png" alt=""> </div>  </a>
-        </div>
-        <label for="drop" class="toggle"><span class="fa fa-bars"></span></label>
-        <input type="checkbox" id="drop">
-        <ul class="menu ml-auto mt-3">
-          <li class="booking"><a href="tours.php?mode=page">Tours</a></li>
-          <li class="booking"><a href="hotels.php?mode=navbar">Hotels</a></li>
-          <li class="booking"><a href="taxi.php?mode=navbar" style="margin-right: 10px;">Cabs</a></li>
-
-          <?php
-            if ($login_flag == 1) {
-              // code...
-              echo '
-                <li class="booking"><a href="user.php" style="background: #ffdd00;color: #3c3c3c;">'.$_SESSION["first_name"].' <i class="fas fa-user"></i></a></li>
-              ';
-            }else {
-              // code...
-              echo '
-              <li class="booking"><a href="login.php" style="background: #ffdd00;color: #3c3c3c;">Login</a></li>
-              ';
-            }
-
-           ?>
-
-        </ul>
-
-      </nav>
-      <!-- //nav -->
-    </div>
-  </header>
-  <!-- //header -->
+  <?php include 'includes/navbar.php'; ?>
 
   <?php
 
@@ -329,9 +284,9 @@ if ($mode == "search") {
                            <div>
                                <div class="col-lg-12">
                                    <div class="row">
-                                       <div class="mr-1 mt-1"><a href="single.php?type=taxi&amp;id='.$row["taxi_id"].'"><button class="button button5" style="background-color: #ffdd00;color: #3c3c3c;">Book Now</button></a></div>
+                                       <div class="mr-1 mt-1"><a href="single_taxi.php?type=taxi&amp;id='.$row["taxi_id"].'"><button class="button button5" style="background-color: #ffdd00;color: #3c3c3c;">Book Now</button></a></div>
                                        <div class="mr-1 mt-1">
-                                          <a href="single.php?type=taxi&amp;id='.$row["taxi_id"].'"><button class="button button5" style="background: #3c3c3c;">View Details</button></a>
+                                          <a href="single_taxi.php?type=taxi&amp;id='.$row["taxi_id"].'"><button class="button button5" style="background: #3c3c3c;">View Details</button></a>
                                        </div>
                                    </div>
                                </div>

@@ -1,19 +1,21 @@
 <?php
       include('session.php');
 
-      $output = 0;
+     $output = 0;
 
-      $timeline_heading = mysqli_real_escape_string($db,$_POST["exclude"]);
-      $tour_id = mysqli_real_escape_string($db,$_POST["tour_id"]);
+
+      $featured_flag = mysqli_real_escape_string($db,$_POST["amen_flag"]);
+      $amen_id = mysqli_real_escape_string($db,$_POST["amen_id"]);
+
 
       $output=0;
-      $sql = "INSERT INTO exclude (id,name,tour_id) VALUES (NULL, '$timeline_heading','$tour_id')";
+      $sql = "UPDATE amen_hotel SET status = '$featured_flag' WHERE id = '$amen_id'";
       $result=mysqli_query($db,$sql);
       if(!$result){
             $error_fetch = mysqli_real_escape_string($db,mysqli_error($db));
-            $output = $error_fetch;
+            echo $error_fetch;
       }else{
-        navigate("tours.php");
+            navigate("hotels.php");
       }
 
 ?>

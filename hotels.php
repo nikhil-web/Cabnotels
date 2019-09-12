@@ -56,15 +56,6 @@ if ($mode == "search") {
     body{
       font-family: 'Roboto Condensed', sans-serif !important;
     }
-        .hamburger {
-            width: 50px;
-            text-align: center;
-            height: -webkit-fill-available;
-            vertical-align: middle;
-            cursor: pointer;
-            right: 10px;
-            position: absolute;
-        }
 
         .center {
             margin: auto;
@@ -139,46 +130,7 @@ if ($mode == "search") {
 
 <body>
 
-  <!-- header -->
-  <header id="navbar_color">
-    <div class="container">
-      <!-- nav -->
-      <nav class="py-md-3 py-3 d-lg-flex">
-
-          <div id="logo">
-              <a href="index.php">  <div style="width: 65px;"><img style="width:inherit;" src="images/logo.png" alt=""> </div>  </a>
-          </div>
-
-
-        <label for="drop" class="toggle"><span class="fa fa-bars"></span></label>
-        <input type="checkbox" id="drop">
-        <ul class="menu ml-auto mt-3">
-          <li class="booking"><a href="tours.php?mode=page">Tours</a></li>
-          <li class="booking"><a href="hotels.php?mode=navbar">Hotels</a></li>
-          <li class="booking"><a href="taxi.php?mode=navbar" style="margin-right: 10px;">Cabs</a></li>
-
-          <?php
-            if ($login_flag == 1) {
-              // code...
-              echo '
-                <li class="booking"><a href="user.php" style="background: #ffdd00;color: #3c3c3c;">'.$_SESSION["first_name"].' <i class="fas fa-user"></i></a></li>
-              ';
-            }else {
-              // code...
-              echo '
-              <li class="booking"><a href="login.php" style="background: #ffdd00;color: #3c3c3c;">Login</a></li>
-              ';
-            }
-
-           ?>
-
-        </ul>
-
-      </nav>
-      <!-- //nav -->
-    </div>
-  </header>
-  <!-- //header -->
+  <?php include 'includes/navbar.php'; ?>
 
     <?php
 
@@ -211,15 +163,11 @@ if ($mode == "search") {
                                     <p>Choose or view Details</p>
                             </div>
 
-            <span class="center" style="
-                             font-size: 1.5em;
-                             color: #ffdd00;
-                             right: 20px;
-                             position: absolute;
-            "><i class="fas fa-sliders-h"></i></span>
 
-            </div>
 
+                          </div>
+
+<div id="holder">
 <?php
 if ($mode_flag==0) {
   // code...
@@ -302,7 +250,7 @@ if ($mode_flag==0) {
                </div>
 
                <div class="data col-lg-6 px-0">
-                   <div class="col-lg- px-0 pt-3">
+                   <div class="col-lg-12 px-0 pt-3">
                        <div class="col-lg-12">
                            <h3>'.$row["hotel_name"].'</h3>
                        </div>
@@ -312,7 +260,7 @@ if ($mode_flag==0) {
 
                        <div class="col-lg-12 mt-2">
 
-                           <p>Ameneties</p>
+                           <p>Amenities</p>
 
                            <div class="row col-lg-12">
                            ';
@@ -336,6 +284,12 @@ if ($mode_flag==0) {
                            echo '</div>
                        </div>
 
+                       <div class="col-lg-12 px-0 pt-3">
+                           <div class="col-lg-12">
+                               <h3>'.$row["price"].' ₹</h3>
+                           </div>
+                      </div>
+
                        <div class="col-lg-12 mt-2">
                            <div>
                                <div class="col-lg-12">
@@ -343,13 +297,13 @@ if ($mode_flag==0) {
                                        <div class="mr-1 mt-1">';
                                        if ($mode_flag==0) {
                                          // code...
-                                      echo '<a href="single.php?type=hotel&id='.$row["hotel_id"].'&start_date='.$start_date.'&end_date='.$end_date.'&adult_num='.$adults_num.'&child_num='.$child_num.'"><button class="button button5" style="background-color: #ffdd00;color: #3c3c3c;">Book Now</button></a>';
+                                      echo '<a href="single_hotel.php?type=hotel&id='.$row["hotel_id"].'&start_date='.$start_date.'&end_date='.$end_date.'&adult_num='.$adults_num.'&child_num='.$child_num.'"><button class="button button5" style="background-color: #ffdd00;color: #3c3c3c;">Book Now</button></a>';
                                        }else{
-                                         echo '<a href="single.php?type=hotel&id='.$row["hotel_id"].'"><button class="button button5" style="background-color: #ffdd00;color: #3c3c3c;">Book Now</button></a>';
+                                         echo '<a href="single_hotel.php?type=hotel&id='.$row["hotel_id"].'"><button class="button button5" style="background-color: #ffdd00;color: #3c3c3c;">Book Now</button></a>';
                                        }
                                        echo'</div>
                                        <div class="mr-1 mt-1">
-                                          <a href="single.php?type=hotel&id='.$row["hotel_id"].'"><button class="button button5" style="background: #3c3c3c;">View Details</button></a>
+                                          <a href="single_hotel.php?type=hotel&id='.$row["hotel_id"].'"><button class="button button5" style="background: #3c3c3c;">View Details</button></a>
                                        </div>
                                    </div>
                                </div>
@@ -363,7 +317,7 @@ if ($mode_flag==0) {
              }
            }
 ?>
-
+</div>
 
 
 
@@ -378,6 +332,25 @@ if ($mode_flag==0) {
              include 'includes/footer.php';
               ?>
         <!-- footer -->
+        <!-- Modal -->
+        <div class="modal fade" id="modelformessage" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLongTitle">Message</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <h2 id="status_message"></h2>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
 
 
 
@@ -420,28 +393,6 @@ if ($mode_flag==0) {
 
 
     </script>
-
-
-<!-- Modal -->
-<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        ...
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
-      </div>
-    </div>
-  </div>
-</div>
 <script>
                 $(function() {
                     $('#hotel_search_form').on('submit', function(e) {
@@ -496,17 +447,105 @@ if ($mode_flag==0) {
 
 						//Logic pro
                         if ($flag_location == 1 && $flag_startdate == 1 && $flag_enddate == 1 && $flag_child == 1 && $flag_child == 1){
+                            if (give_diffrence_hotel_date() > 0) {
                             var query = "hotels.php?mode=search&"+ str;
                             window.location.href = query;
                             console.log(query + "Sucess");
+                          }else{
+                            update_staus_success("Please Select Minimum One Day");
+                          }
                         } else {
                             console.log("NO Location");
-							alert("Less Data")
+                            update_staus_success("Please Provide Complete Information");
+
                         }
 
                     });
                 });
+
+                function update_staus_success(message) {
+                  $('#modelformessage').modal({
+                      keyboard: true
+                  });
+                    document.getElementById('status_message').innerHTML = message;
+                    $("#status_message").removeClass("dangerclass")
+
+                }
+
+                function give_diffrence_hotel_date(){
+                  var checkin  = document.getElementById("start_date").value;
+                  var checkout = document.getElementById("end_date").value;
+
+                  const _MS_PER_DAY = 1000 * 60 * 60 * 24;
+                  // a and b are javascript Date objects
+                  function dateDiffInDays(a, b) {
+                    // Discard the time and time-zone information.
+                    const utc1 = Date.UTC(a.getFullYear(), a.getMonth(), a.getDate());
+                    const utc2 = Date.UTC(b.getFullYear(), b.getMonth(), b.getDate());
+
+                    return Math.floor((utc2 - utc1) / _MS_PER_DAY);
+                    }
+
+                  const a = new Date(checkin),
+                  b = new Date(checkout),
+                  difference = dateDiffInDays(a, b);
+                  console.log(difference);
+                  return difference;
+                }
 				</script>
+        <script type="text/javascript">
+            function update_star(){
+
+                console.clear();
+
+                var five = document.getElementById("check1");
+                var four = document.getElementById("check2");
+                var three = document.getElementById("check3");
+                var two = document.getElementById("check4");
+
+
+
+                if (five.checked == true) {
+                  five_state = true;
+                }else{
+                  five_state = false;
+                }
+
+                if (four.checked == true) {
+                  four_state = true;
+                }else{
+                  four_state = false;
+                }
+
+                if (three.checked == true) {
+                  three_state = true;
+                }else{
+                  three_state = false;
+                }
+
+                if (two.checked == true) {
+                  two_state = true;
+                }else{
+                  two_state = false;
+                }
+
+                $.ajax({
+                    type: "POST",
+                    url: "update_star_hotel.php",
+                    data : {
+                      five : five_state,
+                      four : four_state,
+                      three : three_state,
+                      two : two_state
+                    },
+                    dataType: 'JSON',
+                    success: function(response) {
+                      document.getElementById("holder").innerHTML = response;
+                    }
+                });
+
+            }
+        </script>
 </body>
 
 </html>

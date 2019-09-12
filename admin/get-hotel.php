@@ -20,9 +20,15 @@ if($_SESSION['auth'] == false){
                     <th>'.$row["hotel_add"].'</th>
                     <th>'.$row["hotel_email"].'</th>
 
-                    <th>
-                    <button type="button" class="col-12 btn btn-info mb-2" data-toggle="modal" data-target="#modal_price_table_'.$row["hotel_id"].'">View</button>
-                    <button type="button" class="col-12 btn btn-primary mb-2" data-toggle="modal" data-target="#modal_price_tour_'.$row["hotel_id"].'">Add</button>
+                    <th>';
+
+                    if ($row["price_flag"] == 1) {
+                      $output .= '<button type="button" class="col-12 btn btn-info mb-2" data-toggle="modal" data-target="#modal_price_table_'.$row["hotel_id"].'">View</button>
+                      <button type="button" class="col-12 btn btn-primary mb-2" data-toggle="modal" data-target="#modal_price_tour_update_'.$row["hotel_id"].'">Update</button>';
+                    }elseif ($row["price_flag"] == 0) {
+                      $output .= '<button type="button" class="col-12 btn btn-primary mb-2" data-toggle="modal" data-target="#modal_price_tour_'.$row["hotel_id"].'">Add</button>';
+                    }
+                    $output .='
                     </th>
 
                     <th>'.$row["hotel_number"].'</th>

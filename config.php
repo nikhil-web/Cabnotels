@@ -2,22 +2,19 @@
     /*place database credintials here*/
     define('DB_SERVER', 'localhost');
 
-    define('DB_USERNAME', 'root');
-    define('DB_PASSWORD', '');
-    define('DB_DATABASE', 'cabnotels');
-<<<<<<< HEAD
-      /*
-    define('DB_USERNAME', 'cabnotel_nik_adm');
-    define('DB_PASSWORD', '1016802075nikhil');
-    define('DB_DATABASE', 'cabnotel_cabnotels');
-    */
-=======
-     */
-    define('DB_USERNAME', '');
-    define('DB_PASSWORD', '');
-    define('DB_DATABASE', '');
+    $whitelist = array(
+    '127.0.0.1','192.168.0.6',
+    '::1'
+    );
 
->>>>>>> 796d4f67cdbd1a629a4f7ca3fca043221b856aa2
+if(!in_array($_SERVER['REMOTE_ADDR'], $whitelist)){
+    // not valid
+        define('DB_USERNAME', 'cabnotel_nik_adm');define('DB_PASSWORD', '1016802075nikhil');define('DB_DATABASE', 'cabnotel_cabnotels');
+}else{
+        define('DB_USERNAME', 'root');define('DB_PASSWORD', '');define('DB_DATABASE', 'cabnotels');
+
+}
+
     $db = mysqli_connect(DB_SERVER,DB_USERNAME,DB_PASSWORD,DB_DATABASE);
     // Check connection
 if($db === false){

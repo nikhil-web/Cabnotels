@@ -24,18 +24,7 @@ $sql = 'SELECT * FROM cart WHERE status = 0 AND user_id = '.$_SESSION["user_id"]
                  </div>
                </th>
                <td class="border-0 align-middle"><strong>Rs. '.$row["item_price"].'</strong></td>
-               <td class="border-0 align-middle">
 
-                    <div class = "row px-3">
-                      <p class = "col-6 p-0" ><strong>From</strong> '.$row["start_date"].'</p>
-                      <p class = "col-6 p-0" > <strong>To</strong> '.$row["end_date"].'</p>
-                   </div>
-
-                   <p><strong>Location:</strong> '.$row_hotel["hotel_loc"].'</p>
-                   <p><strong>Room: </strong> '.$row["item_quantity"].'</p>
-                   <p><strong>People:</strong> '.$row["head_count"].'</p>
-
-               </td>
                <td class="border-0 align-middle">  <button onclick="delete_cart_item('.$row["id"].')" class="btn btn-dark mt-3  p-2 btn-block"><i class="fa fa-trash"></i> Remove</button></td>
              </tr>
              ';
@@ -58,15 +47,7 @@ $sql = 'SELECT * FROM cart WHERE status = 0 AND user_id = '.$_SESSION["user_id"]
                          </div>
                        </th>
                        <td class="border-0 align-middle"><strong>Rs. '.$row["item_price"].'</strong></td>
-                       <td class="border-0 align-middle">
 
-                       <div class = "row px-3">
-                         <p class = "col-6 p-0" ><strong>From</strong> '.$row["start_date"].'</p>
-                      </div>
-                      <strong>People</strong>
-                      <p>'.$row["head_count"].'</p>
-
-                       </td>
                        <td class="border-0 align-middle">  <button onclick="delete_cart_item('.$row["id"].')" class="btn btn-dark mt-3  p-2 btn-block"><i class="fa fa-trash"></i> Remove</button></td>
                      </tr>';
                    }
@@ -88,20 +69,7 @@ $sql = 'SELECT * FROM cart WHERE status = 0 AND user_id = '.$_SESSION["user_id"]
                         </div>
                       </th>
                       <td class="border-0 align-middle"><strong>Rs. '.$row["item_price"].'</strong></td>
-                      <td class="border-0 align-middle">
-                          <strong>Pickup</strong>
-                          <p>'.$row["pickup_location"].'</p>
-                          <strong>Drop</strong>
-                          <p>'.$row["drop_location"].'</p>
-
-                          <div class = "row px-3">
-                            <p class = "col-6 p-0" ><strong>Time</strong> '.$row["pickup_time"].'</p>
-                            <p class = "col-6 p-0" > <strong>Date</strong> '.$row["start_date"].'</p>
-                          </div>
-
-
-
-                      </td>
+                      
                       <td class="border-0 align-middle">  <button onclick="delete_cart_item('.$row["id"].')" class="btn btn-dark mt-3  p-2 btn-block"><i class="fa fa-trash"></i> Remove</button></td>
                     </tr>';
                   }

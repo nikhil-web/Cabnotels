@@ -1,0 +1,60 @@
+[23-Aug-2019 15:44:03 Asia/Kolkata] PHP Warning:  mysqli_num_rows() expects parameter 1 to be mysqli_result, boolean given in /home1/cabnotels/public_html/admin/get-sales-modal-status-action.php on line 9
+[23-Aug-2019 15:44:03 Asia/Kolkata] PHP Warning:  mysqli_num_rows() expects parameter 1 to be mysqli_result, boolean given in /home1/cabnotels/public_html/admin/get-sales-modal-status.php on line 9
+[23-Aug-2019 15:44:18 Asia/Kolkata] PHP Warning:  mysqli_num_rows() expects parameter 1 to be mysqli_result, boolean given in /home1/cabnotels/public_html/admin/get-sales-modal-status.php on line 9
+[23-Aug-2019 15:44:18 Asia/Kolkata] PHP Warning:  mysqli_num_rows() expects parameter 1 to be mysqli_result, boolean given in /home1/cabnotels/public_html/admin/get-sales-modal-status-action.php on line 9
+[25-Aug-2019 18:23:07 Asia/Kolkata] PHP Warning:  mysqli_num_rows() expects parameter 1 to be mysqli_result, boolean given in /home1/cabnotels/public_html/admin/get-sales-modal-status.php on line 9
+[25-Aug-2019 18:23:07 Asia/Kolkata] PHP Warning:  mysqli_num_rows() expects parameter 1 to be mysqli_result, boolean given in /home1/cabnotels/public_html/admin/get-sales-modal-status-action.php on line 9
+[25-Aug-2019 18:24:06 Asia/Kolkata] PHP Warning:  mysqli_num_rows() expects parameter 1 to be mysqli_result, boolean given in /home1/cabnotels/public_html/admin/get-sales-modal-status-action.php on line 9
+[25-Aug-2019 18:24:06 Asia/Kolkata] PHP Warning:  mysqli_num_rows() expects parameter 1 to be mysqli_result, boolean given in /home1/cabnotels/public_html/admin/get-sales-modal-status.php on line 9
+[25-Aug-2019 18:29:30 Asia/Kolkata] PHP Warning:  mysqli_num_rows() expects parameter 1 to be mysqli_result, boolean given in /home1/cabnotels/public_html/admin/get-sales-modal-status.php on line 9
+[25-Aug-2019 18:29:31 Asia/Kolkata] PHP Warning:  mysqli_num_rows() expects parameter 1 to be mysqli_result, boolean given in /home1/cabnotels/public_html/admin/get-sales-modal-status-action.php on line 9
+[25-Aug-2019 21:34:45 Asia/Kolkata] PHP Notice:  Undefined index: exclude in /home1/cabnotels/public_html/admin/change_amen_flag.php on line 6
+[25-Aug-2019 21:34:45 Asia/Kolkata] PHP Notice:  Undefined index: tour_id in /home1/cabnotels/public_html/admin/change_amen_flag.php on line 7
+[25-Aug-2019 21:35:11 Asia/Kolkata] PHP Notice:  Undefined index: exclude in /home1/cabnotels/public_html/admin/change_amen_flag.php on line 6
+[25-Aug-2019 21:35:11 Asia/Kolkata] PHP Notice:  Undefined index: tour_id in /home1/cabnotels/public_html/admin/change_amen_flag.php on line 7
+[25-Aug-2019 21:35:11 Asia/Kolkata] PHP Notice:  Undefined index: exclude in /home1/cabnotels/public_html/admin/change_amen_flag.php on line 6
+[25-Aug-2019 21:35:11 Asia/Kolkata] PHP Notice:  Undefined index: tour_id in /home1/cabnotels/public_html/admin/change_amen_flag.php on line 7
+[25-Aug-2019 21:36:04 Asia/Kolkata] PHP Notice:  Undefined index: exclude in /home1/cabnotels/public_html/admin/change_amen_flag.php on line 6
+[25-Aug-2019 21:36:04 Asia/Kolkata] PHP Notice:  Undefined index: tour_id in /home1/cabnotels/public_html/admin/change_amen_flag.php on line 7
+[25-Aug-2019 23:26:56 Asia/Kolkata] PHP Notice:  Undefined index: id_image in /home1/cabnotels/public_html/admin/delete-image-hotel.php on line 3
+[25-Aug-2019 23:31:32 Asia/Kolkata] PHP Notice:  Undefined index: hotel_id in /home1/cabnotels/public_html/admin/add-new-image.php on line 3
+[25-Aug-2019 23:31:32 Asia/Kolkata] PHP Notice:  Undefined index: fileToUpload in /home1/cabnotels/public_html/admin/add-new-image.php on line 6
+[25-Aug-2019 23:34:11 Asia/Kolkata] PHP Notice:  Undefined index: hotel_id in /home1/cabnotels/public_html/admin/add-new-image.php on line 3
+[25-Aug-2019 23:34:11 Asia/Kolkata] PHP Notice:  Undefined index: fileToUpload in /home1/cabnotels/public_html/admin/add-new-image.php on line 6
+[25-Aug-2019 23:38:18 Asia/Kolkata] PHP Notice:  Undefined index: hotel_id in /home1/cabnotels/public_html/admin/add-new-image.php on line 3
+[25-Aug-2019 23:38:18 Asia/Kolkata] PHP Notice:  Undefined index: fileToUpload in /home1/cabnotels/public_html/admin/add-new-image.php on line 6
+[25-Aug-2019 23:39:05 Asia/Kolkata] PHP Notice:  Undefined index: exclude in /home1/cabnotels/public_html/admin/change_amen_flag.php on line 6
+[25-Aug-2019 23:39:05 Asia/Kolkata] PHP Notice:  Undefined index: tour_id in /home1/cabnotels/public_html/admin/change_amen_flag.php on line 7
+[25-Aug-2019 23:39:31 Asia/Kolkata] PHP Notice:  Undefined index: exclude in /home1/cabnotels/public_html/admin/change_amen_flag.php on line 6
+[25-Aug-2019 23:39:31 Asia/Kolkata] PHP Notice:  Undefined index: tour_id in /home1/cabnotels/public_html/admin/change_amen_flag.php on line 7
+[25-Aug-2019 23:46:29 Asia/Kolkata] PHP Notice:  Undefined index: hotel_id in /home1/cabnotels/public_html/admin/add-new-image.php on line 3
+[25-Aug-2019 23:46:29 Asia/Kolkata] PHP Notice:  Undefined index: fileToUpload in /home1/cabnotels/public_html/admin/add-new-image.php on line 6
+[26-Aug-2019 00:01:49 Asia/Kolkata] PHP Notice:  Undefined index: hotel_id in /home1/cabnotels/public_html/admin/add-new-image.php on line 3
+[26-Aug-2019 00:01:49 Asia/Kolkata] PHP Notice:  Undefined index: fileToUpload in /home1/cabnotels/public_html/admin/add-new-image.php on line 6
+[26-Aug-2019 00:03:29 Asia/Kolkata] PHP Notice:  Undefined index: hotel_id in /home1/cabnotels/public_html/admin/add-new-image.php on line 3
+[26-Aug-2019 00:03:29 Asia/Kolkata] PHP Notice:  Undefined index: fileToUpload in /home1/cabnotels/public_html/admin/add-new-image.php on line 6
+[26-Aug-2019 00:05:25 Asia/Kolkata] PHP Notice:  Undefined index: hotel_id in /home1/cabnotels/public_html/admin/add-new-image.php on line 3
+[26-Aug-2019 00:05:25 Asia/Kolkata] PHP Notice:  Undefined index: fileToUpload in /home1/cabnotels/public_html/admin/add-new-image.php on line 6
+[27-Aug-2019 17:55:07 Asia/Kolkata] PHP Warning:  mysqli_num_rows() expects parameter 1 to be mysqli_result, boolean given in /home1/cabnotels/public_html/admin/get-sales-modal-status-action.php on line 9
+[27-Aug-2019 17:55:07 Asia/Kolkata] PHP Warning:  mysqli_num_rows() expects parameter 1 to be mysqli_result, boolean given in /home1/cabnotels/public_html/admin/get-sales-modal-status.php on line 9
+[28-Aug-2019 03:25:06 Asia/Kolkata] PHP Warning:  mysqli_num_rows() expects parameter 1 to be mysqli_result, boolean given in /home1/cabnotels/public_html/admin/get-sales-modal-status.php on line 9
+[28-Aug-2019 03:25:06 Asia/Kolkata] PHP Warning:  mysqli_num_rows() expects parameter 1 to be mysqli_result, boolean given in /home1/cabnotels/public_html/admin/get-sales-modal-status-action.php on line 9
+[28-Aug-2019 03:25:08 Asia/Kolkata] PHP Warning:  mysqli_num_rows() expects parameter 1 to be mysqli_result, boolean given in /home1/cabnotels/public_html/admin/get-sales-modal-status.php on line 9
+[28-Aug-2019 03:25:08 Asia/Kolkata] PHP Warning:  mysqli_num_rows() expects parameter 1 to be mysqli_result, boolean given in /home1/cabnotels/public_html/admin/get-sales-modal-status-action.php on line 9
+[28-Aug-2019 03:25:53 Asia/Kolkata] PHP Notice:  Undefined index: exclude in /home1/cabnotels/public_html/admin/change_amen_flag.php on line 6
+[28-Aug-2019 03:25:53 Asia/Kolkata] PHP Notice:  Undefined index: tour_id in /home1/cabnotels/public_html/admin/change_amen_flag.php on line 7
+[02-Sep-2019 16:18:35 Asia/Kolkata] PHP Warning:  mysqli_num_rows() expects parameter 1 to be mysqli_result, boolean given in /home1/cabnotels/public_html/admin/get-sales-modal-status-action.php on line 9
+[02-Sep-2019 16:18:35 Asia/Kolkata] PHP Warning:  mysqli_num_rows() expects parameter 1 to be mysqli_result, boolean given in /home1/cabnotels/public_html/admin/get-sales-modal-status.php on line 9
+[02-Sep-2019 16:24:31 Asia/Kolkata] PHP Warning:  mysqli_num_rows() expects parameter 1 to be mysqli_result, boolean given in /home1/cabnotels/public_html/admin/get-sales-modal-status-action.php on line 9
+[02-Sep-2019 16:24:31 Asia/Kolkata] PHP Warning:  mysqli_num_rows() expects parameter 1 to be mysqli_result, boolean given in /home1/cabnotels/public_html/admin/get-sales-modal-status.php on line 9
+[02-Sep-2019 16:25:04 Asia/Kolkata] PHP Warning:  mysqli_num_rows() expects parameter 1 to be mysqli_result, boolean given in /home1/cabnotels/public_html/admin/get-sales-modal-status.php on line 9
+[02-Sep-2019 16:25:04 Asia/Kolkata] PHP Warning:  mysqli_num_rows() expects parameter 1 to be mysqli_result, boolean given in /home1/cabnotels/public_html/admin/get-sales-modal-status-action.php on line 9
+[02-Sep-2019 16:29:11 Asia/Kolkata] PHP Warning:  mysqli_num_rows() expects parameter 1 to be mysqli_result, boolean given in /home1/cabnotels/public_html/admin/get-sales-modal-status.php on line 9
+[02-Sep-2019 16:29:11 Asia/Kolkata] PHP Warning:  mysqli_num_rows() expects parameter 1 to be mysqli_result, boolean given in /home1/cabnotels/public_html/admin/get-sales-modal-status-action.php on line 9
+[02-Sep-2019 16:30:09 Asia/Kolkata] PHP Warning:  mysqli_num_rows() expects parameter 1 to be mysqli_result, boolean given in /home1/cabnotels/public_html/admin/get-sales-modal-status.php on line 9
+[02-Sep-2019 16:30:09 Asia/Kolkata] PHP Warning:  mysqli_num_rows() expects parameter 1 to be mysqli_result, boolean given in /home1/cabnotels/public_html/admin/get-sales-modal-status-action.php on line 9
+[02-Sep-2019 16:30:11 Asia/Kolkata] PHP Warning:  mysqli_num_rows() expects parameter 1 to be mysqli_result, boolean given in /home1/cabnotels/public_html/admin/get-sales-modal-status.php on line 9
+[02-Sep-2019 16:30:11 Asia/Kolkata] PHP Warning:  mysqli_num_rows() expects parameter 1 to be mysqli_result, boolean given in /home1/cabnotels/public_html/admin/get-sales-modal-status-action.php on line 9
+[02-Sep-2019 16:54:55 Asia/Kolkata] PHP Notice:  Undefined index: tour_id in /home1/cabnotels/public_html/admin/add-new-image-tour.php on line 3
+[02-Sep-2019 18:44:17 Asia/Kolkata] PHP Notice:  Undefined index: taxi_id in /home1/cabnotels/public_html/admin/add-new-image-taxi.php on line 3
+[06-Sep-2019 18:09:58 Asia/Kolkata] PHP Notice:  Undefined index: admin_name in /home1/cabnotels/public_html/admin/admin.php on line 18

@@ -46,47 +46,23 @@
     <!--Script-->
 
     <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed&display=swap" rel="stylesheet">
+
+    <style media="screen">
+    /*--header--*/
+    .navigation{
+      position: fixed;
+      background-color: #3c3c3c;
+      z-index: 999;
+      transition-duration: 0.5s;
+    }
+    </style>
+
 </head>
 
 <body>
+  <?php include 'includes/navbar.php'; ?>
 
 
-  <!-- header -->
-      <header id="navbar_color" style = "background:#3c3c3c;">
-        <div class="container">
-          <!-- nav -->
-          <nav class="py-md-3 py-3 d-lg-flex">
-            <div id="logo">
-              <a href="index.php">  <div style="width: 65px;"><img style="width:inherit;" src="images/logo.png" alt=""> </div>  </a>
-            </div>
-            <label for="drop" class="toggle"><span class="fa fa-bars"></span></label>
-            <input type="checkbox" id="drop">
-            <ul class="menu ml-auto mt-3">
-              <li class="booking"><a href="tours.php?mode=page">Tours</a></li>
-  						<li class="booking"><a href="hotels.php?mode=navbar">Hotels</a></li>
-  						<li class="booking"><a href="taxi.php?mode=navbar" style="margin-right: 10px;">Cabs</a></li>
-
-              <?php
-              if ($login_flag == 1) {
-                // code...
-                echo '
-                	<li class="booking"><a href="user.php" style="background: #ffdd00;color: #3c3c3c;">'.$_SESSION["first_name"].' <i class="fas fa-user"></i></a></li>
-                ';
-              }else {
-                // code...
-                echo '
-                <li class="booking"><a href="login.php" style="background: #ffdd00;color: #3c3c3c;">Login</a></li>
-                ';
-              }
-
-             ?>
-            </ul>
-
-          </nav>
-          <!-- //nav -->
-        </div>
-      </header>
-      <!-- //header -->
     <!-- about -->
     <section class="about" style="margin-top: 100px" >
         <div class="container py-lg-5 py-sm-4">

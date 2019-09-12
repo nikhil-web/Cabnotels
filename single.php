@@ -36,6 +36,13 @@ $id = mysqli_real_escape_string($db,$_GET["id"]);
 
     <style>
 
+
+        .data,.images{
+        background-color: #fff;
+
+        }
+
+
     body{
       font-family: 'Roboto Condensed', sans-serif !important;
       background: #f5f5f5;
@@ -71,15 +78,7 @@ $id = mysqli_real_escape_string($db,$_GET["id"]);
         height: 20px;
         z-index: 400;
     }
-        .hamburger {
-            width: 50px;
-            text-align: center;
-            height: -webkit-fill-available;
-            vertical-align: middle;
-            cursor: pointer;
-            right: 10px;
-            position: absolute;
-        }
+
 
         .center {
             margin: auto;
@@ -154,47 +153,7 @@ $id = mysqli_real_escape_string($db,$_GET["id"]);
 
 <body onload="updatePrice()">
 
-  <!-- header -->
-  <header id="navbar_color">
-    <div class="container">
-      <!-- nav -->
-      <nav class="py-md-3 py-3 d-lg-flex">
-
-          <div id="logo">
-              <a href="index.php">  <div style="width: 65px;"><img style="width:inherit;" src="images/logo.png" alt=""> </div>  </a>
-          </div>
-
-
-        <label for="drop" class="toggle"><span class="fa fa-bars"></span></label>
-        <input type="checkbox" id="drop">
-        <ul class="menu ml-auto mt-3">
-          <li class="booking"><a href="tours.php?mode=page">Tours</a></li>
-          <li class="booking"><a href="hotels.php?mode=navbar">Hotels</a></li>
-          <li class="booking"><a href="taxi.php?mode=navbar" style="margin-right: 10px;">Cabs</a></li>
-
-          <?php
-            if ($login_flag == 1) {
-              // code...
-              echo '
-                <li class="booking"><a href="user.php" style="background: #ffdd00;color: #3c3c3c;">'.$_SESSION["first_name"].' <i class="fas fa-user"></i></a></li>
-              ';
-            }else {
-              // code...
-              echo '
-              <li class="booking"><a href="login.php" style="background: #ffdd00;color: #3c3c3c;">Login</a></li>
-              ';
-            }
-
-           ?>
-
-        </ul>
-
-      </nav>
-      <!-- //nav -->
-    </div>
-  </header>
-  <!-- //header -->
-
+  <?php include 'includes/navbar.php'; ?>
 
 <?php
 if ($type == 'hotel') {
@@ -494,13 +453,13 @@ $result = mysqli_query($db, $sql);
 
                                                               <div class="col-6">
                                                                     <div class="mr-1 mt-1">
-                                                                        <h2 style="margin: 0;"> <span id="price_hotel"> Loading.. </span> ₹ </h2>
+                                                                        <h2 style="margin: 0;"> <span id="price_hotel"> </span> ₹ </h2>
                                                                       <p>Total Price </p>
                                                                      </div>
                                                                 </div>
                                                                 <div class="col-6">
                                                                       <div class="mr-1 mt-1">
-                                                                          <h3 style="margin: 0;"> <span id="price_hotel_perhead"> Loading.. </span> ₹  </h3>
+                                                                          <h3 style="margin: 0;"> <span id="price_hotel_perhead">  </span> ₹  </h3>
                                                                         <p>Price for: 1 Guest, 1 Night</p>
                                                                        </div>
                                                                   </div>
@@ -512,12 +471,16 @@ $result = mysqli_query($db, $sql);
                               <!--Buttons-->
                               <div class="col-lg-12 my-0">
                                     <div class="row">
-                                        <div class="col-6 p-1">
-                                            <button onclick="addtocart_hotel('.$row["hotel_id"].')" class="button button5" style="background-color: #ffdd00;color: #3c3c3c;width: 100%;">Book Now</button>
+                                        <div class="col-5 p-1">
+                                            <button onclick="book_now_hotel('.$row["hotel_id"].')" class="button button5" style="background-color: #ffdd00;color: #3c3c3c;width: 100%;">Book Now</button>
                                         </div>
-                                        <div class="col-6 p-1">
+
+                                      <div class="col-4 p-1">
                                             <button onclick="show_contact_hotel()" class="button button5" style="background: #3c3c3c;width: 100%;">Contact Now</button>
                                         </div>
+                                        <div class="col-3 p-1">
+                                              <button onclick="addtocart_hotel('.$row["hotel_id"].')" class="button button5" style="background: #3c3c3c;width: 100%;"> + <i class="fas fa-shopping-cart"></i></button>
+                                          </div>
                                     </div>
                               </div>
                               <!--Buttons-->
@@ -534,7 +497,7 @@ $result = mysqli_query($db, $sql);
 
                     <!-- Modal -->
                     <div class="modal fade" id="modelforcontact" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                      <div class="modal-dialog modal-dialog-centered" role="document">
+                      <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
                             <div class="modal-content">
                                 <div class="modal-header">
 
@@ -545,8 +508,9 @@ $result = mysqli_query($db, $sql);
                                 <div class="modal-body">
 
                                   <section class="contact">
-                                      <div class="container py-lg-5 py-sm-3">
-                                          <h2 class="heading text-capitalize text-center mb-sm-5 mb-4"> Get In Touch with us</h2>
+                                      <div class="container py-lg-0 py-sm-3">
+
+                                          <div class="col-lg-12 col-md-12 contact-left-form" style="box-shadow: none;">                                          <h2 class="heading text-capitalize text-center mb-sm-5 mb-4"> Get In Touch with us</h2>
                                           <ul class="list-unstyled row text-center mt-lg-5 mt-4 px-lg-5">
 
                                               <li class="col-md-12 col-sm-12 adress-w3pvt-info mt-sm-0 mt-4">
@@ -559,9 +523,26 @@ $result = mysqli_query($db, $sql);
                                               </li>
 
                                           </ul>
-
+                                          <hr>
+                                              <form action="#" method="post">
+                                                  <div class=" form-group contact-forms">
+                                                      <input type="text" class="form-control" placeholder="Name" required="">
+                                                  </div>
+                                                  <div class="form-group contact-forms">
+                                                      <input type="email" class="form-control" placeholder="Email" required="">
+                                                  </div>
+                                                  <div class="form-group contact-forms">
+                                                      <input type="text" class="form-control" placeholder="Phone" required="">
+                                                  </div>
+                                                  <div class="form-group contact-forms">
+                                                      <input type="text" class="form-control" placeholder="Message" rows="3" required="">
+                                                  </div>
+                                                  <button class="btn btn-block sent-butnn">Send</button>
+                                              </form>
+                                          </div>
 
                                       </div>
+
                                   </section>
                                   <!-- //Contact -->
 
@@ -580,13 +561,13 @@ $result = mysqli_query($db, $sql);
 </script>
 
                     ';
-//taxi
+//taxisection
           }else if ($type == 'taxi') {
             // code...
 
                     echo '
                     <div class="row">
-                        <div class="images col-lg-8">
+                        <div class="images col-lg-7 p-3">
                             <div class="card">
                                 <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
                                     <ol class="carousel-indicators">';
@@ -664,7 +645,7 @@ $result = mysqli_query($db, $sql);
                                 <hr>
                         </div>
 
-                        <div class="data col-lg-4"><!--main-->
+                        <div class="data col-lg-5 p-3"><!--main-->
 
                       <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
                           <li class="nav-item">
@@ -682,10 +663,10 @@ $result = mysqli_query($db, $sql);
 
                            <div class="row p-3"><!--row-->
                               <!--Checkin -->
-                                <div class="col-6 p-1 my-1">
+                                <div class="col-4 p-1 my-1">
                                   <div class="form-group">
                                     <label for="number">Pickup Date</label>
-                                    <input type="date" class="form-control" id="checkin" name="checkin" placeholder="Check in" value="required">
+                                    <input type="date" class="form-control" id="taxi_pickup_date_single" name="taxi_pickup_date_single"  value="required">
                                     <small class="form-text">Your Check in Date (mm/dd/yyy).</small>
                                     </div>
                                 </div>
@@ -695,8 +676,7 @@ $result = mysqli_query($db, $sql);
                                   <div class="col-3 p-1 my-1">
                                     <div class="form-group">
                                       <label for="number">Time</label>
-                                      <select class="form-control" id="pickup_time" name="pickup_time">
-                                        <option >00:00</option>
+                                      <select class="form-control" id="pickup_time_single" name="pickup_time_single" requierd>
                                         <option >01:00</option>
                                         <option >02:00</option>
                                         <option >03:00</option>
@@ -719,22 +699,34 @@ $result = mysqli_query($db, $sql);
                                     <div class="col-3 p-1 my-1">
                                       <div class="form-group">
                                         <label for="number">AM/PM</label>
-                                        <select class="form-control" id="pickup_ampm" name="pickup_ampm">
-                                          <option >AM</option>
-                                          <option >PM</option>
+                                        <select class="form-control" id="pickup_ampm_single" name="pickup_ampm_single" requierd>
+                                          <option value ="AM">AM</option>
+                                          <option value ="PM">PM</option>
                                         </select>
                                         <small class="form-text">AM/PM</small>
                                         </div>
                                     </div>
                                     <!--Time Pickup -->
 
+                                    <!--Time Pickup -->
+                                      <div class="col-2 p-1 my-1">
+                                        <div class="form-group">
+                                          <label for="number">Duration</label>
+                                          <select class="form-control" id="pickup_ampm_single" name="pickup_ampm_single" requierd>
+                                            <option value ="8">8</option>
+                                            <option value ="12">12</option>
+                                          </select>
+                                          <small class="form-text">Trip Duration In Hours</small>
+                                          </div>
+                                      </div>
+                                      <!--Time Pickup -->
+
                                   <!--pickup_location -->
                                     <div class="col-12 p-1 my-1">
                                       <div class="form-group">
                                         <label for="number">Pickup Location</label>
-                                        <select class="form-control" id="pickup_location" name="pickup_location" placeholder="Pickup Location" aria-placeholder="Enter the pickup loaction" >
-                                            <option value="0">Select..</option>';
-
+                                        <select class="form-control" id="pickup_location_single" name="pickup_location_single" aria-placeholder="Enter the pickup loaction" requierd>
+                                            <option value=0>Select..</option>';
                                                                  $sql_inner_location = 'SELECT * FROM locations ORDER BY loc_name ASC';
                                                                  $result_inner_location = mysqli_query($db, $sql_inner_location);
                                                                   if (mysqli_num_rows($result_inner_location) > 0) {
@@ -756,7 +748,7 @@ $result = mysqli_query($db, $sql);
                                                       <div class="row ">
                                                                 <div class="col-6">
                                                                       <div class="mr-1 mt-1">
-                                                                          <h1 style="margin: 0;">  '.$row["taxi_price"].'  </h1>
+                                                                          <h1 id="taxi_price_single" style="margin: 0;">  '.$row["taxi_price"].'  </h1>
                                                                         <p>Per KM</p>
                                                                   </div>
                                                             </div>
@@ -768,9 +760,24 @@ $result = mysqli_query($db, $sql);
                                 <!--Buttons-->
                                 <div class="col-lg-12 my-0">
                                       <div class="row">
+                                      ';
+                                          if ($login_flag == 1) {
+                                                     // code...
+                                          echo '
                                           <div class="col-6 p-1">
-                                          <button onclick="addtocart_taxi('.$row[".taxi_id."].')" class="button button5" style="background-color: #ffdd00;color: #3c3c3c;width: 100%;">Book Now</button>
+                                            <button onclick="addtocart_taxi('.$row["taxi_id"].')" class="button button5" style="background-color: #ffdd00;color: #3c3c3c;width: 100%;">Book Now</button>
                                           </div>
+                                          ';
+                                        }else{
+                                          echo '
+                                          <div class="col-6 p-1">
+                                         <a href="./login.php">  <button class="button button5" style="background: #3c3c3c;width: 100%;">Login To Continue</button></a>
+                                          </div>
+                                          ';
+                                        }
+                                          echo '
+
+
                                           <div class="col-6 p-1">
                                               <button onclick="show_contact_taxi()" class="button button5" style="background: #3c3c3c;width: 100%;">Contact Now</button>
                                           </div>
@@ -805,7 +812,7 @@ $result = mysqli_query($db, $sql);
                                <div class="col-6 p-1 my-1">
                                  <div class="form-group">
                                    <label for="number">Pickup Date</label>
-                                   <input type="date" class="form-control" id="checkin" name="checkin" placeholder="Check in" value="required">
+                                   <input type="date" class="form-control" id="taxi_out_startdate" name="taxi_out_startdate" placeholder="Check in" value="required">
                                    <small class="form-text">Your Pick UP Date (mm/dd/yyy).</small>
                                    </div>
                                </div>
@@ -815,7 +822,7 @@ $result = mysqli_query($db, $sql);
                                  <div class="col-3 p-1 my-1">
                                    <div class="form-group">
                                      <label for="number">Time</label>
-                                     <select class="form-control" id="pickup_time" name="pickup_time">
+                                     <select class="form-control" id="taxi_out_starttime" name="taxi_out_starttime">
                                        <option >00:00</option>
                                        <option >01:00</option>
                                        <option >02:00</option>
@@ -839,7 +846,7 @@ $result = mysqli_query($db, $sql);
                                    <div class="col-3 p-1 my-1">
                                      <div class="form-group">
                                        <label for="number">AM/PM</label>
-                                       <select class="form-control" id="pickup_ampm" name="pickup_ampm">
+                                       <select class="form-control" id="taxi_out_ampm" name="taxi_out_ampm">
                                          <option >AM</option>
                                          <option >PM</option>
                                        </select>
@@ -852,7 +859,7 @@ $result = mysqli_query($db, $sql);
                                      <div class="col-6 p-1 my-1">
                                        <div class="form-group">
                                          <label for="number">Drop Date</label>
-                                         <input type="date" class="form-control" id="leave_car_date" name="leave_car_date" placeholder="Check in" value="required">
+                                         <input type="date" class="form-control" id="taxi_out_leave_date" name="taxi_out_leave_date" placeholder="Check in" value="required">
                                          <small class="form-text">Your Drop Date (mm/dd/yyy).</small>
                                          </div>
                                      </div>
@@ -862,7 +869,7 @@ $result = mysqli_query($db, $sql);
                                        <div class="col-3 p-1 my-1">
                                          <div class="form-group">
                                            <label for="number">Time</label>
-                                           <select class="form-control" id="leave_car_time" name="leave_car_time">
+                                           <select class="form-control" id="taxi_out_leave_time" name="taxi_out_leave_time">
                                              <option >00:00</option>
                                              <option >01:00</option>
                                              <option >02:00</option>
@@ -886,7 +893,7 @@ $result = mysqli_query($db, $sql);
                                          <div class="col-3 p-1 my-1">
                                            <div class="form-group">
                                              <label for="number">AM/PM</label>
-                                             <select class="form-control" id="leave_car_ampm" name="leave_car_ampm">
+                                             <select class="form-control" id="taxi_out_leave_ampm" name="taxi_out_leave_ampm">
                                                <option >AM</option>
                                                <option >PM</option>
                                              </select>
@@ -899,7 +906,7 @@ $result = mysqli_query($db, $sql);
                                    <div class="col-12 p-1 my-1">
                                      <div class="form-group">
                                        <label for="number">Pickup Location</label>
-                                       <select class="form-control" id="pickup_location" name="pickup_location" placeholder="Pickup Location" aria-placeholder="Enter the pickup loaction" >
+                                       <select class="form-control" id="pickup_location_out" name="pickup_location_out" placeholder="Pickup Location" aria-placeholder="Enter the pickup loaction" >
                                            <option value="0">Select..</option>';
 
                                                                 $sql_inner_location = 'SELECT * FROM locations ORDER BY loc_name ASC';
@@ -940,14 +947,35 @@ $result = mysqli_query($db, $sql);
                                    <!--pickup_location -->
 
 
+                                   <!--Buttons-->
+                                   <div class="col-lg-12 my-0">
+                                         <div class="row">
+                                             <div class="col-12 p-1">
+                                                 <button id="update_price_taxi_button_click" onclick="update_price_taxi('.$row["taxi_id"].')" class="button button5" style="background-color: #ffdd00;color: #3c3c3c;width: 100%;">Calculate Price</button>
+                                             </div>
+                                         </div>
+                                   </div>
+                                   <!--Buttons-->
+
+                                   <hr class="col-lg-12 px-3" style="color:red; ">
 
                                <div class="col-lg-12 mt-2">
-                                                     <div class="row ">
-                                                               <div class="col-6">
+                                                         <div class="row ">
+
+                                                                <div class="col-6">
                                                                      <div class="mr-1 mt-1">
-                                                                         <h1 style="margin: 0;">  '.$row["taxi_price"].'  </h1>
-                                                                       <p>Per KM</p>
+                                                                         <h1 tyle="margin: 0;"> <span id="price_taxi_out">'.$row["taxi_price_day"].' </span> ₹ </h1>
+                                                                       <p>Total</p>
                                                                  </div>
+                                                                 </div>
+
+                                                                   <div class="col-6">
+                                                                         <div class="mr-1 mt-1">
+                                                                             <h3 style="margin: 0;"> <span id="price_taxi_in">'.$row["taxi_price_day"].'</span>  ₹ </h3>
+                                                                           <p>Price for: 1 Day</p>
+                                                                          </div>
+                                                                     </div>
+
                                                            </div>
                                                  <hr class="col-lg-12 px-3" style="color:red; ">
 
@@ -958,7 +986,7 @@ $result = mysqli_query($db, $sql);
                                <div class="col-lg-12 my-0">
                                      <div class="row">
                                          <div class="col-6 p-1">
-                                             <button onclick="addtocart_taxi('.$row[".taxi_id."].')" class="button button5" style="background-color: #ffdd00;color: #3c3c3c;width: 100%;">Book Now</button>
+                                             <button onclick="addtocart_taxi_outstation('.$row["taxi_id"].')" class="button button5" style="background-color: #ffdd00;color: #3c3c3c;width: 100%;">Book Now</button>
                                          </div>
                                          <div class="col-6 p-1">
                                              <button onclick="show_contact_taxi()" class="button button5" style="background: #3c3c3c;width: 100%;">Contact Now</button>
@@ -1173,7 +1201,7 @@ $result = mysqli_query($db, $sql);
                                       <!--People -->
                                       <div class="col-6 p-1 my-1">
                                         <div class="form-group">
-                                        <label for="">(Adults: 12+ years)</label>
+                                        <label for="">(Adults: 5+ years)</label>
                                         <select onchange="update_options_tour('.$row["tour_id"].');" class="form-control" id="tour_adult_count" name="tour_adult_count">
                                           <option value="1">1</option>
                                           <option value="2">2</option>
@@ -1184,7 +1212,7 @@ $result = mysqli_query($db, $sql);
                                           <option value="7">7</option>
                                           <option value="8">8</option>
                                         </select>
-                                          <small class="form-text">Number Of Adults(12+ years);.</small>
+                                          <small class="form-text">Number Of Adults(5+ years);.</small>
                                         </div>
                                       </div>
                                         <!--People-->
@@ -1192,7 +1220,7 @@ $result = mysqli_query($db, $sql);
                                       <!--People -->
                                       <div class="col-6 p-1 my-1">
                                         <div class="form-group">
-                                        <label for="">(Children: 3-11years)</label>
+                                        <label for="">(Children: 0-5years)</label>
                                         <select onchange="update_options_tour('.$row["tour_id"].');" class="form-control" id="tour_child_count" name="tour_child_count">
                                           <option value="0">0</option>
                                           <option value="1">1</option>
@@ -1204,7 +1232,7 @@ $result = mysqli_query($db, $sql);
                                           <option value="7">7</option>
                                           <option value="8">8</option>
                                         </select>
-                                          <small class="form-text">Number Of Childern(3-11 ).</small>
+                                          <small class="form-text">Number of children(0-5).</small>
                                         </div>
                                       </div>
                                         <!--People-->
@@ -1218,7 +1246,7 @@ $result = mysqli_query($db, $sql);
                                         <select class="form-control" id="tour_cab_type" name="tour_cab_type" requierd disabled>
                                           <option value="">Select..</option>
                                         </select>
-                                          <small class="form-text">Your Preferd Cab.</small>
+                                          <small class="form-text">Your preferred cab.</small>
                                         </div>
                                       </div>
                                         <!--Cab Type-->
@@ -1235,94 +1263,26 @@ $result = mysqli_query($db, $sql);
                                           <option value="4">4 Star Accomodation</option>
                                           <option value="5">5 Star Accomodation</option>
                                         </select>
-                                          <small class="form-text">Your Preferd Hotel.</small>
+                                          <small class="form-text">Your preferred hotel.</small>
                                         </div>
                                       </div>
                                         <!--Hotel Type-->
 
                                         <!--Start date -->
-                                        <div class="col-4 p-1 my-1">
-                                        <div class="form-group">
-                                        <label for="tour_start_date">Date</label>
-                                        <select class="form-control" id="tour_start_date" name="tour_start_date">
-                                          <option value="1">1</option>
-                                          <option value="2">2</option>
-                                          <option value="3">3</option>
-                                          <option value="4">4</option>
-                                          <option value="5">5</option>
-                                          <option value="6">6</option>
-                                          <option value="7">7</option>
-                                          <option value="8">8</option>
-                                          <option value="9">9</option>
-                                          <option value="10">10</option>
-                                          <option value="11">11</option>
-                                          <option value="12">12</option>
-                                          <option value="13">13</option>
-                                          <option value="14">14</option>
-                                          <option value="15">15</option>
-                                          <option value="16">16</option>
-                                          <option value="17">17</option>
-                                          <option value="18">18</option>
-                                          <option value="19">19</option>
-                                          <option value="20">20</option>
-                                          <option value="21">21</option>
-                                          <option value="22">22</option>
-                                          <option value="23">23</option>
-                                          <option value="24">24</option>
-                                          <option value="25">25</option>
-                                          <option value="26">26</option>
-                                          <option value="27">27</option>
-                                          <option value="28">28</option>
-                                          <option value="29">29</option>
-                                          <option value="30">30</option>
-                                          <option value="31">31</option>
-
-                                        </select>
-                                          <small class="form-text">Your Preferd Date</small>
-                                        </div>
-                                      </div>
-
-
-                                        <div class="col-4 p-1 my-1">
+                                        <div class="col-12 p-1 my-1">
                                           <div class="form-group">
-                                            <label for="tour_start_month">Month</label>
-                                            <select class="form-control" id="tour_start_month" name="tour_start_month" requierd>
-                                             <option  value="Janaury" >Janaury</option>
-                                             <option  value="February" >February</option>
-                                             <option  value="March" >March</option>
-                                             <option  value="April" >April</option>
-                                             <option  value="May" >May</option>
-                                             <option  value="June" >June</option>
-                                             <option  value="July" >July</option>
-                                             <option  value="August">August</option>
-                                             <option  value="September">September</option>
-                                             <option  value="October">October</option>
-                                             <option  value="November">November</option>
-                                             <option  value="December">December</option>
-                                            </select>
-
-                                            <small class="form-text">Your Preferd Month.</small>
+                                            <label for="number">Date</label>
+                                            <input type="date" class="form-control" id="tour_start_date" name="tour_start_date" placeholder="Check out" required>
+                                            <small class="form-text">Your Preferd Date for tour to start (mm/dd/yyy). may be subject to change</small>
                                             </div>
                                         </div>
-
-                                        <div class="col-4 p-1 my-1">
-                                        <div class="form-group">
-                                          <label for="tour_start_year">Year</label>
-                                          <select class="form-control" id="tour_start_year" name="tour_start_year" requierd>
-                                          <option  value="2019" >2019</option>
-                                          <option  value="2020" >2020</option>
-                                          <option  value="2021" >2021</option>
-                                         </select>
-                                          <small class="form-text">Your Preferd Year.</small>
-                                          </div>
-                                      </div>
-                                        <!--Start date-->
+                                        <!--Start Date -- >
 
                                         <!--Buttons-->
                                         <div class="col-lg-12 my-0">
                                               <div class="row">
                                                   <div class="col-12 p-1">
-                                                      <button onclick="update_price_tour('.$row["tour_id"].')" class="button button5" style="background-color: #ffdd00;color: #3c3c3c;width: 100%;">Calculate Price</button>
+                                                      <button id="update_price_tour_button_click" onclick="update_price_tour('.$row["tour_id"].')" class="button button5" style="background-color: #ffdd00;color: #3c3c3c;width: 100%;">Calculate Price</button>
                                                   </div>
                                               </div>
                                         </div>
@@ -1363,11 +1323,25 @@ $result = mysqli_query($db, $sql);
                                         <!--Buttons-->
                                         <div class="col-lg-12 my-0">
                                               <div class="row">
+                                              ';
+                                                  if ($login_flag == 1) {
+                                                             // code...
+                                                  echo '
                                                   <div class="col-6 p-1">
                                                       <button id="book_button" onclick="addtocart_tour('.$row["tour_id"].')" class="button button5" style="background-color: #ffdd00;color: #3c3c3c;width: 100%;">Book Now</button>
                                                   </div>
+                                                  ';
+                                                }else{
+                                                  echo '
                                                   <div class="col-6 p-1">
-                                                      <button class="button button5" style="background: #3c3c3c;width: 100%;">Contact Now</button>
+                                                 <a href="./login.php">  <button class="button button5" style="background: #3c3c3c;width: 100%;">Login To Continue</button></a>
+                                                  </div>
+                                                  ';
+                                                }
+                                                  echo '
+
+                                                  <div class="col-6 p-1">
+                                                      <button onclick="show_contact_tour()" class="button button5" style="background: #3c3c3c;width: 100%;">Contact Now</button>
                                                   </div>
                                               </div>
                                         </div>
@@ -1430,6 +1404,60 @@ $result = mysqli_query($db, $sql);
                             </div>
                         </div>
                     </div>
+
+                    <!-- Modal -->
+                    <div class="modal fade" id="modelforcontact" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                      <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+
+                                  <section class="contact">
+                                      <div class="container py-lg-0 py-sm-3">
+
+                                          <div class="col-lg-12 col-md-12 contact-left-form" style="box-shadow: none;">
+                                          <h2 class="heading text-capitalize text-center mb-sm-5 mb-4"> Get In Touch with us</h2>
+                                          <ul class="list-unstyled row text-center mt-lg-5 mt-4 px-lg-5">
+
+
+
+                                          </ul>
+                                          <hr>
+                                              <form action="#" method="post">
+                                                  <div class=" form-group contact-forms">
+                                                      <input type="text" class="form-control" placeholder="Name" required="">
+                                                  </div>
+                                                  <div class="form-group contact-forms">
+                                                      <input type="email" class="form-control" placeholder="Email" required="">
+                                                  </div>
+                                                  <div class="form-group contact-forms">
+                                                      <input type="text" class="form-control" placeholder="Phone" required="">
+                                                  </div>
+                                                  <div class="form-group contact-forms">
+                                                      <input type="text" class="form-control" placeholder="Message" rows="3" required="">
+                                                  </div>
+                                                  <button class="btn btn-block sent-butnn">Send</button>
+                                              </form>
+                                          </div>
+
+                                      </div>
+
+                                  </section>
+                                  <!-- //Contact -->
+
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                     <script>
                     ///////////////////////////////////////////////tour_add///////////////////////////////////////////////////
 
@@ -1717,11 +1745,11 @@ $result = mysqli_query($db, $sql);
 
 
 
+
+
             <script type="text/javascript">
 
             ///////////////////////////////////////////////Hotel_add///////////////////////////////////////////////////
-
-
 
             function addtocart_hotel(id) {
 
@@ -1757,50 +1785,229 @@ $result = mysqli_query($db, $sql);
             }
             ///////////////////////////////////////////////Hotel_add///////////////////////////////////////////////////
 
-            function addtocart_tour(id) {
-              var tour_start_date = document.getElementById("tour_start_date").value;
-              var tour_head_count = document.getElementById("tour_people_count").value;
-              var cab_type = document.getElementById("tour_cab_type").value;
-              var room_type = document.getElementById("tour_hotel_type").value;
-              var tour_price = document.getElementById("price_tour").innerHTML;
+            function book_now_hotel(id) {
 
-              if (tour_head_count == '' && tour_start_date == 'Select..') {
-                  update_staus_error("Please Provide number of people and Start Date");
-              }else if (tour_head_count == '' && tour_start_date != 'Select..') {
-                  update_staus_error("Please Provide number of people");
-              }else if(tour_head_count != '' && tour_start_date == 'Select..'){
-                update_staus_error("Please Provide Start Date");
+              const checkin_date = document.getElementById('checkin').value;
+              const checkout_date = document.getElementById('checkout').value;
+              const number_room = document.getElementById('room_count').value;
+              const number_adult = document.getElementById('adult_count').value;
+              const price = document.getElementById('price_hotel').innerHTML;
+
+              var query = "book_now_hotel.php?checkin_date="+ checkin_date +"&checkout_date=" +checkout_date+ "&number_room=" +number_room+"&number_adult=" +number_adult+"&price="+price;
+              window.location.href = query;
+
+            }
+            ///////////////////////////////////////////////Hotel_add///////////////////////////////////////////////////
+
+
+
+            function addtocart_tour(id) { //toursection
+
+
+              var tour_start_date = document.getElementById("tour_start_date").value
+
+              if (tour_start_date != '') {
+                var adult = document.getElementById("tour_adult_count").value;
+                var child = document.getElementById("tour_child_count").value;
+                var cab = document.getElementById("tour_cab_type").value;
+                var hotel = document.getElementById("tour_hotel_type").value;
+
+                var tour_price = document.getElementById("price_tour").innerHTML;
+
+
+                  $.ajax({
+                      type: "POST",
+                      url: "cart-add-tour.php",
+                      data: {
+                        tour_id: id,
+                        tour_start_date : tour_start_date,
+                        tour_adult_count : adult,
+                        tour_child_count : child,
+                        tour_cab_type : cab,
+                        tour_hotel_type : hotel,
+                        tour_price : tour_price
+                      },
+                      dataType: 'JSON',
+                      success: function(response) {
+                          if (response == 1) {
+                              console.log(response);
+                              update_staus_success("Added To cart Sucessfully");
+                          }else{
+                              console.log(response);
+                                update_staus_error("Tour Already In Cart");
+                          }
+                      }
+                  });
               }else{
+                update_staus_success("Please select a date");
 
-                  console.log(tour_start_date+"_"+tour_head_count+"_"+cab_type+"_"+room_type+"_"+tour_price);
+              }
 
 
-                $.ajax({
-                    type: "POST",
-                    url: "cart-add-tour.php",
-                    data: {
-                      tour_id: id,
-                      tour_start_date : tour_start_date,
-                      tour_head_count : tour_head_count,
-                      tour_cab_type : cab_type,
-                      tour_hotel_type : room_type,
-                      tour_price : tour_price
-                    },
-                    dataType: 'JSON',
-                    success: function(response) {
-                        if (response == 1) {
-                            console.log(response);
-                            update_staus_success("Added To cart Sucessfully");
-                        }else{
-                            console.log(response);
-                              update_staus_error("Somthing Happend");
-                        }
-                    }
-                });
+
+
+
+            }
+
+
+            function addtocart_taxi(id) { //taxisection
+
+              console.log(id);
+              var taxi_pickup_date = document.getElementById("taxi_pickup_date_single").value;
+              var pickup_time = document.getElementById("pickup_time_single").value;
+              var pickup_ampm_single = document.getElementById("pickup_ampm_single").value;
+              var pickup_location = document.getElementById("pickup_location_single").value;
+              var taxi_price_single = document.getElementById("taxi_price_single").innerHTML;
+
+              var pickup_time_send = pickup_time +'-' + pickup_ampm_single ;
+
+              if (give_diffrence_taxi_date()>0) {
+
+                if(pickup_location != 0){
+                  $.ajax({
+                      type: "POST",
+                      url: "cart-add-taxi.php",
+                      data: {
+                        taxi_id: id,
+                        taxi_pickup_date : taxi_pickup_date,
+                        pickup_time : pickup_time_send,
+                        pickup_location : pickup_location,
+                        taxi_price_single : taxi_price_single,
+                      },
+                      dataType: 'JSON',
+                      success: function(response) {
+                          if (response == 1) {
+                              console.log(response);
+                              update_staus_success("Added To cart Sucessfully");
+                          }else{
+                              console.log(response);
+                                update_staus_error("Somthing Happend");
+                          }
+                      }
+                  });
+                }else {
+                  update_staus_success("Please Select A Location");
+
+                }
+
+
+              }else{
+                update_staus_success("Select a date in future");
+
+              }
+            }
+
+
+            function update_price_taxi(){
+
+              if (give_diffrence_taxi_out_date() > 1) {
+                var price_taxi_out = document.getElementById("price_taxi_in").innerHTML;
+                var num_days = give_diffrence_taxi_out_date();
+                price = num_days * price_taxi_out;
+                console.log(price);
+                document.getElementById("price_taxi_out").innerHTML = price;
+              }else {
+                update_staus_success("Please Select Valid Dates");
 
               }
 
             }
+
+
+            function addtocart_taxi_outstation(id) { //taxisection
+
+
+              var taxi_out_startdate  = document.getElementById("taxi_out_startdate").value;
+              var taxi_out_starttime  = document.getElementById("taxi_out_starttime").value;
+              var taxi_out_ampm       = document.getElementById("taxi_out_ampm").value;
+              var taxi_out_leave_date = document.getElementById("taxi_out_leave_date").value;
+              var taxi_out_leave_time = document.getElementById("taxi_out_leave_time").value;
+              var taxi_out_leave_ampm = document.getElementById("taxi_out_leave_ampm").value;
+              var pickup_location_out = document.getElementById("pickup_location_out").value;
+              var leave_car_location  = document.getElementById("leave_car_location").value;
+              var price_taxi_out      = document.getElementById("price_taxi_out").innerHTML;
+
+              var taxi_out_starttime_send = taxi_out_starttime +'-' + taxi_out_ampm ;
+              var taxi_out_leave_time_send = taxi_out_leave_time +'-' + taxi_out_leave_ampm ;
+
+
+              /*
+              console.log(taxi_out_startdate);
+              console.log(taxi_out_starttime);
+              console.log(taxi_out_ampm);
+              console.log(taxi_out_leave_date);
+              console.log(taxi_out_leave_time);
+              console.log(taxi_out_leave_ampm);
+              console.log(pickup_location_out);
+              console.log(leave_car_location);
+              console.log(price_taxi_out);
+*/
+
+              if (give_diffrence_taxi_out_date() > 0) {
+
+                    if(pickup_location_out != 0){
+
+                      if (leave_car_location != 0) {
+
+
+                        $.ajax({
+                            type: "POST",
+                            url: "cart-add-taxi-out.php",
+                            data: {
+                              taxi_id: id,
+                              taxi_out_startdate : taxi_out_startdate,
+                              taxi_out_starttime : taxi_out_starttime_send,
+                              taxi_out_leave_date : taxi_out_leave_date,
+                              taxi_out_leave_time : taxi_out_leave_time_send,
+                              pickup_location_out : pickup_location_out,
+                              leave_car_location :leave_car_location,
+                              price_taxi_out : price_taxi_out,
+                            },
+                            dataType: 'JSON',
+                            success: function(response) {
+                                if (response == 1) {
+                                    console.log(response);
+                                    update_staus_success("Added To cart Sucessfully");
+                                }else{
+                                    console.log(response);
+                                      update_staus_error("Somthing Happend");
+                                }
+                            }
+                        });
+
+                      }else {
+                        update_staus_success("Please Select The Drop Location");
+
+                      }
+
+                    }else {
+                      update_staus_success("Please Select The Pickup Location");
+
+                    }
+
+              }else{
+                update_staus_success("Please Select Valid Dates");
+
+              }
+
+
+
+
+              /*
+              taxi_out_startdate
+              taxi_out_starttime
+              taxi_out_ampm
+              taxi_out_leave_date
+              taxi_out_leave_time
+              taxi_out_leave_ampm
+              pickup_location_out
+              leave_car_location
+              price_taxi_out
+              */
+
+
+            }
+
 
 
 
@@ -1816,6 +2023,13 @@ $result = mysqli_query($db, $sql);
                             }
 
                             function show_contact_hotel() {
+                              $('#modelforcontact').modal({
+                                  keyboard: true
+                              });
+                            }
+
+
+                            function show_contact_tour() {
                               $('#modelforcontact').modal({
                                   keyboard: true
                               });
@@ -1852,7 +2066,14 @@ $result = mysqli_query($db, $sql);
                         update_options(1);
 
                           function update_options(num_people){
-                          document.getElementById("book_button").innerHTML = " Book Now "; //reset the book now button
+                            try {
+                              document.getElementById("book_button").innerHTML = " Book Now "; //reset the book now button
+
+                            } catch (e) {
+
+                            } finally {
+
+                            }
 
                           $("#tour_cab_type").removeAttr('disabled'); //enable the select taxi option
                           //---------//
@@ -1878,9 +2099,6 @@ $result = mysqli_query($db, $sql);
 
 
                         function update_price_tour(tour_id) {
-
-
-
                          var adult = document.getElementById("tour_adult_count").value;
                          var child = document.getElementById("tour_child_count").value;
                          var cab = document.getElementById("tour_cab_type").value;
@@ -1910,9 +2128,10 @@ $result = mysqli_query($db, $sql);
 
                         }
 
-
+                        var click_count = 0;
                         function update_price_hotel(hell,hotel_id,mode)
                         {
+
                           var stay_days= give_diffrence_hotel_date();
 
                           console.log(stay_days);
@@ -1951,7 +2170,11 @@ $result = mysqli_query($db, $sql);
                                 }
                             });
                           }else{
-                            update_staus_error("Please Select Minimin Of One Day");
+                            if (click_count > 0) {
+                              update_staus_error("Please Select Minimin Of One Day");
+                            }else {
+                              click_count++;
+                            }
                           }
                         }
 
@@ -1982,8 +2205,92 @@ $result = mysqli_query($db, $sql);
 
                         <script>
                         function updatePrice(){
-                          document.getElementById("button_to_click_for_hotel_price").click();
+                          try{
+                            document.getElementById("button_to_click_for_hotel_price").click();
+                          }catch(e){
+
+                          }finally{
+
+                          }
+
+                          try {
+                            document.getElementById("update_price_tour_button_click").click();
+                          } catch (e) {
+
+                          } finally {
+
+                          }
                         }
+
+
+
+                        function give_diffrence_taxi_date(){
+                          var checkout  = document.getElementById("taxi_pickup_date_single").value;
+
+                          var checkin = Date();
+
+                          const _MS_PER_DAY = 1000 * 60 * 60 * 24;
+                          // a and b are javascript Date objects
+                          function dateDiffInDays(a, b) {
+                            // Discard the time and time-zone information.
+                            const utc1 = Date.UTC(a.getFullYear(), a.getMonth(), a.getDate());
+                            const utc2 = Date.UTC(b.getFullYear(), b.getMonth(), b.getDate());
+
+                            return Math.floor((utc2 - utc1) / _MS_PER_DAY);
+                            }
+
+                          const a = new Date(checkin),
+                          b = new Date(checkout),
+                          difference = dateDiffInDays(a, b);
+                          console.log(difference);
+                          return difference;
+
+                        }
+
+                        function give_diffrence_taxi_out_date(){
+                          var  checkin  = document.getElementById("taxi_out_startdate").value;
+
+                          var checkout = document.getElementById("taxi_out_leave_date").value;
+
+
+                          const _MS_PER_DAY = 1000 * 60 * 60 * 24;
+                          // a and b are javascript Date objects
+                          function dateDiffInDays(a, b) {
+                            // Discard the time and time-zone information.
+                            const utc1 = Date.UTC(a.getFullYear(), a.getMonth(), a.getDate());
+                            const utc2 = Date.UTC(b.getFullYear(), b.getMonth(), b.getDate());
+
+                            return Math.floor((utc2 - utc1) / _MS_PER_DAY);
+                            }
+
+                          const a = new Date(checkin),
+                          b = new Date(checkout),
+                          difference = dateDiffInDays(a, b);
+                          console.log(difference);
+                          return difference;
+
+                        }
+                        </script>
+                          <script type="text/javascript"> //Prevents dates to go in past
+                        $(function(){
+                          var dtToday = new Date();
+
+                          var month = dtToday.getMonth() + 1;
+                          var day = dtToday.getDate();
+                          var year = dtToday.getFullYear();
+                          if(month < 10)
+                          month = '0' + month.toString();
+                          if(day < 10)
+                          day = '0' + day.toString();
+                          var minDate= year + '-' + month + '-' + day;
+
+                          $('#checkin').attr('min', minDate);
+                          $('#checkout').attr('min', minDate);
+                          $('#taxi_pickup_date_single').attr('min', minDate);
+                          $('#taxi_out_startdate').attr('min', minDate);
+                          $('#taxi_out_leave_date').attr('min', minDate);
+                          $('#tour_start_date').attr('min', minDate);
+                        });
                         </script>
 
 </body>

@@ -42,12 +42,34 @@ $result = mysqli_query($db, $sql);
           <div class="footer-text">
             <p>Find Us Here.</p>
           </div>
-          <ul class="social_section_1info">
-            <li class=""><a href=""><i class="fab fa-facebook-f"></i></a></li>
-            <li class=""><a href=""><i class="fab fa-twitter"></i></i></a></li>
-            <li class=""><a href="https://www.instagram.com/cabnotels_/?igshid=13y7x5l1p5t4k"><i class="fab fa-instagram"></i></a></li>
 
-          </ul>
+          <div class="col-12">
+            <div class="row">
+
+              <div class="" style="width: 40px;height: 40px;background: #4267b2;display: flex;align-items: center;justify-content: center;margin: 0 10px 0 0;">
+                <a class="m-0 p-0" href="https://www.facebook.com/cabnotels1/" style="
+    color: #fff;
+    font-size: 1.2em;
+"><i class="fab fa-facebook-f"></i></a>
+              </div>
+
+              <div class="" style="width: 40px;height: 40px;background: #1DA1F2;display: flex;align-items: center;justify-content: center;margin: 0 10px 0 0;">
+                <a class="m-0 p-0" href="#" style="
+    color: #fff;
+    font-size: 1.2e;
+"><i class="fab fa-twitter"></i></a>
+              </div>
+
+              <div class="" style="width: 40px;height: 40px;background: #F56041;display: flex;align-items: center;justify-content: center;margin: 0 10px 0 0;">
+                <a class="m-0 p-0" href="https://www.instagram.com/cabnotels_/?igshid=13y7x5l1p5t4k" style="
+    color: #fff;
+    font-size: 1.2em;
+"><i class="fab fa-instagram"></i></a>
+              </div>
+
+            </div>
+          </div>
+
         </div>
 
         <div class="col-lg-3 col-sm-6 mt-lg-0 mt-4 footer-grid_section_1its_w3">
@@ -61,6 +83,8 @@ $result = mysqli_query($db, $sql);
 									<li><a href="contact.php" class="scroll">Contact Us</a></li>
                   <li><a href="termsandconditions.php" class="scroll">Terms & Conditions</a></li>
                   <li><a href="privacypolicy.php" class="scroll">Privacy Policy</a></li>
+                  <li><a href="refundpolicy.php" class="scroll">Cancellation & Refund Policy</a></li>
+
 
 								</ul>
 							</div>

@@ -372,6 +372,107 @@ if($_SESSION['auth'] == false){
     </div>
   </div>
 </div>
+
+
+<div class="modal fade" id="modal_price_tour_update_'.$row["hotel_id"].'" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+<div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+    <div class="modal-content">
+
+  <div class="modal-header">
+    <h5 class="modal-title" id="exampleModalLongTitle">Pricing Deatils For   '.$row["hotel_name"].'</h5>
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>';
+
+  $sql_price = 'select * from hotel_price WHERE hotel_id = '.$row["hotel_id"].'';
+  $result_price = mysqli_query($db, $sql_price);
+  $counting = 0;
+  $row_price= mysqli_fetch_assoc($result_price);
+
+  $output .='
+  <div class="container">
+    <h5>Fill the Pricing corresponding to the number of people</h5>
+
+  <div class="col-12 my-4">
+  <form action="update_price_hotel.php" method="POST">
+
+      <div class="form-group row">
+        <label for="p_one" class="col-sm-2 col-form-label">One</label>
+        <div class="col-sm-10">
+          <input type="number" class="form-control" id="p_one" name="p_one" value="'.$row_price["p_1"].'" value="'.$row_price["p_1"].'" required="">
+        </div>
+      </div>
+
+      <div class="form-group row">
+      <label for="p_two" class="col-sm-2 col-form-label">Two</label>
+      <div class="col-sm-10">
+        <input type="number" class="form-control" id="p_two" name="p_two" value="'.$row_price["p_2"].'" required="">
+      </div>
+    </div>
+
+    <div class="form-group row">
+    <label for="p_three" class="col-sm-2 col-form-label">Three</label>
+    <div class="col-sm-10">
+      <input type="number" class="form-control" id="p_three" name="p_three" value="'.$row_price["p_3"].'" required="">
+    </div>
+  </div>
+
+
+  <div class="form-group row">
+  <label for="p_four" class="col-sm-2 col-form-label">four</label>
+  <div class="col-sm-10">
+    <input type="number" class="form-control" id="p_four" name="p_four" value="'.$row_price["p_4"].'" required="">
+  </div>
+</div>
+
+
+<div class="form-group row">
+<label for="p_five" class="col-sm-2 col-form-label">Five</label>
+<div class="col-sm-10">
+  <input type="number" class="form-control" id="p_five" name="p_five" value="'.$row_price["p_5"].'" required="">
+</div>
+</div>
+
+
+<div class="form-group row">
+<label for="p_six" class="col-sm-2 col-form-label">Six</label>
+<div class="col-sm-10">
+  <input type="number" class="form-control" id="p_six" name="p_six" value="'.$row_price["p_6"].'" required="">
+</div>
+</div>
+
+
+<div class="form-group row">
+<label for="p_seven" class="col-sm-2 col-form-label">Seven</label>
+<div class="col-sm-10">
+  <input type="number" class="form-control" id="p_seven" name="p_seven" value="'.$row_price["p_7"].'" required="">
+</div>
+</div>
+
+
+<div class="form-group row">
+<label for="p_eight" class="col-sm-2 col-form-label">Eight</label>
+<div class="col-sm-10">
+  <input type="number" class="form-control" id="p_eight" name="p_eight" value="'.$row_price["p_8"].'" required="">
+</div>
+</div>
+
+
+<input type="hidden" class="form-control" id="hotel_id" name="hotel_id" value="'.$row["hotel_id"].'">
+
+
+
+<button type="submit" class="btn btn-primary">Submit</button>
+<button type="Reset" class="btn btn-primary">Reset</button>
+
+    </form>
+      </div>
+      </div>
+    </div>
+  </div>
+</div>
+
                 ';
                     }
                   }

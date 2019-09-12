@@ -16,6 +16,7 @@
          $_SESSION['user_locality']= $row['user_locality'];
          $_SESSION['user_adress'] =$row['user_adress'];
          $_SESSION['user_image'] =$row['picture'];
+         $_SESSION['ver_status'] = $row['status'];
 
    }
   else{

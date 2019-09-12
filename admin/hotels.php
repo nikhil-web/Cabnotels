@@ -236,6 +236,10 @@
                <option value="5">5</option>
             </select>
             </div>
+            <div class="form-group">
+              <label for="exampleFormControlInput1">Hotel Base Price (1 guest 1 night)</label>
+              <input type="number" class="form-control" id="price" name="price" placeholder="Hotel Base Price (1 guest 1 night)">
+            </div>
 
             <button action="submit" type="submit" class="btn btn-success btn-flat"><i class="fa fa-check-square-o"></i> Add</button>
             <button action="reset" type="reset" class="btn btn-primary btn-flat"><i class="fa fa-check-square-o"></i> Reset</button>
@@ -369,6 +373,7 @@ update_hotel_modal();
               dataType: 'JSON',
               success: function(response) {
                   console.log(response);
+                  location.reload();
               }
           });
       }

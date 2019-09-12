@@ -27,6 +27,8 @@
             $error_fetch = mysqli_real_escape_string($db,mysqli_error($db));
             echo $error_fetch;
       }else{
+        $sql = "UPDATE hotels SET price_flag = '1' WHERE hotels.hotel_id = '$hotel_id'";
+        $result=mysqli_query($db,$sql);
         navigate("hotels.php");
       }
 

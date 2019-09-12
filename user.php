@@ -7,6 +7,14 @@
 }else{
   $login_flag = 1;
 }
+if (isset($_GET['query'])) {
+  // code...
+  $flag_query = mysqli_real_escape_string($db,$_GET['query']);
+}else {
+  $flag_query = "";
+}
+
+
 ?>
 <!doctype html>
 <html lang="en">
@@ -37,7 +45,221 @@
 
      ?>
      <style>
+     /*--header--*/
+     .navigation{
+       position: relative;
+       background-color: #3c3c3c;
+       z-index: 999;
+       transition-duration: 0.5s;
+     }
 
+
+
+     .inner-nav{
+       width: 90%;
+       margin: auto;
+       display: flex;
+       justify-content: space-between;
+     }
+
+     .logo-holder{
+     width:80px;
+     }
+
+     .linkholder a {
+         background: none;
+         padding: 10px 25px;
+         display: block;
+         margin-top: -7px;
+         text-transform: uppercase;
+         color: #ffffff;
+         letter-spacing: 1px;
+         border: 1px solid #ffffff1f;
+         font-size: 14px;
+         margin-right: 2px;
+     }
+
+     .combine-links{
+       display: flex;
+     align-items: center;
+     vertical-align: middle;
+     }
+
+     .link-holder{
+         display: flex;
+         align-items: center;
+         justify-content: center;
+     }
+
+     .link-holder a {
+         background: none;
+         padding: 10px 25px;
+         display: block;
+         margin-top: -7px;
+         text-transform: uppercase;
+         color: #ffffff;
+         letter-spacing: 1px;
+         border: 1px solid #ffffff00;
+         font-size: 14px;
+         margin-right: 2px;
+     }
+
+     .link-holder a:hover{
+       background: #ffdd00;
+         color: #3c3c3c;
+         border: 1px solid #ffffff;
+     }
+
+     .link-active{
+       background: #ffdd00 !important;
+         color: #3c3c3c !important;
+     }
+
+
+     .hamburger-holder{
+         transition-duration: 0.5s;
+         display: flex;
+         position: relative;
+         background: #ffdd00;
+         width: 50px;
+         height: 50px;
+         align-items: center;
+         justify-content: center;
+         margin-bottom: 10px;
+         border-radius: 25px;
+     }
+
+     .login-cart{
+       display:flex;
+       margin: 0 0 0 20px;
+     }
+
+     .hamburger-icon-holder{
+       display: none;
+     }
+
+     /*updated media queries */
+
+
+     /*UHD devices */
+
+     @media (max-width: 1440px){
+
+
+     }
+
+
+     /*tablets */
+
+     @media (max-width: 768px){
+
+       .hamburger-icon-holder{
+         display: flex;
+         justify-content: space-between;
+       }
+
+       /*--header--*/
+       .navigation{
+         height: 70px;
+         position: relative;
+         z-index: 999;
+         overflow: hidden;
+       }
+
+
+
+       .inner-nav{
+         width: 90%;
+         margin: auto;
+         display: block;
+         justify-content: space-between;
+       }
+
+       .logo-holder{width:80px;position: relative;margin: auto;margin-bottom: 44px;}
+
+       .linkholder a {
+           background: none;
+           padding: 10px 25px;
+           display: block;
+           margin-top: -7px;
+           text-transform: uppercase;
+           color: #ffffff;
+           letter-spacing: 1px;
+           border: 1px solid #ffffff1f;
+           font-size: 14px;
+           margin-right: 2px;
+       }
+
+       .combine-links{
+         display: block;
+       }
+
+       .link-holder{
+           display: block;
+           align-items: center;
+           justify-content: center;
+           margin: 10px;
+           text-align: center;
+       }
+
+       .link-holder a {
+           background: none;
+           padding: 10px 25px;
+           display: block;
+           margin-top: -7px;
+           text-transform: uppercase;
+           color: #ffffff;
+           letter-spacing: 1px;
+           border: 1px solid #ffffff1f;
+           font-size: 14px;
+           margin-right: 2px;
+       }
+
+       .link-holder a:hover{
+         background: #ffdd00;
+           color: #3c3c3c;
+           border: 1px solid #ffffff;
+       }
+
+       .login-cart{
+         display:flex;
+         justify-content: space-between;
+         margin: 20 0 0 0;
+       }
+
+       /*--header--*/
+     }
+
+     /*large phone */
+
+
+     @media (max-width: 425px){
+
+     }
+
+
+     /*medium phone*/
+     @media (max-width: 375px){
+
+
+     }
+
+
+     /*small phone*/
+     @media (max-width: 320px){
+
+
+     }
+
+
+     .expand{
+       height: 100vh !important;
+       background: #3c3c3c;
+     }
+
+     .rotate{
+       transform: rotate(90deg);
+     }
        .center {
              margin: auto;
              margin-top: 10px;
@@ -106,9 +328,20 @@
          }
 
      </style>
+
+
+
 </head>
 
 <body id="body_ace">
+
+
+  <?php
+   if ($_SESSION["ver_status"] == 0){
+     include 'mailer/welcome_mail.php';
+   }
+   ?>
+
     <!-- ============================================================== -->
     <!-- main wrapper -->
     <!-- ============================================================== -->
@@ -117,54 +350,7 @@
         <!-- navbar -->
         <!-- ============================================================== -->
         <div class="dashboard-header">
-            <nav class="navbar navbar-expand-lg bg-white fixed-top">
-                <a class="navbar-brand" href="index.php"><img style="width: 60px;" src="images/logo.png" alt="">   </a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                    <i class="fas fa-bars"></i>
-                </button>
-                <div class="collapse navbar-collapse " id="navbarSupportedContent">
-                    <ul class="navbar-nav ml-auto navbar-right-top">
-                        <li class="nav-item dropdown notification">
-                            <a class="nav-link nav-icons" href="#" id="navbarDropdownMenuLink1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-fw fa-bell"></i> <span class="indicator"></span></a>
-                            <ul class="dropdown-menu dropdown-menu-right notification-dropdown">
-                                <li>
-                                    <div class="notification-title"> Notification</div>
-                                    <div class="notification-list">
-                                        <div class="list-group">
-                                            <a href="#" class="list-group-item list-group-item-action active">
-                                                <div class="notification-info">
-                                                    <div class="notification-list-user-block"><span class="notification-list-user-name">Nikhil Pandey</span>Your Booking is accepted
-                                                        <div class="notification-date">2 min ago</div>
-                                                    </div>
-                                                </div>
-                                            </a>
-                                            <a href="#" class="list-group-item list-group-item-action">
-                                                <div class="notification-info">
-                                                    <div class="notification-list-user-block"><span class="notification-list-user-name">Your Booking ID-121212</span> Is cancled
-                                                        <div class="notification-date">2 days ago</div>
-                                                    </div>
-                                                </div>
-                                            </a>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="list-footer"> <a href="#">View all notifications</a></div>
-                                </li>
-                            </ul>
-                        </li>
-
-
-                        <li class="nav-item dropdown nav-user">
-                            <a class="nav-link nav-user-img" href="#" id="navbarDropdownMenuLink2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img src="<?php echo $_SESSION["user_image"]; ?>" alt="" class="user-avatar-md rounded-circle"></a>
-                            <div class="dropdown-menu dropdown-menu-right nav-user-dropdown" aria-labelledby="navbarDropdownMenuLink2">
-                                <a class="dropdown-item" href="#"><i class="fas fa-cog mr-2"></i>Setting</a>
-                                <a class="dropdown-item" href="logout.php"><i class="fas fa-power-off mr-2"></i>Logout</a>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-            </nav>
+            <?php include 'includes/navbar-user.php'; ?>
         </div>
         <!-- ============================================================== -->
         <!-- end navbar -->
@@ -224,18 +410,7 @@
                                     </ul>
                                     </div>
                                 </div>
-                                <div class="card-body border-top">
-                                    <h3 class="font-16">Rating</h3>
-                                    <h1 class="mb-0">4.8</h1>
-                                    <div class="rating-star">
-                                        <i class="fa fa-fw fa-star"></i>
-                                        <i class="fa fa-fw fa-star"></i>
-                                        <i class="fa fa-fw fa-star"></i>
-                                        <i class="fa fa-fw fa-star"></i>
-                                        <i class="fa fa-fw fa-star"></i>
-                                        <p class="d-inline-block text-dark"> 14 Reviews </p>
-                                    </div>
-                                </div>
+
 
                             </div>
                             <!-- ============================================================== -->
@@ -265,7 +440,7 @@
                                     </li>
 
                                     <li class="nav-item">
-                                      <a class="nav-link" id="" data-toggle="pill" href="#pills-cart" role="tab" aria-controls="pills-packages" aria-selected="false">Cart</a>
+                                      <a class="nav-link" id="cart_button_press" data-toggle="pill" href="#pills-cart" role="tab" aria-controls="pills-packages" aria-selected="false">Cart</a>
 
                                         <!--<a class="nav-link" href="cart.php" role="tab">Cart</a>-->
                                     </li>
@@ -283,24 +458,24 @@
                                             </div>
                                             <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 col-12">
                                                 <div class="card">
-                                                    <div class="card-body">
-                                                        <h1 class="mb-1">9</h1>
-                                                        <p>Upcoming</p>
+                                                    <div class="card-body" >
+                                                        <h1 class="mb-1" id="total_orders">?</h1>
+                                                        <p>Items In Cart</p>
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 col-12">
                                                 <div class="card">
                                                     <div class="card-body">
-                                                        <h1 class="mb-1">4</h1>
-                                                        <p>Completed</p>
+                                                        <h1 class="mb-1" id="completed_orders">?</h1>
+                                                        <p>Completed Orders</p>
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 col-12">
                                                 <div class="card">
                                                     <div class="card-body">
-                                                        <h1 class="mb-1">8</h1>
+                                                        <h1 class="mb-1" id="canc_orders">?</h1>
                                                         <p>Canceled</p>
                                                     </div>
                                                 </div>
@@ -328,198 +503,242 @@
                                                                     <h3 class="section-title">Upcoming Orders</h3>
                                                             </div>
 
-                                                            <?php
+                                                              <div class="row">
+                                                                <?php
+                                                                $sql = 'SELECT * FROM cart WHERE status = 0 AND user_id = '.$_SESSION["user_id"].' ORDER BY id ASC';
+                                                                $result = mysqli_query($db, $sql);
+                                                                      if (mysqli_num_rows($result) > 0) {
+                                                                        $count = 0;
+                                                                       while($row= mysqli_fetch_assoc($result)) {
 
-                                                            $sql = 'SELECT * FROM cart WHERE status = 0 AND user_id = '.$_SESSION["user_id"].' ORDER BY id DESC';
-                                                            $result = mysqli_query($db, $sql);
-                                                                  if (mysqli_num_rows($result) > 0) {
-                                                                    $count = 0;
-                                                                   while($row= mysqli_fetch_assoc($result)) {
-
-                                                                     if($row["cart_item_type"]==1){
-                                                                       $sql_hotel = 'SELECT * FROM hotels WHERE hotel_id = '.$row["item_id"].'';
-                                                                       $result_hotel = mysqli_query($db, $sql_hotel);
-                                                                             if (mysqli_num_rows($result_hotel) > 0) {
-                                                                              $row_hotel= mysqli_fetch_assoc($result_hotel);
-                                                                        echo '
-                                                                        <div class="card">
-                                                                          <div class="card-body">
-                                                                            <h5 class="card-title"><i class="fas fa-hotel"></i> Hotel Booking</h5>
-                                                                            <div class="table-responsive">
-                                                                              <table class="table">
-                                                                                <thead>
-                                                                                  <tr>
-                                                                                    <th scope="col" class="border-0 bg-light">
-                                                                                      <div class="p-2 px-3 text-uppercase">Item</div>
-                                                                                    </th>
-                                                                                    <th scope="col" class="border-0 bg-light">
-                                                                                      <div class="py-2 text-uppercase">Price</div>
-                                                                                    </th>
-                                                                                    <th scope="col" class="border-0 bg-light">
-                                                                                      <div class="py-2 text-uppercase">Details</div>
-                                                                                    </th>
-                                                                                  </tr>
-                                                                                </thead>
-                                                                                <tbody>
-                                                                                  <tr>
-                                                                                    <th scope="row" class="border-0">
-                                                                                      <div class="py-2">
-                                                                                        <div class="my-3 d-inline-block align-middle">
-                                                                                          <span class="text-muted font-italic d-block">
-                                                                                            <h5>'.$row_hotel["hotel_name"].'</h5>
-                                                                                          </span>
-                                                                                        </div>
+                                                                         if($row["cart_item_type"]==1){
+                                                                           $sql_hotel = 'SELECT * FROM hotels WHERE hotel_id = '.$row["item_id"].'';
+                                                                           $result_hotel = mysqli_query($db, $sql_hotel);
+                                                                                 if (mysqli_num_rows($result_hotel) > 0) {
+                                                                                  $row_hotel= mysqli_fetch_assoc($result_hotel);
+                                                                            echo '
+                                                                            <div class="col-lg-12">
+                                                                              <div class="card">
+                                                                                <h5 class="card-header"> Hotel Booking</h5>
+                                                                                <div class="card-body">
+                                                                                  <h3 class="card-title">'.$row_hotel["hotel_name"].'</h3>
+                                                                                  <hr />
+                                                                                    <div class="row my-3">
+                                                                                      <div class="col-4">
+                                                                                        <h5 class="card-title my-1">Booking Date</h5>
+                                                                                        <p class="card-text my-0"> <strong>From</strong></p>
+                                                                                        <p class="card-text">'.$row["start_date"].'</p>
+                                                                                        <p class="card-text my-0"> <strong>To</strong></p>
+                                                                                        <p class="card-text">'.$row["end_date"].'</p>
                                                                                       </div>
-                                                                                    </th>
-                                                                                    <td class="border-0 align-middle"><strong>'.$row["item_price"].' INR</strong></td>
-                                                                                    <td class="border-0 align-middle">
+                                                                                      <div class="col-4">
+                                                                                        <h5 class="card-title my-1">Guests</h5>
+                                                                                        <p class="card-text my-0"> <strong>Adults</strong></p>
+                                                                                        <p class="card-text">'.$row["adult_count"].'</p>
+                                                                                        <p class="card-text my-0"> <strong>Children</strong></p>
+                                                                                        <p class="card-text">'.$row["child_count"].'</p>
+                                                                                      </div>
+                                                                                      <div class="col-4">
+                                                                                      <h3 class="card-title my-1">Price</h3>
+                                                                                      <h2 class="card-text">'.$row["item_price"].' ₹</h2>
+                                                                                      </div>
 
-                                                                                        <p><strong>From </strong> '.$row["start_date"].' <strong>To</strong> '.$row["start_date"].' </p>
-                                                                                        <p><strong>Location </strong> '.$row_hotel["hotel_loc"].' </p>
-                                                                                        <p><strong>People </strong> '.$row["head_count"].'</p>
+                                                                                    </div>
+                                                                                    <hr/>
 
-                                                                                    </td>
 
-                                                                                  </tr>
-                                                                                </tbody>
-                                                                              </table>
+                                                                                  <a href="#" class="btn btn-primary">Details</a>
+                                                                                  <a href="#" class="btn btn-danger">Cancel</a>
+
+                                                                                </div>
+                                                                                </div>
                                                                             </div>
-                                                                            <a href="#" class="btn btn-rounded btn-primary">Details</a>
-                                                                            <a href="#" class="btn btn-rounded btn-secondary">View</a>
-                                                                          </div>
-                                                                          <div class="card-footer">
-                                                                            <small class="text-muted">Added on '.$row["date_added"].'</small>
-                                                                          </div>
-                                                                        </div>
-                                                                       ';
-                                                                     }
-                                                                     }elseif ($row["cart_item_type"]==2) {
-                                                                       // code...
-                                                                        $sql_tour = 'SELECT * FROM tours WHERE tour_id = '.$row["item_id"].'';
-                                                                        $result_tour = mysqli_query($db, $sql_tour);
-                                                                              if (mysqli_num_rows($result_tour) > 0) {
-                                                                               $row_tour = mysqli_fetch_assoc($result_tour);
-                                                                                echo'
-                                                                                <div class="card">
-                                                                                  <div class="card-body">
-                                                                                    <h5 class="card-title"><i class="fas fa-car"></i> Tour Booking</h5>
-                                                                                    <div class="table-responsive">
-                                                                                      <table class="table">
-                                                                                        <thead>
-                                                                                          <tr>
-                                                                                            <th scope="col" class="border-0 bg-light">
-                                                                                              <div class="p-2 px-3 text-uppercase">Item</div>
-                                                                                            </th>
-                                                                                            <th scope="col" class="border-0 bg-light">
-                                                                                              <div class="py-2 text-uppercase">Price</div>
-                                                                                            </th>
-                                                                                            <th scope="col" class="border-0 bg-light">
-                                                                                              <div class="py-2 text-uppercase">Details</div>
-                                                                                            </th>
-                                                                                          </tr>
-                                                                                        </thead>
-                                                                                        <tbody>
-                                                                                          <tr>
-                                                                                            <th scope="row" class="border-0">
-                                                                                              <div class="py-2">
-                                                                                                <div class="my-3 d-inline-block align-middle">
-                                                                                                  <span class="text-muted font-italic d-block">
-                                                                                                    <h5>'.$row_tour["tour_name"].'</h5>
-                                                                                                  </span>
+                                                                           ';
+                                                                         }
+                                                                         }elseif ($row["cart_item_type"]==2) {
+                                                                           // code...
+                                                                            $sql_tour = 'SELECT * FROM tours WHERE tour_id = '.$row["item_id"].'';
+                                                                            $result_tour = mysqli_query($db, $sql_tour);
+                                                                                  if (mysqli_num_rows($result_tour) > 0) {
+                                                                                   $row_tour = mysqli_fetch_assoc($result_tour);
+                                                                                    echo'
+                                                                                    <div class="col-lg-12">
+                                                                                      <div class="card">
+                                                                                        <h5 class="card-header">Tour Booking</h5>
+                                                                                        <div class="card-body">
+                                                                                          <h3 class="card-title">'.$row_tour["tour_name"].'</h3>
+                                                                                          <hr />
+                                                                                            <div class="row my-3">
+                                                                                              <div class="col-lg-3">
+                                                                                                <h5 class="card-title my-1">Booking Date</h5>
+                                                                                                <p class="card-text"> '.$row["start_date"].'</p>
+                                                                                              </div>
+                                                                                              <div class="col-lg-3">
+                                                                                                <h5 class="card-title my-1">Cab Type</h5>
+                                                                                                <p class="card-text"> ';
+                                                                                                if ($row["cab_type"]== 1) {
+                                                                                                   $cab_type = "Hatchback(AC)";
+                                                                                                }elseif ($row["cab_type"] == 2) {
+                                                                                                  // code...
+                                                                                                  $cab_type = "Sedan(AC)";
+
+                                                                                                }elseif ($row["cab_type"] == 3) {
+                                                                                                  // code...
+                                                                                                  $cab_type = "SUV(AC)";
+
+                                                                                                }
+
+                                                                                                echo $cab_type;
+
+
+                                                                                                echo '</p>
+                                                                                              </div>
+                                                                                              <div class="col-lg-3">
+                                                                                                <h5 class="card-title my-1">Hotel Type</h5>
+                                                                                                <p class="card-text">';
+
+                                                                                                if ($row["room_type"] == 2) {
+                                                                                                   $hotel_type = "2 Star Accomodation";
+                                                                                                }elseif ($row["room_type"] == 3) {
+                                                                                                  // code...
+                                                                                                  $hotel_type = "3 Star Accomodation";
+                                                                                                }elseif ($row["room_type"] == 4) {
+                                                                                                  // code...
+                                                                                                  $hotel_type = "4 Star Accomodation";
+                                                                                                }elseif ($row["room_type"] == 5) {
+                                                                                                  // code...
+                                                                                                  $hotel_type = "5 Star Accomodation";
+                                                                                                }
+
+                                                                                                echo $hotel_type;
+
+                                                                                              echo '</p>
+                                                                                              </div>
+                                                                                              <div class="col-lg-3">
+                                                                                                <h5 class="card-title my-1">Number Of People</h5>
+                                                                                                <div class="row">
+                                                                                                    <div class="col-4">
+                                                                                                    <p class="card-text my-0"> <strong>Adults</strong></p>
+                                                                                                    <p class="card-text">'.$row["adult_count"].'</p>
+                                                                                                    </div>
+                                                                                                    <div class="col">
+                                                                                                    <p class="card-text my-0"> <strong>Children</strong></p>
+                                                                                                    <p class="card-text">'.$row["child_count"].'</p>
+                                                                                                    </div>
                                                                                                 </div>
                                                                                               </div>
-                                                                                            </th>
-                                                                                            <td class="border-0 align-middle"><strong>Rs. '.$row["head_count"]*$row["item_price"].'</strong></td>
-                                                                                            <td class="border-0 align-middle">
-                                                                                                <p><strong>People :</strong>'.$row["head_count"].'</p>
+                                                                                              <div class="col-12 my-2">
+                                                                                              <h4 class="card-title my-1">Price</h4>
+                                                                                              <h3 class="card-text">'.$row["item_price"].' ₹</h3>
+                                                                                              </div>
 
-                                                                                                <p><strong>Date :</strong>'.$row["start_date"].'</p>
+                                                                                            </div>
+                                                                                            <hr />
 
-                                                                                                  <p><strong>Cab Type :</strong>'.$row["cab_type"].'</p>
 
-                                                                                                    <p><strong>Room Type :</strong>'.$row["room_type"].'</p>
+                                                                                          <a href="#" class="btn btn-primary">Details</a>
+                                                                                          <a href="#" class="btn btn-danger">Cancel</a>
 
-                                                                                            </td>
-
-                                                                                          </tr>
-                                                                                        </tbody>
-                                                                                      </table>
+                                                                                        </div>
+                                                                                        </div>
                                                                                     </div>
-                                                                                    <a href="#" class="btn btn-rounded btn-primary">Details</a>
-                                                                                    <a href="#" class="btn btn-rounded btn-secondary">View</a>
-                                                                                  </div>
-                                                                                  <div class="card-footer">
-                                                                                  <small class="text-muted">Added on '.$row["date_added"].'</small>
-                                                                                  </div>
-                                                                                </div>
-                                                                              ';
-                                                                             }
-                                                                     }elseif ($row["cart_item_type"]==3) {
-                                                                       // code...
-                                                                       $sql_taxi = 'SELECT * FROM taxi WHERE taxi_id = '.$row["item_id"].'';
-                                                                       $result_taxi = mysqli_query($db, $sql_taxi);
-                                                                             if (mysqli_num_rows($result_taxi) > 0) {
-                                                                              $row_taxi = mysqli_fetch_assoc($result_taxi);
-                                                                             echo '
+                                                                                  ';
+                                                                                 }
+                                                                         }elseif ($row["cart_item_type"]==3) {
+                                                                           // code...
+                                                                           $sql_taxi = 'SELECT * FROM taxi WHERE taxi_id = '.$row["item_id"].'';
+                                                                           $result_taxi = mysqli_query($db, $sql_taxi);
+                                                                                 if (mysqli_num_rows($result_taxi) > 0) {
+                                                                                  $row_taxi = mysqli_fetch_assoc($result_taxi);
+                                                                                 echo '
 
-                                                                             <div class="card">
-                                                                               <div class="card-body">
-                                                                                 <h5 class="card-title"><i class="fas fa-car"></i> Taxi Booking</h5>
-                                                                                 <div class="table-responsive">
-                                                                                   <table class="table">
-                                                                                     <thead>
-                                                                                       <tr>
-                                                                                         <th scope="col" class="border-0 bg-light">
-                                                                                           <div class="p-2 px-3 text-uppercase">Item</div>
-                                                                                         </th>
-                                                                                         <th scope="col" class="border-0 bg-light">
-                                                                                           <div class="py-2 text-uppercase">Price</div>
-                                                                                         </th>
-                                                                                         <th scope="col" class="border-0 bg-light">
-                                                                                           <div class="py-2 text-uppercase">Details</div>
-                                                                                         </th>
-                                                                                       </tr>
-                                                                                     </thead>
-                                                                                     <tbody>
-                                                                                       <tr>
-                                                                                         <th scope="row" class="border-0">
-                                                                                           <div class="py-2">
-                                                                                             <div class="my-3 d-inline-block align-middle">
-                                                                                               <span class="text-muted font-italic d-block">
-                                                                                                 <h5>'.$row_taxi["taxi_name"].'</h5>
-                                                                                               </span>
-                                                                                             </div>
-                                                                                           </div>
-                                                                                         </th>
-                                                                                         <td class="border-0 align-middle"><strong>$79.00</strong></td>
-                                                                                         <td class="border-0 align-middle">
-                                                                                             <p><strong>Pickup :</strong>'.$row["pickup_location"].'</p>
-                                                                                             <p><strong>Drop :</strong>'.$row["drop_location"].'</p>
-                                                                                             <p><strong>Time :</strong>'.$row["pickup_time"].'</p>
-                                                                                             <p><strong>Date :</strong>'.$row["start_date"].'</p>
+                                                                                 <div class="col-lg-12">
+                                                                                   <div class="card">
+                                                                                     <h5 class="card-header">Taxi Booking</h5>
+                                                                                     <div class="card-body">
+                                                                                       <h3 class="card-title">'.$row_taxi["taxi_name"].'</h3>
+                                                                                       <hr />
+                                                                                       <div class="row my-3">
+                                                                                         <div class="col-4">
+                                                                                           <h5 class="card-title my-1">Booking Date</h5>
+                                                                                           <p class="card-text my-0"> <strong>Date</strong></p>
+                                                                                           <p class="card-text">'.$row["start_date"].'</p>
+                                                                                           <p class="card-text my-0"> <strong>Pickup Time</strong></p>
+                                                                                           <p class="card-text">'.$row["pickup_time"].'</p>
+                                                                                         </div>
+                                                                                         <div class="col-4">
+                                                                                           <h5 class="card-title my-1">Pickup Locale</h5>
+                                                                                           <p class="card-text my-0"> <strong>Location</strong></p>
+                                                                                           <p class="card-text">'.$row["pickup_location"].'</p>
+                                                                                           <p class="card-text my-0"> <strong>Ride Duration</strong></p>
+                                                                                           <p class="card-text">'.$row["cab_hours"].' Hours</p>
+                                                                                         </div>
+                                                                                         <div class="col-4">
+                                                                                         <h3 class="card-title my-1">Price</h3>
+                                                                                         <h2 class="card-text">'.$row["item_price"].' ₹</h2>
+                                                                                         </div>
 
-                                                                                         </td>
+                                                                                       </div>
+                                                                                       <hr/>
+                                                                                       <a href="#" class="btn btn-primary">Details</a>
+                                                                                       <a href="#" class="btn btn-danger">Cancel</a>
 
-                                                                                       </tr>
-                                                                                     </tbody>
-                                                                                   </table>
-                                                                                 </div>
-                                                                                 <a href="#" class="btn btn-rounded btn-primary">Details</a>
-                                                                                 <a href="#" class="btn btn-rounded btn-secondary">View</a>
-                                                                               </div>
-                                                                               <div class="card-footer">
-                                                                               <small class="text-muted">Added on '.$row["date_added"].'</small>
-                                                                               </div>
-                                                                             </div>';
-                                                                            }
-                                                                     }else {
-                                                                       // code...
+                                                                                     </div>
+                                                                                     </div>
+                                                                                 </div>';
+                                                                                }
+                                                                         }elseif ($row["cart_item_type"]==4) {
+                                                                           // code...
+                                                                           $sql_taxi = 'SELECT * FROM taxi WHERE taxi_id = '.$row["item_id"].'';
+                                                                           $result_taxi = mysqli_query($db, $sql_taxi);
+                                                                                 if (mysqli_num_rows($result_taxi) > 0) {
+                                                                                  $row_taxi = mysqli_fetch_assoc($result_taxi);
+                                                                                 echo '
+
+                                                                                 <div class="col-lg-12">
+                                                                                   <div class="card">
+                                                                                     <h5 class="card-header">Taxi Booking</h5>
+                                                                                     <div class="card-body">
+                                                                                       <h3 class="card-title">'.$row_taxi["taxi_name"].'</h3>
+                                                                                       <hr />
+                                                                                       <div class="row my-3">
+                                                                                         <div class="col-4">
+                                                                                           <h5 class="card-title my-1">Booking Date</h5>
+                                                                                           <p class="card-text my-0"> <strong>From</strong></p>
+                                                                                           <p class="card-text">'.$row["start_date"].'</p>
+                                                                                           <p class="card-text my-0"> <strong>To</strong></p>
+                                                                                           <p class="card-text">'.$row["end_date"].'</p>
+                                                                                         </div>
+                                                                                         <div class="col-4">
+                                                                                           <h5 class="card-title my-1">Guests</h5>
+                                                                                           <p class="card-text my-0"> <strong>Adults</strong></p>
+                                                                                           <p class="card-text">'.$row["head_count"].'</p>
+                                                                                           <p class="card-text my-0"> <strong>Children</strong></p>
+                                                                                           <p class="card-text">0</p>
+                                                                                         </div>
+                                                                                         <div class="col-4">
+                                                                                         <h3 class="card-title my-1">Price</h3>
+                                                                                         <h2 class="card-text">'.$row["item_price"].'</h2>
+                                                                                         </div>
+
+                                                                                       </div>
+                                                                                       <hr/>
+                                                                                       <a href="#" class="btn btn-primary">Details</a>
+                                                                                       <a href="#" class="btn btn-danger">Cancel</a>
+
+                                                                                     </div>
+                                                                                     </div>
+                                                                                 </div>';
+                                                                                }
+                                                                         }else {
+                                                                           // code...
+                                                                         }
+                                                                       }
                                                                      }
-                                                                   }
-                                                                 }
 
+                                                                     ?>
+                                                              </div>
 
-                                                             ?>
 
                                                     </div>
                                                      <!--Tab one-->
@@ -528,194 +747,242 @@
                                                             <div class="section-block">
                                                                     <h3 class="section-title">Completed Orders</h3>
                                                             </div>
-                                                            <?php
 
-                                                            $sql = 'SELECT * FROM cart WHERE status = 1 AND user_id = '.$_SESSION["user_id"].' ORDER BY id DESC';
-                                                            $result = mysqli_query($db, $sql);
-                                                                  if (mysqli_num_rows($result) > 0) {
-                                                                    $count = 0;
-                                                                   while($row= mysqli_fetch_assoc($result)) {
+                                                            <div class="row">
+                                                              <?php
+                                                              $sql = 'SELECT * FROM cart WHERE status = 1 AND user_id = '.$_SESSION["user_id"].' ORDER BY id ASC';
+                                                              $result = mysqli_query($db, $sql);
+                                                                    if (mysqli_num_rows($result) > 0) {
+                                                                      $count = 0;
+                                                                     while($row= mysqli_fetch_assoc($result)) {
 
-                                                                     if($row["cart_item_type"]==1){
-                                                                       $sql_hotel = 'SELECT * FROM hotels WHERE hotel_id = '.$row["item_id"].'';
-                                                                       $result_hotel = mysqli_query($db, $sql_hotel);
-                                                                             if (mysqli_num_rows($result_hotel) > 0) {
-                                                                              $row_hotel= mysqli_fetch_assoc($result_hotel);
-                                                                        echo '
-                                                                        <div class="card">
-                                                                          <div class="card-body">
-                                                                            <h5 class="card-title"><i class="fas fa-hotel"></i> Hotel Booking</h5>
-                                                                            <div class="table-responsive">
-                                                                              <table class="table">
-                                                                                <thead>
-                                                                                  <tr>
-                                                                                    <th scope="col" class="border-0 bg-light">
-                                                                                      <div class="p-2 px-3 text-uppercase">Item</div>
-                                                                                    </th>
-                                                                                    <th scope="col" class="border-0 bg-light">
-                                                                                      <div class="py-2 text-uppercase">Price</div>
-                                                                                    </th>
-                                                                                    <th scope="col" class="border-0 bg-light">
-                                                                                      <div class="py-2 text-uppercase">Details</div>
-                                                                                    </th>
-                                                                                  </tr>
-                                                                                </thead>
-                                                                                <tbody>
-                                                                                  <tr>
-                                                                                    <th scope="row" class="border-0">
-                                                                                      <div class="py-2">
-                                                                                        <div class="my-3 d-inline-block align-middle">
-                                                                                          <span class="text-muted font-italic d-block">
-                                                                                            <h5>'.$row_hotel["hotel_name"].'</h5>
-                                                                                          </span>
-                                                                                        </div>
-                                                                                      </div>
-                                                                                    </th>
-                                                                                    <td class="border-0 align-middle"><strong>'.$row["item_price"].' INR</strong></td>
-                                                                                    <td class="border-0 align-middle">
-
-                                                                                        <p><strong>From </strong> '.$row["start_date"].' <strong>To</strong> '.$row["start_date"].' </p>
-                                                                                        <p><strong>Location </strong> '.$row_hotel["hotel_loc"].' </p>
-                                                                                        <p><strong>People </strong> '.$row["head_count"].'</p>
-
-                                                                                    </td>
-
-                                                                                  </tr>
-                                                                                </tbody>
-                                                                              </table>
-                                                                            </div>
-                                                                            <a href="#" class="btn btn-rounded btn-primary">Details</a>
-                                                                            <a href="#" class="btn btn-rounded btn-secondary">View</a>
-                                                                          </div>
-                                                                          <div class="card-footer">
-                                                                            <small class="text-muted">Added on '.$row["date_added"].'</small>
-                                                                          </div>
-                                                                        </div>
-                                                                       ';
-                                                                     }
-                                                                     }elseif ($row["cart_item_type"]==2) {
-                                                                       // code...
-                                                                        $sql_tour = 'SELECT * FROM tours WHERE tour_id = '.$row["item_id"].'';
-                                                                        $result_tour = mysqli_query($db, $sql_tour);
-                                                                              if (mysqli_num_rows($result_tour) > 0) {
-                                                                               $row_tour = mysqli_fetch_assoc($result_tour);
-                                                                                echo'
-                                                                                <div class="card">
-                                                                                  <div class="card-body">
-                                                                                    <h5 class="card-title"><i class="fas fa-car"></i> Tour Booking</h5>
-                                                                                    <div class="table-responsive">
-                                                                                      <table class="table">
-                                                                                        <thead>
-                                                                                          <tr>
-                                                                                            <th scope="col" class="border-0 bg-light">
-                                                                                              <div class="p-2 px-3 text-uppercase">Item</div>
-                                                                                            </th>
-                                                                                            <th scope="col" class="border-0 bg-light">
-                                                                                              <div class="py-2 text-uppercase">Price</div>
-                                                                                            </th>
-                                                                                            <th scope="col" class="border-0 bg-light">
-                                                                                              <div class="py-2 text-uppercase">Details</div>
-                                                                                            </th>
-                                                                                          </tr>
-                                                                                        </thead>
-                                                                                        <tbody>
-                                                                                          <tr>
-                                                                                            <th scope="row" class="border-0">
-                                                                                              <div class="py-2">
-                                                                                                <div class="my-3 d-inline-block align-middle">
-                                                                                                  <span class="text-muted font-italic d-block">
-                                                                                                    <h5>'.$row_tour["tour_name"].'</h5>
-                                                                                                  </span>
-                                                                                                </div>
-                                                                                              </div>
-                                                                                            </th>
-                                                                                            <td class="border-0 align-middle"><strong>Rs. '.$row["head_count"]*$row["item_price"].'</strong></td>
-                                                                                            <td class="border-0 align-middle">
-                                                                                                <p><strong>People :</strong>'.$row["head_count"].'</p>
-
-                                                                                                <p><strong>Date :</strong>'.$row["start_date"].'</p>
-
-                                                                                            </td>
-
-                                                                                          </tr>
-                                                                                        </tbody>
-                                                                                      </table>
+                                                                       if($row["cart_item_type"]==1){
+                                                                         $sql_hotel = 'SELECT * FROM hotels WHERE hotel_id = '.$row["item_id"].'';
+                                                                         $result_hotel = mysqli_query($db, $sql_hotel);
+                                                                               if (mysqli_num_rows($result_hotel) > 0) {
+                                                                                $row_hotel= mysqli_fetch_assoc($result_hotel);
+                                                                          echo '
+                                                                          <div class="col-lg-12">
+                                                                            <div class="card">
+                                                                              <h5 class="card-header"> Hotel Booking</h5>
+                                                                              <div class="card-body">
+                                                                                <h3 class="card-title">'.$row_hotel["hotel_name"].'</h3>
+                                                                                <hr />
+                                                                                  <div class="row my-3">
+                                                                                    <div class="col-4">
+                                                                                      <h5 class="card-title my-1">Booking Date</h5>
+                                                                                      <p class="card-text my-0"> <strong>From</strong></p>
+                                                                                      <p class="card-text">'.$row["start_date"].'</p>
+                                                                                      <p class="card-text my-0"> <strong>To</strong></p>
+                                                                                      <p class="card-text">'.$row["end_date"].'</p>
                                                                                     </div>
-                                                                                    <a href="#" class="btn btn-rounded btn-primary">Details</a>
-                                                                                    <a href="#" class="btn btn-rounded btn-secondary">View</a>
+                                                                                    <div class="col-4">
+                                                                                      <h5 class="card-title my-1">Guests</h5>
+                                                                                      <p class="card-text my-0"> <strong>Adults</strong></p>
+                                                                                      <p class="card-text">'.$row["adult_count"].'</p>
+                                                                                      <p class="card-text my-0"> <strong>Children</strong></p>
+                                                                                      <p class="card-text">'.$row["child_count"].'</p>
+                                                                                    </div>
+                                                                                    <div class="col-4">
+                                                                                    <h3 class="card-title my-1">Price</h3>
+                                                                                    <h2 class="card-text">'.$row["item_price"].' ₹</h2>
+                                                                                    </div>
+
                                                                                   </div>
-                                                                                  <div class="card-footer">
-                                                                                  <small class="text-muted">Added on '.$row["date_added"].'</small>
+                                                                                  <hr/>
+
+
+                                                                                <a href="#" class="btn btn-primary">Details</a>
+                                                                                <a href="#" class="btn btn-danger">Cancel</a>
+
+                                                                              </div>
+                                                                              </div>
+                                                                          </div>
+                                                                         ';
+                                                                       }
+                                                                       }elseif ($row["cart_item_type"]==2) {
+                                                                         // code...
+                                                                          $sql_tour = 'SELECT * FROM tours WHERE tour_id = '.$row["item_id"].'';
+                                                                          $result_tour = mysqli_query($db, $sql_tour);
+                                                                                if (mysqli_num_rows($result_tour) > 0) {
+                                                                                 $row_tour = mysqli_fetch_assoc($result_tour);
+                                                                                  echo'
+                                                                                  <div class="col-lg-12">
+                                                                                    <div class="card">
+                                                                                      <h5 class="card-header">Tour Booking</h5>
+                                                                                      <div class="card-body">
+                                                                                        <h3 class="card-title">'.$row_tour["tour_name"].'</h3>
+                                                                                        <hr />
+                                                                                          <div class="row my-3">
+                                                                                            <div class="col-lg-3">
+                                                                                              <h5 class="card-title my-1">Booking Date</h5>
+                                                                                              <p class="card-text"> '.$row["start_date"].'</p>
+                                                                                            </div>
+                                                                                            <div class="col-lg-3">
+                                                                                              <h5 class="card-title my-1">Cab Type</h5>
+                                                                                              <p class="card-text"> ';
+                                                                                              if ($row["cab_type"]== 1) {
+                                                                                                 $cab_type = "Hatchback(AC)";
+                                                                                              }elseif ($row["cab_type"] == 2) {
+                                                                                                // code...
+                                                                                                $cab_type = "Sedan(AC)";
+
+                                                                                              }elseif ($row["cab_type"] == 3) {
+                                                                                                // code...
+                                                                                                $cab_type = "SUV(AC)";
+
+                                                                                              }
+
+                                                                                              echo $cab_type;
+
+
+                                                                                              echo '</p>
+                                                                                            </div>
+                                                                                            <div class="col-lg-3">
+                                                                                              <h5 class="card-title my-1">Hotel Type</h5>
+                                                                                              <p class="card-text">';
+
+                                                                                              if ($row["room_type"] == 2) {
+                                                                                                 $hotel_type = "2 Star Accomodation";
+                                                                                              }elseif ($row["room_type"] == 3) {
+                                                                                                // code...
+                                                                                                $hotel_type = "3 Star Accomodation";
+                                                                                              }elseif ($row["room_type"] == 4) {
+                                                                                                // code...
+                                                                                                $hotel_type = "4 Star Accomodation";
+                                                                                              }elseif ($row["room_type"] == 5) {
+                                                                                                // code...
+                                                                                                $hotel_type = "5 Star Accomodation";
+                                                                                              }
+
+                                                                                              echo $hotel_type;
+
+                                                                                            echo '</p>
+                                                                                            </div>
+                                                                                            <div class="col-lg-3">
+                                                                                              <h5 class="card-title my-1">Number Of People</h5>
+                                                                                              <div class="row">
+                                                                                                  <div class="col-4">
+                                                                                                  <p class="card-text my-0"> <strong>Adults</strong></p>
+                                                                                                  <p class="card-text">'.$row["adult_count"].'</p>
+                                                                                                  </div>
+                                                                                                  <div class="col">
+                                                                                                  <p class="card-text my-0"> <strong>Children</strong></p>
+                                                                                                  <p class="card-text">'.$row["child_count"].'</p>
+                                                                                                  </div>
+                                                                                              </div>
+                                                                                            </div>
+                                                                                            <div class="col-12 my-2">
+                                                                                            <h4 class="card-title my-1">Price</h4>
+                                                                                            <h3 class="card-text">'.$row["item_price"].' ₹</h3>
+                                                                                            </div>
+
+                                                                                          </div>
+                                                                                          <hr />
+
+
+                                                                                        <a href="#" class="btn btn-primary">Details</a>
+                                                                                        <a href="#" class="btn btn-danger">Cancel</a>
+
+                                                                                      </div>
+                                                                                      </div>
                                                                                   </div>
-                                                                                </div>
-                                                                              ';
-                                                                             }
-                                                                     }elseif ($row["cart_item_type"]==3) {
-                                                                       // code...
-                                                                       $sql_taxi = 'SELECT * FROM taxi WHERE taxi_id = '.$row["item_id"].'';
-                                                                       $result_taxi = mysqli_query($db, $sql_taxi);
-                                                                             if (mysqli_num_rows($result_taxi) > 0) {
-                                                                              $row_taxi = mysqli_fetch_assoc($result_taxi);
-                                                                             echo '
+                                                                                ';
+                                                                               }
+                                                                       }elseif ($row["cart_item_type"]==3) {
+                                                                         // code...
+                                                                         $sql_taxi = 'SELECT * FROM taxi WHERE taxi_id = '.$row["item_id"].'';
+                                                                         $result_taxi = mysqli_query($db, $sql_taxi);
+                                                                               if (mysqli_num_rows($result_taxi) > 0) {
+                                                                                $row_taxi = mysqli_fetch_assoc($result_taxi);
+                                                                               echo '
 
-                                                                             <div class="card">
-                                                                               <div class="card-body">
-                                                                                 <h5 class="card-title"><i class="fas fa-car"></i> Taxi Booking</h5>
-                                                                                 <div class="table-responsive">
-                                                                                   <table class="table">
-                                                                                     <thead>
-                                                                                       <tr>
-                                                                                         <th scope="col" class="border-0 bg-light">
-                                                                                           <div class="p-2 px-3 text-uppercase">Item</div>
-                                                                                         </th>
-                                                                                         <th scope="col" class="border-0 bg-light">
-                                                                                           <div class="py-2 text-uppercase">Price</div>
-                                                                                         </th>
-                                                                                         <th scope="col" class="border-0 bg-light">
-                                                                                           <div class="py-2 text-uppercase">Details</div>
-                                                                                         </th>
-                                                                                       </tr>
-                                                                                     </thead>
-                                                                                     <tbody>
-                                                                                       <tr>
-                                                                                         <th scope="row" class="border-0">
-                                                                                           <div class="py-2">
-                                                                                             <div class="my-3 d-inline-block align-middle">
-                                                                                               <span class="text-muted font-italic d-block">
-                                                                                                 <h5>'.$row_taxi["taxi_name"].'</h5>
-                                                                                               </span>
-                                                                                             </div>
-                                                                                           </div>
-                                                                                         </th>
-                                                                                         <td class="border-0 align-middle"><strong>$79.00</strong></td>
-                                                                                         <td class="border-0 align-middle">
-                                                                                             <p><strong>Pickup :</strong>'.$row["pickup_location"].'</p>
-                                                                                             <p><strong>Drop :</strong>'.$row["drop_location"].'</p>
-                                                                                             <p><strong>Time :</strong>'.$row["pickup_time"].'</p>
-                                                                                             <p><strong>Date :</strong>'.$row["start_date"].'</p>
+                                                                               <div class="col-lg-12">
+                                                                                 <div class="card">
+                                                                                   <h5 class="card-header">Taxi Booking</h5>
+                                                                                   <div class="card-body">
+                                                                                     <h3 class="card-title">'.$row_taxi["taxi_name"].'</h3>
+                                                                                     <hr />
+                                                                                     <div class="row my-3">
+                                                                                       <div class="col-4">
+                                                                                         <h5 class="card-title my-1">Booking Date</h5>
+                                                                                         <p class="card-text my-0"> <strong>Date</strong></p>
+                                                                                         <p class="card-text">'.$row["start_date"].'</p>
+                                                                                         <p class="card-text my-0"> <strong>Pickup Time</strong></p>
+                                                                                         <p class="card-text">'.$row["pickup_time"].'</p>
+                                                                                       </div>
+                                                                                       <div class="col-4">
+                                                                                         <h5 class="card-title my-1">Pickup Locale</h5>
+                                                                                         <p class="card-text my-0"> <strong>Location</strong></p>
+                                                                                         <p class="card-text">'.$row["pickup_location"].'</p>
+                                                                                         <p class="card-text my-0"> <strong>Ride Duration</strong></p>
+                                                                                         <p class="card-text">'.$row["cab_hours"].' Hours</p>
+                                                                                       </div>
+                                                                                       <div class="col-4">
+                                                                                       <h3 class="card-title my-1">Price</h3>
+                                                                                       <h2 class="card-text">'.$row["item_price"].' ₹</h2>
+                                                                                       </div>
 
-                                                                                         </td>
+                                                                                     </div>
+                                                                                     <hr/>
+                                                                                     <a href="#" class="btn btn-primary">Details</a>
+                                                                                     <a href="#" class="btn btn-danger">Cancel</a>
 
-                                                                                       </tr>
-                                                                                     </tbody>
-                                                                                   </table>
-                                                                                 </div>
-                                                                                 <a href="#" class="btn btn-rounded btn-primary">Details</a>
-                                                                                 <a href="#" class="btn btn-rounded btn-secondary">View</a>
-                                                                               </div>
-                                                                               <div class="card-footer">
-                                                                               <small class="text-muted">Added on '.$row["date_added"].'</small>
-                                                                               </div>
-                                                                             </div>';
-                                                                            }
+                                                                                   </div>
+                                                                                   </div>
+                                                                               </div>';
+                                                                              }
+                                                                       }elseif ($row["cart_item_type"]==4) {
+                                                                         // code...
+                                                                         $sql_taxi = 'SELECT * FROM taxi WHERE taxi_id = '.$row["item_id"].'';
+                                                                         $result_taxi = mysqli_query($db, $sql_taxi);
+                                                                               if (mysqli_num_rows($result_taxi) > 0) {
+                                                                                $row_taxi = mysqli_fetch_assoc($result_taxi);
+                                                                               echo '
+
+                                                                               <div class="col-lg-12">
+                                                                                 <div class="card">
+                                                                                   <h5 class="card-header">Taxi Booking</h5>
+                                                                                   <div class="card-body">
+                                                                                     <h3 class="card-title">'.$row_taxi["taxi_name"].'</h3>
+                                                                                     <hr />
+                                                                                     <div class="row my-3">
+                                                                                       <div class="col-4">
+                                                                                         <h5 class="card-title my-1">Booking Date</h5>
+                                                                                         <p class="card-text my-0"> <strong>From</strong></p>
+                                                                                         <p class="card-text">'.$row["start_date"].'</p>
+                                                                                         <p class="card-text my-0"> <strong>To</strong></p>
+                                                                                         <p class="card-text">'.$row["end_date"].'</p>
+                                                                                       </div>
+                                                                                       <div class="col-4">
+                                                                                         <h5 class="card-title my-1">Guests</h5>
+                                                                                         <p class="card-text my-0"> <strong>Adults</strong></p>
+                                                                                         <p class="card-text">'.$row["head_count"].'</p>
+                                                                                         <p class="card-text my-0"> <strong>Children</strong></p>
+                                                                                         <p class="card-text">0</p>
+                                                                                       </div>
+                                                                                       <div class="col-4">
+                                                                                       <h3 class="card-title my-1">Price</h3>
+                                                                                       <h2 class="card-text">'.$row["item_price"].'</h2>
+                                                                                       </div>
+
+                                                                                     </div>
+                                                                                     <hr/>
+                                                                                     <a href="#" class="btn btn-primary">Details</a>
+                                                                                     <a href="#" class="btn btn-danger">Cancel</a>
+
+                                                                                   </div>
+                                                                                   </div>
+                                                                               </div>';
+                                                                              }
+                                                                       }else {
+                                                                         // code...
+                                                                       }
                                                                      }
-                                                                 }
-                                                                }else{
-                                                                   echo '<h3>No Data</h3>';
-                                                                 }
+                                                                   }
 
-
-                                                             ?>
+                                                                   ?>
+                                                            </div>
 
 
                                                     </div>
@@ -726,194 +993,242 @@
                                                                     <h3 class="section-title">Cancled Orders</h3>
                                                             </div>
 
-                                                            <?php
+                                                            <div class="row">
+                                                              <?php
+                                                              $sql = 'SELECT * FROM cart WHERE status = -1 AND user_id = '.$_SESSION["user_id"].' ORDER BY id ASC';
+                                                              $result = mysqli_query($db, $sql);
+                                                                    if (mysqli_num_rows($result) > 0) {
+                                                                      $count = 0;
+                                                                     while($row= mysqli_fetch_assoc($result)) {
 
-                                                            $sql = 'SELECT * FROM cart WHERE status = -1 AND user_id = '.$_SESSION["user_id"].' ORDER BY id DESC';
-                                                            $result = mysqli_query($db, $sql);
-                                                                  if (mysqli_num_rows($result) > 0) {
-                                                                    $count = 0;
-                                                                   while($row= mysqli_fetch_assoc($result)) {
-
-                                                                     if($row["cart_item_type"]==1){
-                                                                       $sql_hotel = 'SELECT * FROM hotels WHERE hotel_id = '.$row["item_id"].'';
-                                                                       $result_hotel = mysqli_query($db, $sql_hotel);
-                                                                             if (mysqli_num_rows($result_hotel) > 0) {
-                                                                              $row_hotel= mysqli_fetch_assoc($result_hotel);
-                                                                        echo '
-                                                                        <div class="card">
-                                                                          <div class="card-body">
-                                                                            <h5 class="card-title"><i class="fas fa-hotel"></i> Hotel Booking</h5>
-                                                                            <div class="table-responsive">
-                                                                              <table class="table">
-                                                                                <thead>
-                                                                                  <tr>
-                                                                                    <th scope="col" class="border-0 bg-light">
-                                                                                      <div class="p-2 px-3 text-uppercase">Item</div>
-                                                                                    </th>
-                                                                                    <th scope="col" class="border-0 bg-light">
-                                                                                      <div class="py-2 text-uppercase">Price</div>
-                                                                                    </th>
-                                                                                    <th scope="col" class="border-0 bg-light">
-                                                                                      <div class="py-2 text-uppercase">Details</div>
-                                                                                    </th>
-                                                                                  </tr>
-                                                                                </thead>
-                                                                                <tbody>
-                                                                                  <tr>
-                                                                                    <th scope="row" class="border-0">
-                                                                                      <div class="py-2">
-                                                                                        <div class="my-3 d-inline-block align-middle">
-                                                                                          <span class="text-muted font-italic d-block">
-                                                                                            <h5>'.$row_hotel["hotel_name"].'</h5>
-                                                                                          </span>
-                                                                                        </div>
-                                                                                      </div>
-                                                                                    </th>
-                                                                                    <td class="border-0 align-middle"><strong>'.$row["item_price"].' INR</strong></td>
-                                                                                    <td class="border-0 align-middle">
-
-                                                                                        <p><strong>From </strong> '.$row["start_date"].' <strong>To</strong> '.$row["start_date"].' </p>
-                                                                                        <p><strong>Location </strong> '.$row_hotel["hotel_loc"].' </p>
-                                                                                        <p><strong>People </strong> '.$row["head_count"].'</p>
-
-                                                                                    </td>
-
-                                                                                  </tr>
-                                                                                </tbody>
-                                                                              </table>
-                                                                            </div>
-                                                                            <a href="#" class="btn btn-rounded btn-primary">Details</a>
-                                                                            <a href="#" class="btn btn-rounded btn-secondary">View</a>
-                                                                          </div>
-                                                                          <div class="card-footer">
-                                                                            <small class="text-muted">Added on '.$row["date_added"].'</small>
-                                                                          </div>
-                                                                        </div>
-                                                                       ';
-                                                                     }
-                                                                     }elseif ($row["cart_item_type"]==2) {
-                                                                       // code...
-                                                                        $sql_tour = 'SELECT * FROM tours WHERE tour_id = '.$row["item_id"].'';
-                                                                        $result_tour = mysqli_query($db, $sql_tour);
-                                                                              if (mysqli_num_rows($result_tour) > 0) {
-                                                                               $row_tour = mysqli_fetch_assoc($result_tour);
-                                                                                echo'
-                                                                                <div class="card">
-                                                                                  <div class="card-body">
-                                                                                    <h5 class="card-title"><i class="fas fa-car"></i> Tours Booking</h5>
-                                                                                    <div class="table-responsive">
-                                                                                      <table class="table">
-                                                                                        <thead>
-                                                                                          <tr>
-                                                                                            <th scope="col" class="border-0 bg-light">
-                                                                                              <div class="p-2 px-3 text-uppercase">Item</div>
-                                                                                            </th>
-                                                                                            <th scope="col" class="border-0 bg-light">
-                                                                                              <div class="py-2 text-uppercase">Price</div>
-                                                                                            </th>
-                                                                                            <th scope="col" class="border-0 bg-light">
-                                                                                              <div class="py-2 text-uppercase">Details</div>
-                                                                                            </th>
-                                                                                          </tr>
-                                                                                        </thead>
-                                                                                        <tbody>
-                                                                                          <tr>
-                                                                                            <th scope="row" class="border-0">
-                                                                                              <div class="py-2">
-                                                                                                <div class="my-3 d-inline-block align-middle">
-                                                                                                  <span class="text-muted font-italic d-block">
-                                                                                                    <h5>'.$row_tour["tour_name"].'</h5>
-                                                                                                  </span>
-                                                                                                </div>
-                                                                                              </div>
-                                                                                            </th>
-                                                                                            <td class="border-0 align-middle"><strong>Rs. '.$row["head_count"]*$row["item_price"].'</strong></td>
-                                                                                            <td class="border-0 align-middle">
-                                                                                                <p><strong>People :</strong>'.$row["head_count"].'</p>
-
-                                                                                                <p><strong>Date :</strong>'.$row["start_date"].'</p>
-
-                                                                                            </td>
-
-                                                                                          </tr>
-                                                                                        </tbody>
-                                                                                      </table>
+                                                                       if($row["cart_item_type"]==1){
+                                                                         $sql_hotel = 'SELECT * FROM hotels WHERE hotel_id = '.$row["item_id"].'';
+                                                                         $result_hotel = mysqli_query($db, $sql_hotel);
+                                                                               if (mysqli_num_rows($result_hotel) > 0) {
+                                                                                $row_hotel= mysqli_fetch_assoc($result_hotel);
+                                                                          echo '
+                                                                          <div class="col-lg-12">
+                                                                            <div class="card">
+                                                                              <h5 class="card-header"> Hotel Booking</h5>
+                                                                              <div class="card-body">
+                                                                                <h3 class="card-title">'.$row_hotel["hotel_name"].'</h3>
+                                                                                <hr />
+                                                                                  <div class="row my-3">
+                                                                                    <div class="col-4">
+                                                                                      <h5 class="card-title my-1">Booking Date</h5>
+                                                                                      <p class="card-text my-0"> <strong>From</strong></p>
+                                                                                      <p class="card-text">'.$row["start_date"].'</p>
+                                                                                      <p class="card-text my-0"> <strong>To</strong></p>
+                                                                                      <p class="card-text">'.$row["end_date"].'</p>
                                                                                     </div>
-                                                                                    <a href="#" class="btn btn-rounded btn-primary">Details</a>
-                                                                                    <a href="#" class="btn btn-rounded btn-secondary">View</a>
+                                                                                    <div class="col-4">
+                                                                                      <h5 class="card-title my-1">Guests</h5>
+                                                                                      <p class="card-text my-0"> <strong>Adults</strong></p>
+                                                                                      <p class="card-text">'.$row["adult_count"].'</p>
+                                                                                      <p class="card-text my-0"> <strong>Children</strong></p>
+                                                                                      <p class="card-text">'.$row["child_count"].'</p>
+                                                                                    </div>
+                                                                                    <div class="col-4">
+                                                                                    <h3 class="card-title my-1">Price</h3>
+                                                                                    <h2 class="card-text">'.$row["item_price"].' ₹</h2>
+                                                                                    </div>
+
                                                                                   </div>
-                                                                                  <div class="card-footer">
-                                                                                  <small class="text-muted">Added on '.$row["date_added"].'</small>
+                                                                                  <hr/>
+
+
+                                                                                <a href="#" class="btn btn-primary">Details</a>
+                                                                                <a href="#" class="btn btn-danger">Cancel</a>
+
+                                                                              </div>
+                                                                              </div>
+                                                                          </div>
+                                                                         ';
+                                                                       }
+                                                                       }elseif ($row["cart_item_type"]==2) {
+                                                                         // code...
+                                                                          $sql_tour = 'SELECT * FROM tours WHERE tour_id = '.$row["item_id"].'';
+                                                                          $result_tour = mysqli_query($db, $sql_tour);
+                                                                                if (mysqli_num_rows($result_tour) > 0) {
+                                                                                 $row_tour = mysqli_fetch_assoc($result_tour);
+                                                                                  echo'
+                                                                                  <div class="col-lg-12">
+                                                                                    <div class="card">
+                                                                                      <h5 class="card-header">Tour Booking</h5>
+                                                                                      <div class="card-body">
+                                                                                        <h3 class="card-title">'.$row_tour["tour_name"].'</h3>
+                                                                                        <hr />
+                                                                                          <div class="row my-3">
+                                                                                            <div class="col-lg-3">
+                                                                                              <h5 class="card-title my-1">Booking Date</h5>
+                                                                                              <p class="card-text"> '.$row["start_date"].'</p>
+                                                                                            </div>
+                                                                                            <div class="col-lg-3">
+                                                                                              <h5 class="card-title my-1">Cab Type</h5>
+                                                                                              <p class="card-text"> ';
+                                                                                              if ($row["cab_type"]== 1) {
+                                                                                                 $cab_type = "Hatchback(AC)";
+                                                                                              }elseif ($row["cab_type"] == 2) {
+                                                                                                // code...
+                                                                                                $cab_type = "Sedan(AC)";
+
+                                                                                              }elseif ($row["cab_type"] == 3) {
+                                                                                                // code...
+                                                                                                $cab_type = "SUV(AC)";
+
+                                                                                              }
+
+                                                                                              echo $cab_type;
+
+
+                                                                                              echo '</p>
+                                                                                            </div>
+                                                                                            <div class="col-lg-3">
+                                                                                              <h5 class="card-title my-1">Hotel Type</h5>
+                                                                                              <p class="card-text">';
+
+                                                                                              if ($row["room_type"] == 2) {
+                                                                                                 $hotel_type = "2 Star Accomodation";
+                                                                                              }elseif ($row["room_type"] == 3) {
+                                                                                                // code...
+                                                                                                $hotel_type = "3 Star Accomodation";
+                                                                                              }elseif ($row["room_type"] == 4) {
+                                                                                                // code...
+                                                                                                $hotel_type = "4 Star Accomodation";
+                                                                                              }elseif ($row["room_type"] == 5) {
+                                                                                                // code...
+                                                                                                $hotel_type = "5 Star Accomodation";
+                                                                                              }
+
+                                                                                              echo $hotel_type;
+
+                                                                                            echo '</p>
+                                                                                            </div>
+                                                                                            <div class="col-lg-3">
+                                                                                              <h5 class="card-title my-1">Number Of People</h5>
+                                                                                              <div class="row">
+                                                                                                  <div class="col-4">
+                                                                                                  <p class="card-text my-0"> <strong>Adults</strong></p>
+                                                                                                  <p class="card-text">'.$row["adult_count"].'</p>
+                                                                                                  </div>
+                                                                                                  <div class="col">
+                                                                                                  <p class="card-text my-0"> <strong>Children</strong></p>
+                                                                                                  <p class="card-text">'.$row["child_count"].'</p>
+                                                                                                  </div>
+                                                                                              </div>
+                                                                                            </div>
+                                                                                            <div class="col-12 my-2">
+                                                                                            <h4 class="card-title my-1">Price</h4>
+                                                                                            <h3 class="card-text">'.$row["item_price"].' ₹</h3>
+                                                                                            </div>
+
+                                                                                          </div>
+                                                                                          <hr />
+
+
+                                                                                        <a href="#" class="btn btn-primary">Details</a>
+                                                                                        <a href="#" class="btn btn-danger">Cancel</a>
+
+                                                                                      </div>
+                                                                                      </div>
                                                                                   </div>
-                                                                                </div>
-                                                                              ';
-                                                                             }
-                                                                     }elseif ($row["cart_item_type"]== -1) {
-                                                                       // code...
-                                                                       $sql_taxi = 'SELECT * FROM taxi WHERE taxi_id = '.$row["item_id"].'';
-                                                                       $result_taxi = mysqli_query($db, $sql_taxi);
-                                                                             if (mysqli_num_rows($result_taxi) > 0) {
-                                                                              $row_taxi = mysqli_fetch_assoc($result_taxi);
-                                                                             echo '
+                                                                                ';
+                                                                               }
+                                                                       }elseif ($row["cart_item_type"]==3) {
+                                                                         // code...
+                                                                         $sql_taxi = 'SELECT * FROM taxi WHERE taxi_id = '.$row["item_id"].'';
+                                                                         $result_taxi = mysqli_query($db, $sql_taxi);
+                                                                               if (mysqli_num_rows($result_taxi) > 0) {
+                                                                                $row_taxi = mysqli_fetch_assoc($result_taxi);
+                                                                               echo '
 
-                                                                             <div class="card">
-                                                                               <div class="card-body">
-                                                                                 <h5 class="card-title"><i class="fas fa-car"></i> Taxi Booking</h5>
-                                                                                 <div class="table-responsive">
-                                                                                   <table class="table">
-                                                                                     <thead>
-                                                                                       <tr>
-                                                                                         <th scope="col" class="border-0 bg-light">
-                                                                                           <div class="p-2 px-3 text-uppercase">Item</div>
-                                                                                         </th>
-                                                                                         <th scope="col" class="border-0 bg-light">
-                                                                                           <div class="py-2 text-uppercase">Price</div>
-                                                                                         </th>
-                                                                                         <th scope="col" class="border-0 bg-light">
-                                                                                           <div class="py-2 text-uppercase">Details</div>
-                                                                                         </th>
-                                                                                       </tr>
-                                                                                     </thead>
-                                                                                     <tbody>
-                                                                                       <tr>
-                                                                                         <th scope="row" class="border-0">
-                                                                                           <div class="py-2">
-                                                                                             <div class="my-3 d-inline-block align-middle">
-                                                                                               <span class="text-muted font-italic d-block">
-                                                                                                 <h5>'.$row_taxi["taxi_name"].'</h5>
-                                                                                               </span>
-                                                                                             </div>
-                                                                                           </div>
-                                                                                         </th>
-                                                                                         <td class="border-0 align-middle"><strong>$79.00</strong></td>
-                                                                                         <td class="border-0 align-middle">
-                                                                                             <p><strong>Pickup :</strong>'.$row["pickup_location"].'</p>
-                                                                                             <p><strong>Drop :</strong>'.$row["drop_location"].'</p>
-                                                                                             <p><strong>Time :</strong>'.$row["pickup_time"].'</p>
-                                                                                             <p><strong>Date :</strong>'.$row["start_date"].'</p>
+                                                                               <div class="col-lg-12">
+                                                                                 <div class="card">
+                                                                                   <h5 class="card-header">Taxi Booking</h5>
+                                                                                   <div class="card-body">
+                                                                                     <h3 class="card-title">'.$row_taxi["taxi_name"].'</h3>
+                                                                                     <hr />
+                                                                                     <div class="row my-3">
+                                                                                       <div class="col-4">
+                                                                                         <h5 class="card-title my-1">Booking Date</h5>
+                                                                                         <p class="card-text my-0"> <strong>Date</strong></p>
+                                                                                         <p class="card-text">'.$row["start_date"].'</p>
+                                                                                         <p class="card-text my-0"> <strong>Pickup Time</strong></p>
+                                                                                         <p class="card-text">'.$row["pickup_time"].'</p>
+                                                                                       </div>
+                                                                                       <div class="col-4">
+                                                                                         <h5 class="card-title my-1">Pickup Locale</h5>
+                                                                                         <p class="card-text my-0"> <strong>Location</strong></p>
+                                                                                         <p class="card-text">'.$row["pickup_location"].'</p>
+                                                                                         <p class="card-text my-0"> <strong>Ride Duration</strong></p>
+                                                                                         <p class="card-text">'.$row["cab_hours"].' Hours</p>
+                                                                                       </div>
+                                                                                       <div class="col-4">
+                                                                                       <h3 class="card-title my-1">Price</h3>
+                                                                                       <h2 class="card-text">'.$row["item_price"].' ₹</h2>
+                                                                                       </div>
 
-                                                                                         </td>
+                                                                                     </div>
+                                                                                     <hr/>
+                                                                                     <a href="#" class="btn btn-primary">Details</a>
+                                                                                     <a href="#" class="btn btn-danger">Cancel</a>
 
-                                                                                       </tr>
-                                                                                     </tbody>
-                                                                                   </table>
-                                                                                 </div>
-                                                                                 <a href="#" class="btn btn-rounded btn-primary">Details</a>
-                                                                                 <a href="#" class="btn btn-rounded btn-secondary">View</a>
-                                                                               </div>
-                                                                               <div class="card-footer">
-                                                                               <small class="text-muted">Added on '.$row["date_added"].'</small>
-                                                                               </div>
-                                                                             </div>';
-                                                                            }
+                                                                                   </div>
+                                                                                   </div>
+                                                                               </div>';
+                                                                              }
+                                                                       }elseif ($row["cart_item_type"]==4) {
+                                                                         // code...
+                                                                         $sql_taxi = 'SELECT * FROM taxi WHERE taxi_id = '.$row["item_id"].'';
+                                                                         $result_taxi = mysqli_query($db, $sql_taxi);
+                                                                               if (mysqli_num_rows($result_taxi) > 0) {
+                                                                                $row_taxi = mysqli_fetch_assoc($result_taxi);
+                                                                               echo '
+
+                                                                               <div class="col-lg-12">
+                                                                                 <div class="card">
+                                                                                   <h5 class="card-header">Taxi Booking</h5>
+                                                                                   <div class="card-body">
+                                                                                     <h3 class="card-title">'.$row_taxi["taxi_name"].'</h3>
+                                                                                     <hr />
+                                                                                     <div class="row my-3">
+                                                                                       <div class="col-4">
+                                                                                         <h5 class="card-title my-1">Booking Date</h5>
+                                                                                         <p class="card-text my-0"> <strong>From</strong></p>
+                                                                                         <p class="card-text">'.$row["start_date"].'</p>
+                                                                                         <p class="card-text my-0"> <strong>To</strong></p>
+                                                                                         <p class="card-text">'.$row["end_date"].'</p>
+                                                                                       </div>
+                                                                                       <div class="col-4">
+                                                                                         <h5 class="card-title my-1">Guests</h5>
+                                                                                         <p class="card-text my-0"> <strong>Adults</strong></p>
+                                                                                         <p class="card-text">'.$row["head_count"].'</p>
+                                                                                         <p class="card-text my-0"> <strong>Children</strong></p>
+                                                                                         <p class="card-text">0</p>
+                                                                                       </div>
+                                                                                       <div class="col-4">
+                                                                                       <h3 class="card-title my-1">Price</h3>
+                                                                                       <h2 class="card-text">'.$row["item_price"].'</h2>
+                                                                                       </div>
+
+                                                                                     </div>
+                                                                                     <hr/>
+                                                                                     <a href="#" class="btn btn-primary">Details</a>
+                                                                                     <a href="#" class="btn btn-danger">Cancel</a>
+
+                                                                                   </div>
+                                                                                   </div>
+                                                                               </div>';
+                                                                              }
+                                                                       }else {
+                                                                         // code...
+                                                                       }
                                                                      }
-                                                                 }
-                                                                }else{
-                                                                   echo '<h3>No Data</h3>';
-                                                                 }
+                                                                   }
 
+                                                                   ?>
+                                                            </div>
 
-                                                             ?>
                                                       </div>
 
                                                 </div>
@@ -1019,9 +1334,7 @@
                                                     <th scope="col" class="border-0 bg-light">
                                                       <div class="py-2 text-uppercase">Price</div>
                                                     </th>
-                                                    <th scope="col" class="border-0 bg-light">
-                                                      <div class="py-2 text-uppercase">Details</div>
-                                                    </th>
+
                                                     <th scope="col" class="border-0 bg-light">
                                                       <div class="py-2 text-uppercase">Remove</div>
                                                     </th>
@@ -1056,9 +1369,9 @@
                                               <div class="py-4">
                                                 <p class="font-italic mb-4">If you have a coupon code, please enter it in the box below</p>
 
-                                                <input type="text" placeholder="Apply coupon" aria-describedby="button-addon3" class="form-control border-0">
+                                                <input type="text" placeholder="Apply coupon" id="coupon_name" aria-describedby="button-addon3" class="form-control border-0">
 
-                                                <button href="#" class="btn btn-dark mt-3  py-2 btn-block">Procceed to checkout</button>
+                                                <button onclick="checkout()" href="#" class="btn btn-dark mt-3  py-2 btn-block">Procceed to checkout</button>
 
                                             </div>
                                               <div class="bg-light   px-4 py-3 text-uppercase font-weight-bold">Instructions for seller</div>
@@ -1074,7 +1387,20 @@
 
 
 
+<script type="text/javascript">
+  function checkout(){
+      var coupon = document.getElementById("coupon_name").value;
 
+      if (coupon !=0) {
+        var query = "pgRedirect.php?coupon="+ coupon;
+        window.location.href = query;
+      }else{
+        var query = "pgRedirect.php"
+        window.location.href = query;
+      }
+
+  }
+</script>
 
 
                             </div>
@@ -1161,10 +1487,14 @@
               success: function(response) {
                   if (response == 1) {
                       console.log(response);
-                      update_staus_success("Deleted Sucessfully")
+                      update_staus_success("Deleted Sucessfully");
+                      update_cart_mini();
+                      update_cart_big();
+                      get_order();
+
                   }else{
                       console.log(response);
-                      update_staus_error("Somthing Happend")
+                      update_staus_error("Somthing Happend");
                   }
               }
           });
@@ -1186,8 +1516,6 @@
         });
           document.getElementById('status_message').innerHTML = message;
           $("#status_message").removeClass("dangerclass")
-          update_cart_mini();
-          update_cart_big();
       }
 
     update_cart_mini();
@@ -1223,6 +1551,94 @@
                   });
               }
     </script>
+
+
+
+
+
+
+
+
+
+
+    <?php
+
+    if ($flag_query == "cart") {
+      // code...
+      echo '
+      <script>
+      document.getElementById("cart_button_press").click();
+      </script>
+      ';
+
+    }elseif ($flag_query == "orders") {
+      // code...
+      echo '
+      <script>
+      document.getElementById("pills-profile-tab").click();
+      </script>
+      ';
+    }
+
+     ?>
+     <?php if ($_SESSION["ver_status"] == 0): ?>
+
+        <script type="text/javascript">
+            update_staus_error("Please Verify Your Email");
+        </script>
+
+     <?php endif; ?>
+
+
+
+     <script type="text/javascript">
+     get_order();
+     function get_order(){
+       $.ajax({
+           type: "POST",
+           url: "cart_count.php",
+           date :{
+            dummy : "dummy",
+           },
+           dataType: 'JSON',
+           success: function(response) {
+               document.getElementById("total_orders").innerHTML = response;
+           }
+       });
+     }
+
+     get_completed_order();
+     function get_completed_order(){
+       $.ajax({
+           type: "POST",
+           url: "cart_count_completed.php",
+           date :{
+            dummy : "dummy",
+           },
+           dataType: 'JSON',
+           success: function(response) {
+               document.getElementById("completed_orders").innerHTML = response;
+           }
+       });
+     }
+
+     get_cancel_order();
+     function get_cancel_order(){
+       $.ajax({
+           type: "POST",
+           url: "cart_count_canceld.php",
+           date :{
+            dummy : "dummy",
+           },
+           dataType: 'JSON',
+           success: function(response) {
+               document.getElementById("canc_orders").innerHTML = response;
+           }
+       });
+     }
+     </script>
+
+
 </body>
 
 </html>

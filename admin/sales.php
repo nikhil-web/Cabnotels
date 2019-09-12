@@ -66,10 +66,8 @@ include 'session.php';
                       <th>Name</th>
                       <th>E-email</th>
                       <th>Contact number</th>
-                      <th>Address</th>
                       <th>Ammount</th>
                       <th>View</th>
-                      <th>Status</th>
                     </tr>
                   </thead>
                   <tfoot>
@@ -80,10 +78,8 @@ include 'session.php';
                       <th>Name</th>
                       <th>E-email</th>
                       <th>Contact number</th>
-                      <th>Address</th>
                       <th>Ammount</th>
                       <th>View</th>
-                      <th>Status</th>
                     </tr>
                   </tfoot>
 
@@ -144,34 +140,6 @@ include 'session.php';
   <script type="text/javascript">
 
 
-  function save_status(cart_id){
-      //console.log(cart_id);
-      var new_data_source_id =  "new_status_"+cart_id;
-     // console.log(new_data_source_id);
-      var e = document.getElementById(new_data_source_id);
-      var value = e.options[e.selectedIndex].value;
-     // console.log(value);
-
-      $.ajax({
-          type: "POST",
-          url: "update-sales-status.php",
-          data: {
-              cart_id: cart_id,
-              new_status: value,
-          },
-          dataType: 'JSON',
-          success: function(response_update_ststus) {
-                //console.log(response_update_ststus);
-                if(response_update_ststus == 1){
-                    update_staus_success("Sucessfully Updated",cart_id);
-                    update_modal_status();
-                }else {
-                    update_staus_err("Critical error Contact DEV",cart_id);
-                }
-          }
-      });
-    }
-
 
   update_sales()
 
@@ -189,41 +157,10 @@ include 'session.php';
          });
      }
 
-     
 
-update_modal_status();
 
-     function update_modal_status() {
-            $.ajax({
-                type: "POST",
-                url: "get-sales-modal-status.php",
-                data: {
-                    l_loc: 'dummy',
-                },
-                dataType: 'JSON',
-                success: function(response_location_all) {
-                    document.getElementById("modals_for_status").innerHTML = response_location_all;
-                    console.log(response_location_all);
-                }
-            });
-        }
 
-modals_for_status_action();
 
-             function modals_for_status_action() {
-                    $.ajax({
-                        type: "POST",
-                        url: "get-sales-modal-status-action.php",
-                        data: {
-                            l_loc: 'dummy',
-                        },
-                        dataType: 'JSON',
-                        success: function(response_action) {
-                            document.getElementById("modals_for_status_action").innerHTML = response_action;
-                          //  console.log(response_action);
-                        }
-                    });
-                }
   //utility functions
                 function update_staus_err(message,cart_id) {
                     document.getElementById("status_message_success_"+cart_id).style.display = "none";

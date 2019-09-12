@@ -69,6 +69,12 @@
       <span>Taxi</span></a>
   </li>
 
+
+  <li id="Sales" class="nav-item">
+    <a class="nav-link" href="coupons.php">
+    <i class="fas fa-star"></i>
+      <span>Coupons</span></a>
+  </li>
   <li class="nav-item">
 
   </li>

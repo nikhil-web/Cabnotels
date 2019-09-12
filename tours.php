@@ -20,6 +20,7 @@ if ($mode == "search") {
 }else if ($mode == "page") {
   // code...
   $mode_flag = 1;
+  $type = mysqli_real_escape_string($db,$_GET["type"]);
 }else if ($mode == "location") {
   $location = mysqli_real_escape_string($db,$_GET["location"]);
   $mode_flag = 2;
@@ -56,14 +57,6 @@ if ($mode == "search") {
         body{
           font-family: 'Roboto Condensed', sans-serif !important;
         }
-            .hamburger {
-                width: 50px;
-                text-align: center;
-                vertical-align: middle;
-                cursor: pointer;
-                right: 10px;
-                position: absolute;
-            }
 
             .center {
                 margin: auto;
@@ -137,43 +130,7 @@ if ($mode == "search") {
 
     <body>
 
-      <!-- header -->
-      <header id="navbar_color">
-        <div class="container">
-          <!-- nav -->
-          <nav class="py-md-3 py-3 d-lg-flex">
-            <div id="logo">
-              <a href="index.php">  <div style="width: 65px;"><img style="width:inherit;" src="images/logo.png" alt=""> </div>  </a>
-            </div>
-            <label for="drop" class="toggle"><span class="fa fa-bars"></span></label>
-            <input type="checkbox" id="drop">
-            <ul class="menu ml-auto mt-3">
-              <li class="booking"><a href="tours.php?mode=page">Tours</a></li>
-  						<li class="booking"><a href="hotels.php?mode=navbar">Hotels</a></li>
-  						<li class="booking"><a href="taxi.php?mode=navbar" style="margin-right: 10px;">Cabs</a></li>
-
-              <?php
-                if ($login_flag == 1) {
-                  // code...
-                  echo '
-                    <li class="booking"><a href="user.php" style="background: #ffdd00;color: #3c3c3c;">'.$_SESSION["first_name"].' <i class="fas fa-user"></i></a></li>
-                  ';
-                }else {
-                  // code...
-                  echo '
-                  <li class="booking"><a href="login.php" style="background: #ffdd00;color: #3c3c3c;">Login</a></li>
-                  ';
-                }
-
-               ?>
-
-            </ul>
-
-          </nav>
-          <!-- //nav -->
-        </div>
-      </header>
-      <!-- //header -->
+  <?php include 'includes/navbar.php'; ?>
 
 
       <?php
@@ -197,7 +154,7 @@ if ($mode == "search") {
 
 
 
-<div class="row">
+<div id="output" class="row">
 <div class="col-lg-12 nopadding">
                     <div style="display: flex;" >
                             <div>
@@ -205,17 +162,20 @@ if ($mode == "search") {
                                     <p>Choose or view Details</p>
                             </div>
 
-                        <span class="center" style="font-size: 1.5em;color: #ffdd00;right: 20px;position: absolute;"><i class="fas fa-sliders-h"></i></span>
 
                     </div>
                 </div>
+
+
+<div id="holder" style="display: flex;flex-wrap: wrap;">
+
 <?php
 
 if ($mode_flag==0) {
   // code...
  $sql = "SELECT * FROM tours WHERE tour_loc = '$location'";
 }else if($mode_flag == 1){
-  $sql = "SELECT * FROM tours";
+  $sql = "SELECT * FROM tours WHERE tour_type = '$type'";
 }else if($mode_flag == 2){
   // code...
   $sql = "SELECT * FROM tours WHERE tour_loc = '$location'";
@@ -321,14 +281,14 @@ if ($mode_flag==0) {
                                                                     ';
                                                                     if ($mode_flag==0) {
                                                                       // code...
-                                                                   echo '  <a href="single.php?type=tour&id='.$row["tour_id"].'&location-tour='.$location.'&start-month-tour='.$start_month.'&num-people-tour='.$number_people.'">  <button class="button button5" style="background-color: #ffdd00;color: #3c3c3c;">Book Now</button></a>';
+                                                                   echo '  <a href="single_tours.php?type=tour&id='.$row["tour_id"].'&location-tour='.$location.'&start-month-tour='.$start_month.'&num-people-tour='.$number_people.'">  <button class="button button5" style="background-color: #ffdd00;color: #3c3c3c;">Book Now</button></a>';
                                                                     }else{
-                                                                      echo '<a href="single.php?type=tour&id='.$row["tour_id"].'"><button class="button button5" style="background-color: #ffdd00;color: #3c3c3c;">Book Now</button></a>';
+                                                                      echo '<a href="single_tours.php?type=tour&id='.$row["tour_id"].'"><button class="button button5" style="background-color: #ffdd00;color: #3c3c3c;">Book Now</button></a>';
                                                                     }
                                                                     echo'
                                                                     </div>
                                                                     <div class="mr-1 mt-1">
-                                                                        <a href="single.php?type=tour&id='.$row["tour_id"].'">  <button class="button button5" style="background: #3c3c3c;">View Details</button></a>
+                                                                        <a href="single_tours.php?type=tour&id='.$row["tour_id"].'">  <button class="button button5" style="background: #3c3c3c;">View Details</button></a>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -347,7 +307,7 @@ if ($mode_flag==0) {
         }
 
         ?>
-
+</div>
 
                         </div>
 
@@ -460,6 +420,61 @@ if ($mode_flag==0) {
                             });
                         });
         				</script>
+
+
+                <script type="text/javascript">
+                    function update_stars(stars){
+
+                                      console.clear();
+
+                                      var five = document.getElementById("check1");
+                                      var four = document.getElementById("check2");
+                                      var three = document.getElementById("check3");
+                                      var two = document.getElementById("check4");
+
+
+
+                                      if (five.checked == true) {
+                                        five_state = true;
+                                      }else{
+                                        five_state = false;
+                                      }
+
+                                      if (four.checked == true) {
+                                        four_state = true;
+                                      }else{
+                                        four_state = false;
+                                      }
+
+                                      if (three.checked == true) {
+                                        three_state = true;
+                                      }else{
+                                        three_state = false;
+                                      }
+
+                                      if (two.checked == true) {
+                                        two_state = true;
+                                      }else{
+                                        two_state = false;
+                                      }
+
+                                      $.ajax({
+                                          type: "POST",
+                                          url: "update_star_tour.php",
+                                          data : {
+                                            five : five_state,
+                                            four : four_state,
+                                            three : three_state,
+                                            two : two_state
+                                          },
+                                          dataType: 'JSON',
+                                          success: function(response) {
+                                            document.getElementById("holder").innerHTML = response;
+                                          }
+                                      });
+
+                    }
+                </script>
 
     </body>
 </html>

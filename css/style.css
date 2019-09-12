@@ -116,319 +116,7 @@ ul {
 }
 
 
-/*-- header --*/
 
-header {
-    position: fixed;
-    z-index: 999;
-    width: 100%;
-}
-
-.toggle,
-[id^=drop] {
-	display: none;
-	margin-top: 0;
-}
-
-/* Giving a background-color to the nav container. */
-nav {
-	margin:0;
-	padding: 0;
-}
-
-
-#logo a {
-	float: left;
-    font-size: .7em;
-    display: initial;
-    margin: 0;
-    letter-spacing: 1px;
-    color: #fff;
-    padding: 0px 0;
-    border: none;
-    font-family: 'Raleway', sans-serif;
-}
-#logo a span.fa {
-    color: #fff;
-}
-
-
-/* Since we'll have the "ul li" "float:left"
- * we need to add a clear after the container. */
-
-nav:after {
-	content:"";
-	display:table;
-	clear:both;
-}
-
-/* Removing padding, margin and "list-style" from the "ul",
- * and adding "position:reltive" */
-nav ul {
-	float: right;
-	padding:0;
-	margin:0;
-	list-style: none;
-	position: relative;
-	}
-
-/* Positioning the navigation items inline */
-nav ul li {
-	margin: 0px;
-	display:inline-block;
-	float: left;
-	}
-
-/* Styling the links */
-nav a {
-    color: #ddd;
-    text-transform: capitalize;
-    letter-spacing: 1px;
-    padding-left: 0;
-    padding-right: 0;
-	padding: 10px 13px;
-    font-weight: 400;
-    font-size: 15px;
-    vertical-align: middle;
-}
-nav li.booking a {
-    background: none;
-    padding: 10px 25px;
-    display: block;
-    margin-top: -7px;
-    text-transform: uppercase;
-    color: #ffffff;
-    letter-spacing: 1px;
-    border: 1px solid #ffffff1f;
-    font-size: 14px;
-    margin-right: 2px
-}
-nav li.booking a:hover {
-    background: #ffdd00;
-    color: #3c3c3c;
-    border: 1px solid #ffffff;
-}
-
-nav ul li ul li:hover { background: #f8f9fa; }
-
-/* Background color change on Hover */
-nav a:hover {
-	color: #ddd;
-	border-bottom: 5px solid #ffdd00;
-	transition:none;
-}
-.menu li.active  a{
-	color: #fff;
-
-}
-
-/* Hide Dropdowns by Default
- * and giving it a position of absolute */
-nav ul ul {
-	display: none;
-	position: absolute;
-	/* has to be the same number as the "line-height" of "nav a" */
-	top: 30px;
-    background: #fff;
-    padding: 10px;
-}
-
-/* Display Dropdowns on Hover */
-nav ul li:hover > ul {
-	display:inherit;
-}
-
-/* Fisrt Tier Dropdown */
-nav ul ul li {
-	width:170px;
-	float:none;
-	display:list-item;
-	position: relative;
-}
-nav ul ul li a {
-    color: #333;
-    padding: 5px 10px;
-    display: block;
-}
-/* Second, Third and more Tiers
- * We move the 2nd and 3rd etc tier dropdowns to the left
- * by the amount of the width of the first tier.
-*/
-nav ul ul ul li {
-	position: relative;
-	top:-60px;
-	/* has to be the same number as the "width" of "nav ul ul li" */
-	left:170px;
-}
-
-/* Change ' +' in order to change the Dropdown symbol */
-li > a:only-child:after { content: ''; }
-
-
-/* Media Queries
---------------------------------------------- */
-
-@media all and (max-width : 991px) {
-
-	.mobile_hide{
-	display: none;
-	}
-
-	#logo {
-		display: block;
-		padding: 0px;
-		width: 100px;
-		text-align: center;
-		float: none;
-		position: absolute;
-	}
-	.menu li.active a {
-		color: #ffdd00;
-	}
-	nav ul li span {
-		color: #333;
-	}
-	nav {
-		margin: 0;
-	}
-	nav a {
-		color: #333;
-	}
-
-	/* Hide the navigation menu by default */
-	/* Also hide the  */
-	.toggle + a,
-	.menu {
-		display: none;
-	}
-
-	/* Stylinf the toggle lable */
-	.toggle {
-		display: block;
-		padding: 15px 15px;
-		font-size: 20px;
-		text-decoration: none;
-		border: none;
-		float: right;
-		background-color: #ffdd00;
-		color: #fff;
-		margin-bottom: 0;
-	}
-	.menu .toggle {
-		float: none;
-		text-align: center;
-		margin: auto;
-		width: 30%;
-		padding: 5px;
-		font-weight: normal;
-		font-size: 15px;
-		letter-spacing: 1px;
-	}
-
-	.toggle:hover {
-		color:#333;
-		background-color: #fff;
-	}
-
-	/* Display Dropdown when clicked on Parent Lable */
-	[id^=drop]:checked + ul {
-		display: block;
-		background: #fff;
-		padding: 15px 0;
-		width:100%;
-		text-align: center;
-	}
-
-	/* Change menu item's width to 100% */
-	nav ul li {
-		display: block;
-		width: 100%;
-		padding: 7px 0;
-		}
-	nav a{
-		padding: 5px 0;
-	}
-	nav a:hover {
-		color: #333;
-	}
-	.login-icon {
-		text-align: center;
-	}
-	nav ul ul .toggle,
-	nav ul ul a {
-		padding: 0 40px;
-	}
-
-	nav ul ul ul a {
-		padding: 0 80px;
-	}
-
-	nav a:hover,
- 	nav ul ul ul a {
-		background-color: transparent;
-	}
-
-	nav ul li ul li .toggle,
-	nav ul ul a,
-	nav ul ul ul a{
-		padding:14px 20px;
-		color:#FFF;
-		font-size:17px;
-	}
-
-
-	nav ul li ul li .toggle,
-	nav ul ul a {
-		background-color: #fff;
-	}
-	nav ul ul li a {
-		font-size: 15px;
-	}
-	ul.inner-ul{
-		padding: 0!important;
-	}
-	/* Hide Dropdowns by Default */
-	nav ul ul {
-		float: none;
-		position:static;
-		color: #ffffff;
-		/* has to be the same number as the "line-height" of "nav a" */
-	}
-
-	/* Hide menus on hover */
-	nav ul ul li:hover > ul,
-	nav ul li:hover > ul {
-		display: none;
-	}
-
-	/* Fisrt Tier Dropdown */
-	nav ul ul li {
-		display: block;
-		width: 100%;
-		padding: 0;
-	}
-
-	nav ul ul ul li {
-		position: static;
-		/* has to be the same number as the "width" of "nav ul ul li" */
-
-	}
-
-}
-
-@media all and (max-width : 330px) {
-
-	nav ul li {
-		display:block;
-		width: 94%;
-	}
-
-}
-.user span.fa {
-    font-size: 25px;
-    color: #fff;
-}
-/*-- //header --*/
 
 /* banner style */
 .banner_w3lspvt {
@@ -598,6 +286,226 @@ p.count-text {
     padding: 0 1em;
 }
 /*-- book --*/
+
+
+
+/*--header--*/
+.navigation{
+  position: fixed;
+  z-index: 999;
+  transition-duration: 0.5s;
+}
+
+
+
+.inner-nav{
+  width: 90%;
+  margin: auto;
+  display: flex;
+  justify-content: space-between;
+}
+
+.logo-holder{
+width:80px;
+}
+
+.linkholder a {
+    background: none;
+    padding: 10px 25px;
+    display: block;
+    margin-top: -7px;
+    text-transform: uppercase;
+    color: #ffffff;
+    letter-spacing: 1px;
+    border: 1px solid #ffffff1f;
+    font-size: 14px;
+    margin-right: 2px;
+}
+
+.combine-links{
+  display: flex;
+align-items: center;
+vertical-align: middle;
+}
+
+.link-holder{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.link-holder a {
+    background: none;
+    padding: 10px 25px;
+    display: block;
+    margin-top: -7px;
+    text-transform: uppercase;
+    color: #ffffff;
+    letter-spacing: 1px;
+    border: 1px solid #ffffff00;
+    font-size: 14px;
+    margin-right: 2px;
+}
+
+.link-holder a:hover{
+  background: #ffdd00;
+    color: #3c3c3c;
+    border: 1px solid #ffffff;
+}
+
+.link-active{
+  background: #ffdd00 !important;
+    color: #3c3c3c !important;
+}
+
+
+.hamburger-holder{
+    transition-duration: 0.5s;
+    display: flex;
+    position: relative;
+    background: #ffdd00;
+    width: 50px;
+    height: 50px;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 10px;
+    border-radius: 25px;
+}
+
+.login-cart{
+  display:flex;
+  margin: 0 0 0 20px;
+}
+
+.hamburger-icon-holder{
+  display: none;
+}
+
+/*updated media queries */
+
+
+/*UHD devices */
+
+@media (max-width: 1440px){
+
+
+}
+
+
+/*tablets */
+
+@media (max-width: 768px){
+
+  .hamburger-icon-holder{
+    display: flex;
+    justify-content: space-between;
+  }
+
+  /*--header--*/
+  .navigation{
+    height: 70px;
+    position: fixed;
+    z-index: 999;
+    overflow: hidden;
+    background-color: #3c3c3c;
+  }
+
+
+
+  .inner-nav{
+    width: 90%;
+    margin: auto;
+    display: block;
+    justify-content: space-between;
+  }
+
+  .logo-holder{width:80px;position: relative;margin: auto;margin-bottom: 44px;}
+
+  .linkholder a {
+      background: none;
+      padding: 10px 25px;
+      display: block;
+      margin-top: -7px;
+      text-transform: uppercase;
+      color: #ffffff;
+      letter-spacing: 1px;
+      border: 1px solid #ffffff1f;
+      font-size: 14px;
+      margin-right: 2px;
+  }
+
+  .combine-links{
+    display: block;
+  }
+
+  .link-holder{
+      display: block;
+      align-items: center;
+      justify-content: center;
+      margin: 10px;
+      text-align: center;
+  }
+
+  .link-holder a {
+      background: none;
+      padding: 10px 25px;
+      display: block;
+      margin-top: -7px;
+      text-transform: uppercase;
+      color: #ffffff;
+      letter-spacing: 1px;
+      border: 1px solid #ffffff1f;
+      font-size: 14px;
+      margin-right: 2px;
+  }
+
+  .link-holder a:hover{
+    background: #ffdd00;
+      color: #3c3c3c;
+      border: 1px solid #ffffff;
+  }
+
+  .login-cart{
+    display:flex;
+    justify-content: space-between;
+    margin: 20 0 0 0;
+  }
+
+  /*--header--*/
+}
+
+/*large phone */
+
+
+@media (max-width: 425px){
+
+}
+
+
+/*medium phone*/
+@media (max-width: 375px){
+
+
+}
+
+
+/*small phone*/
+@media (max-width: 320px){
+
+
+}
+
+
+.expand{
+  height: 100% !important;
+  background: #3c3c3c;
+}
+
+.rotate{
+  transform: rotate(90deg);
+}
+
+
 
 /*--footer--*/
 

@@ -27,6 +27,8 @@
             $error_fetch = mysqli_real_escape_string($db,mysqli_error($db));
             echo $error_fetch;
       }else{
+        $sql = "UPDATE tours SET price_flag = '1' WHERE tours.tour_id = '$tour_id'";
+        $result=mysqli_query($db,$sql);
         navigate("tours.php");
       }
 

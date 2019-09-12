@@ -218,8 +218,17 @@
             </div>
             <!-- Labels -->
             <div class="form-group">
-              <label for="exampleFormControlInput1">Tour Price</label>
+              <label for="tour_price">Tour Price</label>
               <input type="number" class="form-control" id="tour_price" name="tour_price" placeholder="Tour Price in INR">
+            </div>
+
+            <div class="form-group">
+              <label for="tour_type">Tour Type (International/Domestic)</label>
+              <select id="tour_type" name="tour_type" class="form-control" required>
+              <option value="">Select </option>
+               <option value="international">International</option>
+               <option value="domestic">Domestic</option>
+             </select>
             </div>
 
             <button action="submit" type="submit" class="btn btn-success btn-flat"><i class="fa fa-check-square-o"></i> Add</button>
@@ -277,7 +286,7 @@
                           update_tour_modal();
                           update_staus_success("Sucessfully Added");
                       } else if (response == 0) {
-                          update_staus_error("Hotel with same name is already present");
+                          update_staus_error("Tour with same name is already present");
                       } else {
                           update_staus_error("Somthing Happend");
                       }

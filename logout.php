@@ -5,9 +5,9 @@ session_unset();
 // destroy the session
 if(session_destroy()){
    mysqli_close($db);
-   header("location:login.php");
+   header("location:index.php");
 }
 }else{
-    header("location:login.php");
+    header("location:index.php");
 }
 ?>
